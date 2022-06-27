@@ -24,6 +24,6 @@ class MoviesController extends AbstractController
      * @return Response
      */
     public function show(): Response{
-        return $this->render('index.html.twig', ["title" => "okok"]);
+        return $this->render('index.html.twig', ["title" => "okokg"]);
     }
 }

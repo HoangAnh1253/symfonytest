@@ -43,7 +43,33 @@ class __TwigTemplate_c0fb24811d8199c68e66fd4b4c7b8743 extends Template
         // line 3
         echo twig_escape_filter($this->env, (isset($context["title"]) || array_key_exists("title", $context) ? $context["title"] : (function () { throw new RuntimeError('Variable "title" does not exist.', 3, $this->source); })()), "html", null, true);
         echo "
-</h1>";
+</h1>
+
+<div>
+    Categories:
+</div>
+<div>
+    ";
+        // line 10
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable((isset($context["categories"]) || array_key_exists("categories", $context) ? $context["categories"] : (function () { throw new RuntimeError('Variable "categories" does not exist.', 10, $this->source); })()));
+        foreach ($context['_seq'] as $context["_key"] => $context["category"]) {
+            // line 11
+            echo "        <li>
+            ";
+            // line 12
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["category"], "title", [], "any", false, false, false, 12), "html", null, true);
+            echo " - ";
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["category"], "desc", [], "any", false, false, false, 12), "html", null, true);
+            echo "
+        </li>
+    ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['category'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 15
+        echo "</div>";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -61,7 +87,7 @@ class __TwigTemplate_c0fb24811d8199c68e66fd4b4c7b8743 extends Template
 
     public function getDebugInfo()
     {
-        return array (  44 => 3,  40 => 1,);
+        return array (  72 => 15,  61 => 12,  58 => 11,  54 => 10,  44 => 3,  40 => 1,);
     }
 
     public function getSourceContext()
@@ -69,6 +95,17 @@ class __TwigTemplate_c0fb24811d8199c68e66fd4b4c7b8743 extends Template
         return new Source("<h1>
     Welcome to symfony
     {{ title }}
-</h1>", "index.html.twig", "/Users/nguyenlamhoanganh/project/symfony/wtf/templates/index.html.twig");
+</h1>
+
+<div>
+    Categories:
+</div>
+<div>
+    {% for category in categories %}
+        <li>
+            {{ category.title }} - {{ category.desc }}
+        </li>
+    {% endfor %}
+</div>", "index.html.twig", "/Users/nguyenlamhoanganh/project/symfony/wtf/templates/index.html.twig");
     }
 }
