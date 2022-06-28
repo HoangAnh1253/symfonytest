@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
   <parameters>
-    <parameter key="kernel.project_dir">/Users/nguyenlamhoanganh/project/symfony/wtf</parameter>
+    <parameter key="kernel.project_dir">D:\hoanganh\symfonytest</parameter>
     <parameter key="kernel.environment">dev</parameter>
     <parameter key="kernel.runtime_environment">%env(default:kernel.environment:APP_RUNTIME_ENV)%</parameter>
     <parameter key="kernel.debug">true</parameter>
-    <parameter key="kernel.build_dir">/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev</parameter>
-    <parameter key="kernel.cache_dir">/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev</parameter>
-    <parameter key="kernel.logs_dir">/Users/nguyenlamhoanganh/project/symfony/wtf/var/log</parameter>
+    <parameter key="kernel.build_dir">D:\hoanganh\symfonytest\var\cache\dev</parameter>
+    <parameter key="kernel.cache_dir">D:\hoanganh\symfonytest\var\cache\dev</parameter>
+    <parameter key="kernel.logs_dir">D:\hoanganh\symfonytest\var\log</parameter>
     <parameter key="kernel.bundles" type="collection">
       <parameter key="FrameworkBundle">Symfony\Bundle\FrameworkBundle\FrameworkBundle</parameter>
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
@@ -19,31 +19,31 @@
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
-        <parameter key="path">/Users/nguyenlamhoanganh/project/symfony/wtf/vendor/symfony/framework-bundle</parameter>
+        <parameter key="path">D:\hoanganh\symfonytest\vendor\symfony\framework-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\FrameworkBundle</parameter>
       </parameter>
       <parameter key="SensioFrameworkExtraBundle" type="collection">
-        <parameter key="path">/Users/nguyenlamhoanganh/project/symfony/wtf/vendor/sensio/framework-extra-bundle/src</parameter>
+        <parameter key="path">D:\hoanganh\symfonytest\vendor\sensio\framework-extra-bundle\src</parameter>
         <parameter key="namespace">Sensio\Bundle\FrameworkExtraBundle</parameter>
       </parameter>
       <parameter key="MakerBundle" type="collection">
-        <parameter key="path">/Users/nguyenlamhoanganh/project/symfony/wtf/vendor/symfony/maker-bundle/src</parameter>
+        <parameter key="path">D:\hoanganh\symfonytest\vendor\symfony\maker-bundle\src</parameter>
         <parameter key="namespace">Symfony\Bundle\MakerBundle</parameter>
       </parameter>
       <parameter key="DoctrineBundle" type="collection">
-        <parameter key="path">/Users/nguyenlamhoanganh/project/symfony/wtf/vendor/doctrine/doctrine-bundle</parameter>
+        <parameter key="path">D:\hoanganh\symfonytest\vendor\doctrine\doctrine-bundle</parameter>
         <parameter key="namespace">Doctrine\Bundle\DoctrineBundle</parameter>
       </parameter>
       <parameter key="DoctrineMigrationsBundle" type="collection">
-        <parameter key="path">/Users/nguyenlamhoanganh/project/symfony/wtf/vendor/doctrine/doctrine-migrations-bundle</parameter>
+        <parameter key="path">D:\hoanganh\symfonytest\vendor\doctrine\doctrine-migrations-bundle</parameter>
         <parameter key="namespace">Doctrine\Bundle\MigrationsBundle</parameter>
       </parameter>
       <parameter key="TwigBundle" type="collection">
-        <parameter key="path">/Users/nguyenlamhoanganh/project/symfony/wtf/vendor/symfony/twig-bundle</parameter>
+        <parameter key="path">D:\hoanganh\symfonytest\vendor\symfony\twig-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\TwigBundle</parameter>
       </parameter>
       <parameter key="TwigExtraBundle" type="collection">
-        <parameter key="path">/Users/nguyenlamhoanganh/project/symfony/wtf/vendor/twig/extra-bundle</parameter>
+        <parameter key="path">D:\hoanganh\symfonytest\vendor\twig\extra-bundle</parameter>
         <parameter key="namespace">Twig\Extra\TwigExtraBundle</parameter>
       </parameter>
     </parameter>
@@ -74,14 +74,14 @@
     <parameter key="kernel.error_controller">error_controller</parameter>
     <parameter key="debug.file_link_format">%env(default::SYMFONY_IDE)%</parameter>
     <parameter key="debug.error_handler.throw_at">-1</parameter>
-    <parameter key="debug.container.dump">/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/App_KernelDevDebugContainer.xml</parameter>
+    <parameter key="debug.container.dump">D:\hoanganh\symfonytest\var\cache\dev/App_KernelDevDebugContainer.xml</parameter>
     <parameter key="router.request_context.host">localhost</parameter>
     <parameter key="router.request_context.scheme">http</parameter>
     <parameter key="router.request_context.base_url"></parameter>
     <parameter key="router.resource">kernel::loadRoutes</parameter>
     <parameter key="request_listener.http_port">80</parameter>
     <parameter key="request_listener.https_port">443</parameter>
-    <parameter key="cache.prefix.seed">_/Users/nguyenlamhoanganh/project/symfony/wtf.App_KernelDevDebugContainer</parameter>
+    <parameter key="cache.prefix.seed">_D:\hoanganh\symfonytest.App_KernelDevDebugContainer</parameter>
     <parameter key="session.metadata.storage_key">_sf2_meta</parameter>
     <parameter key="session.storage.options" type="collection">
       <parameter key="cache_limiter" type="string">0</parameter>
@@ -90,7 +90,7 @@
       <parameter key="cookie_samesite">lax</parameter>
       <parameter key="gc_probability">1</parameter>
     </parameter>
-    <parameter key="session.save_path">/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/sessions</parameter>
+    <parameter key="session.save_path">D:\hoanganh\symfonytest\var\cache\dev/sessions</parameter>
     <parameter key="session.metadata.update_threshold">0</parameter>
     <parameter key="data_collector.templates" type="collection"/>
     <parameter key="doctrine.dbal.logger.chain.class">Doctrine\DBAL\Logging\LoggerChain</parameter>
@@ -159,14 +159,14 @@
     <parameter key="doctrine.orm.second_level_cache.cache_configuration.class">Doctrine\ORM\Cache\CacheConfiguration</parameter>
     <parameter key="doctrine.orm.second_level_cache.regions_configuration.class">Doctrine\ORM\Cache\RegionsConfiguration</parameter>
     <parameter key="doctrine.orm.auto_generate_proxy_classes">true</parameter>
-    <parameter key="doctrine.orm.proxy_dir">/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/doctrine/orm/Proxies</parameter>
+    <parameter key="doctrine.orm.proxy_dir">D:\hoanganh\symfonytest\var\cache\dev/doctrine/orm/Proxies</parameter>
     <parameter key="doctrine.orm.proxy_namespace">Proxies</parameter>
     <parameter key="doctrine.migrations.preferred_em">null</parameter>
     <parameter key="doctrine.migrations.preferred_connection">null</parameter>
     <parameter key="twig.form.resources" type="collection">
       <parameter>form_div_layout.html.twig</parameter>
     </parameter>
-    <parameter key="twig.default_path">/Users/nguyenlamhoanganh/project/symfony/wtf/templates</parameter>
+    <parameter key="twig.default_path">D:\hoanganh\symfonytest/templates</parameter>
     <parameter key="maker.compatible_check.doctrine.supports_attributes">true</parameter>
     <parameter key="console.command.ids" type="collection"/>
   </parameters>
@@ -262,7 +262,7 @@
       </argument>
     </service>
     <service id="http_cache.store" class="Symfony\Component\HttpKernel\HttpCache\Store">
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/http_cache</argument>
+      <argument>D:\hoanganh\symfonytest\var\cache\dev/http_cache</argument>
     </service>
     <service id="url_helper" class="Symfony\Component\HttpFoundation\UrlHelper">
       <argument type="service" id="request_stack"/>
@@ -272,7 +272,7 @@
       <tag name="container.no_preload"/>
       <argument type="tagged_iterator" tag="kernel.cache_warmer"/>
       <argument>true</argument>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/App_KernelDevDebugContainerDeprecations.log</argument>
+      <argument>D:\hoanganh\symfonytest\var\cache\dev/App_KernelDevDebugContainerDeprecations.log</argument>
     </service>
     <service id="cache_clearer" class="Symfony\Component\HttpKernel\CacheClearer\ChainCacheClearer">
       <argument type="tagged_iterator" tag="kernel.cache_clearer"/>
@@ -415,7 +415,7 @@
       </argument>
       <argument>UTF-8</argument>
       <argument type="service" id="debug.file_link_formatter" on-invalid="null"/>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf</argument>
+      <argument>D:\hoanganh\symfonytest</argument>
       <argument type="service">
         <service>
           <argument type="service" id="request_stack"/>
@@ -448,7 +448,7 @@
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="filesystem"/>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf</argument>
+      <argument>D:\hoanganh\symfonytest</argument>
       <call method="setName">
         <argument>assets:install</argument>
       </call>
@@ -619,7 +619,7 @@
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument>dev</argument>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf</argument>
+      <argument>D:\hoanganh\symfonytest</argument>
       <call method="setName">
         <argument>debug:dotenv</argument>
       </call>
@@ -747,9 +747,9 @@
     <service id="cache.app" class="Symfony\Component\Cache\Adapter\FilesystemAdapter" public="true">
       <tag name="cache.pool"/>
       <tag name="kernel.reset" method="reset"/>
-      <argument>tqziLAmjTj</argument>
+      <argument>ium4HQb2jl</argument>
       <argument>0</argument>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/pools/app</argument>
+      <argument>D:\hoanganh\symfonytest\var\cache\dev/pools/app</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
         <argument type="service" id="logger" on-invalid="ignore"/>
@@ -762,50 +762,50 @@
     <service id="cache.system" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="true">
       <tag name="cache.pool"/>
       <tag name="kernel.reset" method="reset"/>
-      <argument>-EesOBJs7L</argument>
+      <argument>ss1EU5RoCW</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/pools/system</argument>
+      <argument>D:\hoanganh\symfonytest\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.validator" class="Symfony\Component\Cache\Adapter\AdapterInterface">
       <tag name="cache.pool"/>
       <tag name="kernel.reset" method="reset"/>
-      <argument>-rz123e2nL</argument>
+      <argument>5snoOpL08k</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/pools/system</argument>
+      <argument>D:\hoanganh\symfonytest\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.serializer" class="Symfony\Component\Cache\Adapter\AdapterInterface">
       <tag name="cache.pool"/>
       <tag name="kernel.reset" method="reset"/>
-      <argument>JpSEKQQEXU</argument>
+      <argument>-nLGwvYZoY</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/pools/system</argument>
+      <argument>D:\hoanganh\symfonytest\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.annotations" class="Symfony\Component\Cache\Adapter\AdapterInterface">
       <tag name="cache.pool"/>
       <tag name="kernel.reset" method="reset"/>
-      <argument>CaePLLEEvb</argument>
+      <argument>WqMzk+2lq2</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/pools/system</argument>
+      <argument>D:\hoanganh\symfonytest\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.property_info" class="Symfony\Component\Cache\Adapter\AdapterInterface">
       <tag name="cache.pool"/>
       <tag name="kernel.reset" method="reset"/>
-      <argument>XmMRt9IOZR</argument>
+      <argument>9zQi300-me</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/pools/system</argument>
+      <argument>D:\hoanganh\symfonytest\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
@@ -815,7 +815,7 @@
       <argument></argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/pools/system</argument>
+      <argument>D:\hoanganh\symfonytest\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
@@ -834,7 +834,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/pools/app</argument>
+      <argument>D:\hoanganh\symfonytest\var\cache\dev/pools/app</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
         <argument type="service" id="logger" on-invalid="ignore"/>
@@ -1303,7 +1303,7 @@
       <argument type="service" id=".service_locator.UxjivMC.router.default"/>
       <argument>kernel::loadRoutes</argument>
       <argument type="collection">
-        <argument key="cache_dir">/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev</argument>
+        <argument key="cache_dir">D:\hoanganh\symfonytest\var\cache\dev</argument>
         <argument key="debug">true</argument>
         <argument key="generator_class">Symfony\Component\Routing\Generator\CompiledUrlGenerator</argument>
         <argument key="generator_dumper_class">Symfony\Component\Routing\Generator\Dumper\CompiledUrlGeneratorDumper</argument>
@@ -1342,7 +1342,7 @@
       <argument type="service" id="request_stack"/>
       <argument type="service" id="router.request_context" on-invalid="ignore"/>
       <argument type="service" id="logger" on-invalid="ignore"/>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf</argument>
+      <argument>D:\hoanganh\symfonytest</argument>
       <argument>true</argument>
     </service>
     <service id="Symfony\Bundle\FrameworkBundle\Controller\RedirectController" class="Symfony\Bundle\FrameworkBundle\Controller\RedirectController" public="true">
@@ -1405,19 +1405,19 @@
     <service id="annotations.cache_warmer" class="Symfony\Bundle\FrameworkBundle\CacheWarmer\AnnotationsCacheWarmer">
       <tag name="kernel.cache_warmer"/>
       <argument type="service" id="annotations.reader"/>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/annotations.php</argument>
+      <argument>D:\hoanganh\symfonytest\var\cache\dev/annotations.php</argument>
       <argument>#^Symfony\\(?:Component\\HttpKernel\\|Bundle\\FrameworkBundle\\Controller\\(?!.*Controller$))#</argument>
       <argument>true</argument>
     </service>
     <service id="annotations.cache_adapter" class="Symfony\Component\Cache\Adapter\PhpArrayAdapter">
       <tag name="container.hot_path"/>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/annotations.php</argument>
+      <argument>D:\hoanganh\symfonytest\var\cache\dev/annotations.php</argument>
       <argument type="service" id="cache.annotations"/>
       <factory class="Symfony\Component\Cache\Adapter\PhpArrayAdapter" method="create"/>
     </service>
     <service id="secrets.vault" class="Symfony\Bundle\FrameworkBundle\Secrets\SodiumVault">
       <tag name="container.env_var_loader"/>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/config/secrets/%env(default:kernel.environment:APP_RUNTIME_ENV)%</argument>
+      <argument>D:\hoanganh\symfonytest/config/secrets/%env(default:kernel.environment:APP_RUNTIME_ENV)%</argument>
       <argument type="service" id="secrets.decryption_key" on-invalid="ignore"/>
     </service>
     <service id="secrets.decryption_key" class="Symfony\Component\String\LazyString">
@@ -1426,7 +1426,7 @@
       <factory class="Symfony\Component\String\LazyString" method="fromCallable"/>
     </service>
     <service id="secrets.local_vault" class="Symfony\Bundle\FrameworkBundle\Secrets\DotenvVault">
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/.env.dev.local</argument>
+      <argument>D:\hoanganh\symfonytest/.env.dev.local</argument>
     </service>
     <service id=".cache_connection.GD_MSZC" class="Symfony\Component\Cache\Adapter\AbstractAdapter">
       <argument>redis://localhost</argument>
@@ -1472,7 +1472,7 @@
       <argument>true</argument>
     </service>
     <service id="session.storage.factory.mock_file" class="Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorageFactory">
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/sessions</argument>
+      <argument>D:\hoanganh\symfonytest\var\cache\dev/sessions</argument>
       <argument>MOCKSESSID</argument>
       <argument type="service">
         <service class="Symfony\Component\HttpFoundation\Session\Storage\MetadataBag">
@@ -1484,7 +1484,7 @@
     <service id="session.handler.native_file" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\StrictSessionHandler">
       <argument type="service">
         <service class="Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler">
-          <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/sessions</argument>
+          <argument>D:\hoanganh\symfonytest\var\cache\dev/sessions</argument>
         </service>
       </argument>
     </service>
@@ -1564,8 +1564,8 @@
       <argument type="service" id="filesystem"/>
       <argument type="service" id="maker.autoloader_util"/>
       <argument type="service" id="maker.file_link_formatter"/>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf</argument>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/templates</argument>
+      <argument>D:\hoanganh\symfonytest</argument>
+      <argument>D:\hoanganh\symfonytest/templates</argument>
     </service>
     <service id="maker.autoloader_finder" class="Symfony\Bundle\MakerBundle\Util\ComposerAutoloaderFinder">
       <argument>App</argument>
@@ -1728,7 +1728,7 @@
     </service>
     <service id="maker.maker.make_migration" class="Symfony\Bundle\MakerBundle\Maker\MakeMigration">
       <tag name="maker.command"/>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf</argument>
+      <argument>D:\hoanganh\symfonytest</argument>
     </service>
     <service id="maker.maker.make_stimulus_controller" class="Symfony\Bundle\MakerBundle\Maker\MakeStimulusController">
       <tag name="maker.command"/>
@@ -1868,7 +1868,7 @@
       <argument type="service" id="doctrine.debug_data_holder"/>
       <argument type="service" id="debug.stopwatch" on-invalid="null"/>
     </service>
-    <service id=".1_ServiceLocator~etfYhOZ" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".1_ServiceLocator~uHfChP_" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <argument type="collection"/>
     </service>
     <service id="doctrine.orm.proxy_cache_warmer" class="Symfony\Bridge\Doctrine\CacheWarmer\ProxyCacheWarmer">
@@ -2074,7 +2074,7 @@
         <argument type="service" id=".doctrine.orm.default_metadata_driver"/>
       </call>
       <call method="setProxyDir">
-        <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/doctrine/orm/Proxies</argument>
+        <argument>D:\hoanganh\symfonytest\var\cache\dev/doctrine/orm/Proxies</argument>
       </call>
       <call method="setProxyNamespace">
         <argument>Proxies</argument>
@@ -2106,7 +2106,7 @@
     </service>
     <service id="doctrine.orm.default_attribute_metadata_driver" class="Doctrine\ORM\Mapping\Driver\AttributeDriver">
       <argument type="collection">
-        <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/src/Entity</argument>
+        <argument>D:\hoanganh\symfonytest\src\Entity</argument>
       </argument>
     </service>
     <service id="cache.doctrine.orm.default.metadata" class="Symfony\Component\Cache\Adapter\ArrayAdapter"/>
@@ -2159,7 +2159,7 @@
     <service id="doctrine.migrations.configuration" class="Doctrine\Migrations\Configuration\Configuration">
       <call method="addMigrationsDirectory">
         <argument>DoctrineMigrations</argument>
-        <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/migrations</argument>
+        <argument>D:\hoanganh\symfonytest/migrations</argument>
       </call>
       <call method="setAllOrNothing">
         <argument>false</argument>
@@ -2314,7 +2314,7 @@
       <argument type="service" id="twig.loader.native_filesystem"/>
       <argument type="collection">
         <argument key="autoescape">name</argument>
-        <argument key="cache">/Users/nguyenlamhoanganh/project/symfony/wtf/var/cache/dev/twig</argument>
+        <argument key="cache">D:\hoanganh\symfonytest\var\cache\dev/twig</argument>
         <argument key="charset">UTF-8</argument>
         <argument key="debug">true</argument>
         <argument key="strict_variables">true</argument>
@@ -2390,7 +2390,7 @@
     <service id="twig.template_iterator" class="Symfony\Bundle\TwigBundle\TemplateIterator">
       <argument type="service" id="kernel"/>
       <argument type="collection"/>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/templates</argument>
+      <argument>D:\hoanganh\symfonytest/templates</argument>
       <argument type="collection"/>
     </service>
     <service id="twig.template_cache_warmer" class="Symfony\Bundle\TwigBundle\CacheWarmer\TemplateCacheWarmer">
@@ -2402,25 +2402,25 @@
     <service id="twig.loader.native_filesystem" class="Twig\Loader\FilesystemLoader">
       <tag name="twig.loader"/>
       <argument type="collection"/>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf</argument>
+      <argument>D:\hoanganh\symfonytest</argument>
       <call method="addPath">
-        <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/vendor/doctrine/doctrine-bundle/Resources/views</argument>
+        <argument>D:\hoanganh\symfonytest\vendor\doctrine\doctrine-bundle/Resources/views</argument>
         <argument>Doctrine</argument>
       </call>
       <call method="addPath">
-        <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/vendor/doctrine/doctrine-bundle/Resources/views</argument>
+        <argument>D:\hoanganh\symfonytest\vendor\doctrine\doctrine-bundle/Resources/views</argument>
         <argument>!Doctrine</argument>
       </call>
       <call method="addPath">
-        <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/vendor/doctrine/doctrine-migrations-bundle/Resources/views</argument>
+        <argument>D:\hoanganh\symfonytest\vendor\doctrine\doctrine-migrations-bundle/Resources/views</argument>
         <argument>DoctrineMigrations</argument>
       </call>
       <call method="addPath">
-        <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/vendor/doctrine/doctrine-migrations-bundle/Resources/views</argument>
+        <argument>D:\hoanganh\symfonytest\vendor\doctrine\doctrine-migrations-bundle/Resources/views</argument>
         <argument>!DoctrineMigrations</argument>
       </call>
       <call method="addPath">
-        <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/templates</argument>
+        <argument>D:\hoanganh\symfonytest/templates</argument>
       </call>
     </service>
     <service id="twig.loader.chain" class="Twig\Loader\ChainLoader"/>
@@ -2442,7 +2442,7 @@
     <service id="twig.extension.code" class="Symfony\Bridge\Twig\Extension\CodeExtension">
       <tag name="twig.extension"/>
       <argument type="service" id="debug.file_link_formatter" on-invalid="ignore"/>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf</argument>
+      <argument>D:\hoanganh\symfonytest</argument>
       <argument>UTF-8</argument>
     </service>
     <service id="twig.extension.routing" class="Symfony\Bridge\Twig\Extension\RoutingExtension">
@@ -2508,9 +2508,9 @@
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="twig"/>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf</argument>
+      <argument>D:\hoanganh\symfonytest</argument>
       <argument>%kernel.bundles_metadata%</argument>
-      <argument>/Users/nguyenlamhoanganh/project/symfony/wtf/templates</argument>
+      <argument>D:\hoanganh\symfonytest/templates</argument>
       <argument type="service" id="debug.file_link_formatter" on-invalid="null"/>
       <call method="setName">
         <argument>debug:twig</argument>
