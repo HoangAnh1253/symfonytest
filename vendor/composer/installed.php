@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '18d6b9badd1a69b958b5f6688334c6e748c5aecd',
+        'reference' => '49214ca6a3a901e04415c472a492dd0b72c1549d',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '18d6b9badd1a69b958b5f6688334c6e748c5aecd',
+            'reference' => '49214ca6a3a901e04415c472a492dd0b72c1549d',
             'dev_requirement' => false,
         ),
         'doctrine/annotations' => array(
@@ -35,7 +35,7 @@
             'install_path' => __DIR__ . '/../doctrine/cache',
             'aliases' => array(),
             'reference' => '1ca8f21980e770095a31456042471a57bc4c68fb',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'doctrine/collections' => array(
             'pretty_version' => '1.6.8',
@@ -44,7 +44,7 @@
             'install_path' => __DIR__ . '/../doctrine/collections',
             'aliases' => array(),
             'reference' => '1958a744696c6bb3bb0d28db2611dc11610e78af',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'doctrine/common' => array(
             'pretty_version' => '3.3.0',
@@ -53,7 +53,7 @@
             'install_path' => __DIR__ . '/../doctrine/common',
             'aliases' => array(),
             'reference' => 'c824e95d4c83b7102d8bc60595445a6f7d540f96',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'doctrine/dbal' => array(
             'pretty_version' => '3.3.7',
@@ -62,7 +62,7 @@
             'install_path' => __DIR__ . '/../doctrine/dbal',
             'aliases' => array(),
             'reference' => '9f79d4650430b582f4598fe0954ef4d52fbc0a8a',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'doctrine/deprecations' => array(
             'pretty_version' => 'v1.0.0',
@@ -71,7 +71,7 @@
             'install_path' => __DIR__ . '/../doctrine/deprecations',
             'aliases' => array(),
             'reference' => '0e2a4f1f8cdfc7a92ec3b01c9334898c806b30de',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'doctrine/doctrine-bundle' => array(
             'pretty_version' => '2.7.0',
@@ -80,7 +80,7 @@
             'install_path' => __DIR__ . '/../doctrine/doctrine-bundle',
             'aliases' => array(),
             'reference' => 'd2088fc50494e4e7441fecca54732245a613eeb6',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'doctrine/doctrine-migrations-bundle' => array(
             'pretty_version' => '3.2.2',
@@ -89,7 +89,7 @@
             'install_path' => __DIR__ . '/../doctrine/doctrine-migrations-bundle',
             'aliases' => array(),
             'reference' => '3393f411ba25ade21969c33f2053220044854d01',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'doctrine/event-manager' => array(
             'pretty_version' => '1.1.1',
@@ -98,7 +98,7 @@
             'install_path' => __DIR__ . '/../doctrine/event-manager',
             'aliases' => array(),
             'reference' => '41370af6a30faa9dc0368c4a6814d596e81aba7f',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'doctrine/inflector' => array(
             'pretty_version' => '2.0.4',
@@ -107,7 +107,7 @@
             'install_path' => __DIR__ . '/../doctrine/inflector',
             'aliases' => array(),
             'reference' => '8b7ff3e4b7de6b2c84da85637b59fd2880ecaa89',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'doctrine/instantiator' => array(
             'pretty_version' => '1.4.1',
@@ -116,7 +116,7 @@
             'install_path' => __DIR__ . '/../doctrine/instantiator',
             'aliases' => array(),
             'reference' => '10dcfce151b967d20fde1b34ae6640712c3891bc',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'doctrine/lexer' => array(
             'pretty_version' => '1.2.3',
@@ -134,7 +134,7 @@
             'install_path' => __DIR__ . '/../doctrine/migrations',
             'aliases' => array(),
             'reference' => 'c0a01ddead0ccaf0282f3f4fcaa026d11918a481',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'doctrine/orm' => array(
             'pretty_version' => '2.12.3',
@@ -143,7 +143,7 @@
             'install_path' => __DIR__ . '/../doctrine/orm',
             'aliases' => array(),
             'reference' => 'c05e1709e9ffb9abe8d37260a78975cc816ee385',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'doctrine/persistence' => array(
             'pretty_version' => '3.0.2',
@@ -152,7 +152,7 @@
             'install_path' => __DIR__ . '/../doctrine/persistence',
             'aliases' => array(),
             'reference' => '25ec98a8cbd1f850e60fdb62c0ef77c162da8704',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'doctrine/sql-formatter' => array(
             'pretty_version' => '1.1.3',
@@ -161,7 +161,7 @@
             'install_path' => __DIR__ . '/../doctrine/sql-formatter',
             'aliases' => array(),
             'reference' => '25a06c7bf4c6b8218f47928654252863ffc890a5',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'friendsofphp/proxy-manager-lts' => array(
             'pretty_version' => 'v1.0.12',
@@ -170,7 +170,7 @@
             'install_path' => __DIR__ . '/../friendsofphp/proxy-manager-lts',
             'aliases' => array(),
             'reference' => '8419f0158715b30d4b99a5bd37c6a39671994ad7',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'laminas/laminas-code' => array(
             'pretty_version' => '4.5.2',
@@ -179,7 +179,7 @@
             'install_path' => __DIR__ . '/../laminas/laminas-code',
             'aliases' => array(),
             'reference' => 'da01fb74c08f37e20e7ae49f1e3ee09aa401ebad',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'nikic/php-parser' => array(
             'pretty_version' => 'v4.14.0',
@@ -191,7 +191,7 @@
             'dev_requirement' => true,
         ),
         'ocramius/proxy-manager' => array(
-            'dev_requirement' => true,
+            'dev_requirement' => false,
             'replaced' => array(
                 0 => '^2.1',
             ),
@@ -271,6 +271,15 @@
             'reference' => '6bd976c99ef3f78e31c9490a10ba6dd8901076eb',
             'dev_requirement' => false,
         ),
+        'symfony/asset' => array(
+            'pretty_version' => 'v6.1.0',
+            'version' => '6.1.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/asset',
+            'aliases' => array(),
+            'reference' => 'dc6f572f142627d42ba88a42ea34f79d3776ee6c',
+            'dev_requirement' => false,
+        ),
         'symfony/cache' => array(
             'pretty_version' => 'v6.1.1',
             'version' => '6.1.1.0',
@@ -338,7 +347,7 @@
             'install_path' => __DIR__ . '/../symfony/doctrine-bridge',
             'aliases' => array(),
             'reference' => '8f0543dce92eb527af3cddf7134607cffcebfa42',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/dotenv' => array(
             'pretty_version' => 'v6.1.0',
@@ -521,7 +530,7 @@
             'install_path' => __DIR__ . '/../symfony/proxy-manager-bridge',
             'aliases' => array(),
             'reference' => 'bcb3e7a28ee373bd64ecd2a2289a64c5860716af',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/routing' => array(
             'pretty_version' => 'v6.1.1',
@@ -563,7 +572,7 @@
             'install_path' => __DIR__ . '/../symfony/stopwatch',
             'aliases' => array(),
             'reference' => '77dedae82ce2a26e2e9b481855473fc3b3e4e54d',
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/string' => array(
             'pretty_version' => 'v6.1.0',
@@ -617,6 +626,15 @@
             'install_path' => __DIR__ . '/../symfony/var-exporter',
             'aliases' => array(),
             'reference' => 'ce1452317b1210ddfe18d143fa8a09c18f034b89',
+            'dev_requirement' => false,
+        ),
+        'symfony/webpack-encore-bundle' => array(
+            'pretty_version' => 'v1.14.1',
+            'version' => '1.14.1.0',
+            'type' => 'symfony-bundle',
+            'install_path' => __DIR__ . '/../symfony/webpack-encore-bundle',
+            'aliases' => array(),
+            'reference' => '6b18be99bf2a5a402b80a2c00043fe0b365fe836',
             'dev_requirement' => false,
         ),
         'symfony/yaml' => array(
