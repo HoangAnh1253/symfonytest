@@ -7,4 +7,6 @@ return [
     'app_movie' => [[], ['_controller' => 'App\\Controller\\MovieController::index'], [], [['text', '/movie']], [], [], []],
     'app_movies' => [['movie'], ['_controller' => 'App\\Controller\\MoviesController::index'], [], [['variable', '/', '[^/]++', 'movie', true], ['text', '/movies']], [], [], []],
     'old' => [[], ['_controller' => 'App\\Controller\\MoviesController::show'], [], [['text', '/show']], [], [], []],
+    'app_vinyl_homepage' => [[], ['_controller' => 'App\\Controller\\VinylController::homepage'], [], [['text', '/']], [], [], []],
+    'app_vinyl_browse' => [['name'], ['name' => null, '_controller' => 'App\\Controller\\VinylController::Browse'], [], [['variable', '/', '[^/]++', 'name', true], ['text', '/browse']], [], [], []],
 ];
