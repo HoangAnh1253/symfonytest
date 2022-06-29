@@ -9,6 +9,7 @@ return array(
     'App\\Controller\\MovieController' => $baseDir . '/src/Controller/MovieController.php',
     'App\\Controller\\MoviesController' => $baseDir . '/src/Controller/MoviesController.php',
     'App\\Controller\\VinylController' => $baseDir . '/src/Controller/VinylController.php',
+    'App\\DataFixtures\\ActorFixtures' => $baseDir . '/src/DataFixtures/ActorFixtures.php',
     'App\\DataFixtures\\MovieFixtures' => $baseDir . '/src/DataFixtures/MovieFixtures.php',
     'App\\Entity\\Actor' => $baseDir . '/src/Entity/Actor.php',
     'App\\Entity\\Movie' => $baseDir . '/src/Entity/Movie.php',

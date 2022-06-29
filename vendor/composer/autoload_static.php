@@ -365,6 +365,7 @@ class ComposerStaticInitf6f4030e29ebaf36eb20584abb9fbc60
         'App\\Controller\\MovieController' => __DIR__ . '/../..' . '/src/Controller/MovieController.php',
         'App\\Controller\\MoviesController' => __DIR__ . '/../..' . '/src/Controller/MoviesController.php',
         'App\\Controller\\VinylController' => __DIR__ . '/../..' . '/src/Controller/VinylController.php',
+        'App\\DataFixtures\\ActorFixtures' => __DIR__ . '/../..' . '/src/DataFixtures/ActorFixtures.php',
         'App\\DataFixtures\\MovieFixtures' => __DIR__ . '/../..' . '/src/DataFixtures/MovieFixtures.php',
         'App\\Entity\\Actor' => __DIR__ . '/../..' . '/src/Entity/Actor.php',
         'App\\Entity\\Movie' => __DIR__ . '/../..' . '/src/Entity/Movie.php',
