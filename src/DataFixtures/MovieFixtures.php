@@ -20,10 +20,11 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
         $movie1->setTitle("Pirate of the caribean");
         $movie1->setDescription("Best movie ever");
         $movie1->setReleaseYear(2012);
+        $movie1->setImagePath('https://m.media-amazon.com/images/M/MV5BNGYyZGM5MGMtYTY2Ni00M2Y1LWIzNjQtYWUzM2VlNGVhMDNhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg');
         $movie1->addActor($this->getReference('actor_1'));
         $movie1->addActor($this->getReference('actor_2'));
         $manager->persist($movie1);
-
+        
         $movie2 = new Movie();
         $movie2->setTitle("Spider man");
         $movie2->setDescription("Best marvel movie");
