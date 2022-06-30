@@ -30,9 +30,13 @@ class Movie
     #[ORM\ManyToMany(targetEntity: Actor::class, inversedBy: 'movies')]
     private $actors;
 
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'movies')]
+    private $categories;
+
     public function __construct()
     {
         $this->actors = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,6 +112,30 @@ class Movie
     public function removeActor(Actor $actor): self
     {
         $this->actors->removeElement($actor);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        $this->categories->removeElement($category);
 
         return $this;
     }
