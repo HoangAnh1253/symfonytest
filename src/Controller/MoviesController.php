@@ -6,6 +6,7 @@ use App\Entity\Movie;
 use App\Form\MovieFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +22,7 @@ class MoviesController extends AbstractController
         $this->repo = $em->getRepository(Movie::class);
     }
     
-    #[Route('/movies')]
+    #[Route('/movies', name: 'movies')]
     public function index(): Response
     {
         
@@ -42,7 +43,28 @@ class MoviesController extends AbstractController
         $movie->setReleaseYear(2000);
         $form = $this->createForm(MovieFormType::class, $movie);
         $form->handleRequest($request);
-        
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $newMovie = $form->getData();
+            $imagePath = $form->get('imagePath')->getData();
+            if($imagePath)
+            {
+                $newFileName = uniqid() . '.' . $imagePath->guessExtension();
+
+                try{
+                    $imagePath->move($this->getParameter('kernel.project_dir').'/public/uploads', $newFileName);
+                }catch(FileException $e){
+                    return new Response($e->getMessage());
+                }
+
+                $newMovie->setImagePath("/uploads/". $newFileName);
+            }
+
+            $this->em->persist($newMovie);
+            $this->em->flush();
+
+            return $this->redirectToRoute('movies');
+        }
         return $this->renderForm('movies/create.html.twig',[
             'form' => $form
         ]);
