@@ -24,11 +24,12 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
         $movie1->addActor($this->getReference('actor_1'));
         $movie1->addActor($this->getReference('actor_2'));
         $manager->persist($movie1);
-        
+
         $movie2 = new Movie();
         $movie2->setTitle("Spider man");
         $movie2->setDescription("Best marvel movie");
         $movie2->setReleaseYear(2016);
+        $movie2->setImagePath('https://gamek.mediacdn.vn/133514250583805952/2021/11/17/photo-1-1637118381839432740223.jpg');
         $movie2->addActor($this->getReference('actor_2'));
         $movie2->addActor($this->getReference('actor_3'));
         $manager->persist($movie2);
@@ -37,6 +38,7 @@ class MovieFixtures extends Fixture implements DependentFixtureInterface
         $movie3->setTitle("Up!");
         $movie3->setDescription("Best pixal movie");
         $movie3->setReleaseYear(2014);
+        $movie3->setImagePath('https://upload.wikimedia.org/wikipedia/vi/f/f2/VutBay-poster.jpg');
         $movie3->addActor($this->getReference('actor_3'));
         $movie3->addActor($this->getReference('actor_1'));
         $manager->persist($movie3);
