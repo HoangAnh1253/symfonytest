@@ -185,6 +185,7 @@
     <parameter key="doctrine.migrations.preferred_connection">null</parameter>
     <parameter key="twig.form.resources" type="collection">
       <parameter>form_div_layout.html.twig</parameter>
+      <parameter>bootstrap_5_layout.html.twig</parameter>
     </parameter>
     <parameter key="twig.default_path">D:\hoanganh\symfony\symfonytest/templates</parameter>
     <parameter key="maker.compatible_check.doctrine.supports_attributes">true</parameter>
@@ -223,6 +224,9 @@
     </service>
     <service id="App\DataFixtures\MovieFixtures" class="App\DataFixtures\MovieFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
+    </service>
+    <service id="App\Form\MovieFormType" class="App\Form\MovieFormType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
     </service>
     <service id="App\Repository\ActorRepository" class="App\Repository\ActorRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
@@ -766,9 +770,11 @@
       <argument type="service" id="form.registry"/>
       <argument type="collection">
         <argument>Symfony\Component\Form\Extension\Core\Type</argument>
+        <argument>App\Form</argument>
         <argument>Symfony\Bridge\Doctrine\Form\Type</argument>
       </argument>
       <argument type="collection">
+        <argument>App\Form\MovieFormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FileType</argument>
@@ -1741,7 +1747,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.y4dplYt"/>
+      <argument type="service" id=".service_locator.04yjJQC"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -3104,6 +3110,8 @@
     <service id=".abstract.instanceof.App\DataFixtures\ActorFixtures" class="App\DataFixtures\ActorFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\MovieFixtures" class="App\DataFixtures\MovieFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\MovieFixtures" class="App\DataFixtures\MovieFixtures" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\MovieFormType" class="App\Form\MovieFormType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\MovieFormType" class="App\Form\MovieFormType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ActorRepository" class="App\Repository\ActorRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ActorRepository" class="App\Repository\ActorRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" autowire="true" abstract="true"/>
@@ -3524,9 +3532,10 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.y4dplYt" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.04yjJQC" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Form\MovieFormType" type="service_closure" id="App\Form\MovieFormType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service_closure" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service_closure" id="form.type.choice"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ColorType" type="service_closure" id="form.type.color"/>
@@ -4363,7 +4372,7 @@
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
     <service id=".service_locator.VcqbW27" alias=".service_locator.7rBEEEs"/>
     <service id=".service_locator.bkUSUfi" alias=".service_locator.AHPGEE6"/>
-    <service id=".service_locator.Za9MpXe" alias=".service_locator.y4dplYt"/>
+    <service id=".service_locator.boa6AZP" alias=".service_locator.04yjJQC"/>
     <service id=".service_locator.qBCHs1a" alias=".service_locator.QXcJQkF"/>
     <service id=".service_locator._eRAkJb" alias=".service_locator.jIxfAsi"/>
     <service id="event_dispatcher" alias="debug.event_dispatcher" public="true"/>

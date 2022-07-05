@@ -64,7 +64,7 @@ class __TwigTemplate_b0ffccc8a8616b172d42b6dc87d1fdb1 extends Template
         echo twig_escape_filter($this->env, twig_length_filter($this->env, (isset($context["movies"]) || array_key_exists("movies", $context) ? $context["movies"] : (function () { throw new RuntimeError('Variable "movies" does not exist.', 7, $this->source); })())), "html", null, true);
         echo ")
             </h1>
-
+            
             <span class=\"font-light text-gray-500 italic\">
                 Created by Code With Dary
             </span>
@@ -156,7 +156,7 @@ class __TwigTemplate_b0ffccc8a8616b172d42b6dc87d1fdb1 extends Template
             <h1 class=\"text-6xl pt-12 pb-8\">
                 Movies Review ({{ movies|length }})
             </h1>
-
+            
             <span class=\"font-light text-gray-500 italic\">
                 Created by Code With Dary
             </span>

@@ -2,17 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Actor;
 use App\Entity\Movie;
+use App\Form\MovieFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MoviesController extends AbstractController
 {
-    private $em;
+    private $em;    
     private $repo;
 
     public function __construct(EntityManagerInterface $em)
@@ -34,10 +34,19 @@ class MoviesController extends AbstractController
     }
         
        
-    // #[Route('/movies', name: 'app_movies')]
-    // public function index(): Response
-    // {
-    // }
+   
+    #[Route('/movies/create')]
+    public function create(Request $request){
+        $movie = new Movie();
+        $movie->setTitle('ấdasdasdasda');
+        $movie->setReleaseYear(2000);
+        $form = $this->createForm(MovieFormType::class, $movie);
+        $form->handleRequest($request);
+        
+        return $this->renderForm('movies/create.html.twig',[
+            'form' => $form
+        ]);
+    }
 
     
     /**
@@ -50,4 +59,5 @@ class MoviesController extends AbstractController
         $movie = $this->repo->find($movie);
         return $this->render('movies/show.html.twig', ["movie" => $movie]);
     }
+
 }
