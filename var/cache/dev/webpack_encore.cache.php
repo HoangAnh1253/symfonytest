@@ -20,6 +20,12 @@ return [[
                 '/build/app.css',
             ],
         ],
+        'method2' => [
+            'js' => [
+                '/build/runtime.js',
+                '/build/method2.js',
+            ],
+        ],
     ],
 ],
 
