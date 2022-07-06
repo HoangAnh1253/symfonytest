@@ -56,44 +56,53 @@ class __TwigTemplate_f55faeef24864bfe30d4140df8e8b941 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 4
-        echo "  <div class=\"sm:w-3/5 w-4/5 mx-auto\">
-    <h1 class=\"pt-20 sm:text-5xl md:text-7xl text-4xl font-bold text-center\">
-      ";
+        echo "\t<div class=\"sm:w-3/5 w-4/5 mx-auto\">
+\t\t<h1 class=\"pt-20 sm:text-5xl md:text-7xl text-4xl font-bold text-center\">
+\t\t\t";
         // line 6
         echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["movie"]) || array_key_exists("movie", $context) ? $context["movie"] : (function () { throw new RuntimeError('Variable "movie" does not exist.', 6, $this->source); })()), "title", [], "any", false, false, false, 6), "html", null, true);
         echo "
-    </h1>
+\t\t</h1>
 
-    <div class=\"py-10 text-center\">
-      <div class=\"inline-block sm:pt-1\">
-        <h2 class=\"font-bold\">
-          Created by: Code With Dary
-        </h2>
+\t\t<div class=\"py-10 text-center\">
+\t\t\t<div class=\"inline-block sm:pt-1\">
+\t\t\t\t<h2 class=\"font-bold\">
+\t\t\t\t\tCreated by: Code With Dary
+\t\t\t\t</h2>
 
-        <p class=\"text-sm text-gray-600\">
-          28-01-2022 4 min. read
-        </p>
-      </div>
-      <p class=\"text-xl\">
-        ";
+\t\t\t\t<p class=\"text-sm text-gray-600\">
+\t\t\t\t\t28-01-2022 4 min. read
+\t\t\t\t</p>
+\t\t\t</div>
+\t\t\t<p class=\"text-xl\">
+\t\t\t\t";
         // line 20
         echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["movie"]) || array_key_exists("movie", $context) ? $context["movie"] : (function () { throw new RuntimeError('Variable "movie" does not exist.', 20, $this->source); })()), "description", [], "any", false, false, false, 20), "html", null, true);
         echo "
-      </p>
-    </div>
+\t\t\t</p>
+\t\t</div>
 
-    <img src=\"";
+\t\t<img src=\"";
         // line 24
         echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["movie"]) || array_key_exists("movie", $context) ? $context["movie"] : (function () { throw new RuntimeError('Variable "movie" does not exist.', 24, $this->source); })()), "imagePath", [], "any", false, false, false, 24), "html", null, true);
-        echo "\"
-      class=\"rounded-xl w-full shadow-xl text-center mx-auto\"
-      alt=\"Icon of Code With Dary\" 
-      style=\" width: auto; height: 500px;\"
-    />
+        echo "\" class=\"rounded-xl w-full shadow-xl text-center mx-auto\" alt=\"Icon of Code With Dary\" style=\" width: auto; height: 500px;\"/>
 
-    ";
-        // line 43
-        echo "  </div>
+\t\t<a href=\"/movies/edit/";
+        // line 26
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["movie"]) || array_key_exists("movie", $context) ? $context["movie"] : (function () { throw new RuntimeError('Variable "movie" does not exist.', 26, $this->source); })()), "id", [], "any", false, false, false, 26), "html", null, true);
+        echo "\" class=\"bg-green-500 font-bold py-2 px-4 rounded transition-all hover:bg-green-300\">
+\t\t\tEdit Movie
+\t\t</a>
+\t\t<a href=\"/movies/delete/";
+        // line 29
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["movie"]) || array_key_exists("movie", $context) ? $context["movie"] : (function () { throw new RuntimeError('Variable "movie" does not exist.', 29, $this->source); })()), "id", [], "any", false, false, false, 29), "html", null, true);
+        echo "\" class=\"bg-red-500 font-bold py-2 px-4 ml-6 rounded transition-all hover:bg-red-300\">
+\t\t\tDelete Movie
+\t\t</a>
+
+\t\t";
+        // line 46
+        echo "\t</div>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -112,7 +121,7 @@ class __TwigTemplate_f55faeef24864bfe30d4140df8e8b941 extends Template
 
     public function getDebugInfo()
     {
-        return array (  96 => 43,  87 => 24,  80 => 20,  63 => 6,  59 => 4,  52 => 3,  35 => 1,);
+        return array (  105 => 46,  98 => 29,  92 => 26,  87 => 24,  80 => 20,  63 => 6,  59 => 4,  52 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -120,46 +129,49 @@ class __TwigTemplate_f55faeef24864bfe30d4140df8e8b941 extends Template
         return new Source("{% extends './base.html.twig' %}
 
 {% block body %}
-  <div class=\"sm:w-3/5 w-4/5 mx-auto\">
-    <h1 class=\"pt-20 sm:text-5xl md:text-7xl text-4xl font-bold text-center\">
-      {{ movie.title }}
-    </h1>
+\t<div class=\"sm:w-3/5 w-4/5 mx-auto\">
+\t\t<h1 class=\"pt-20 sm:text-5xl md:text-7xl text-4xl font-bold text-center\">
+\t\t\t{{ movie.title }}
+\t\t</h1>
 
-    <div class=\"py-10 text-center\">
-      <div class=\"inline-block sm:pt-1\">
-        <h2 class=\"font-bold\">
-          Created by: Code With Dary
-        </h2>
+\t\t<div class=\"py-10 text-center\">
+\t\t\t<div class=\"inline-block sm:pt-1\">
+\t\t\t\t<h2 class=\"font-bold\">
+\t\t\t\t\tCreated by: Code With Dary
+\t\t\t\t</h2>
 
-        <p class=\"text-sm text-gray-600\">
-          28-01-2022 4 min. read
-        </p>
-      </div>
-      <p class=\"text-xl\">
-        {{ movie.description }}
-      </p>
-    </div>
+\t\t\t\t<p class=\"text-sm text-gray-600\">
+\t\t\t\t\t28-01-2022 4 min. read
+\t\t\t\t</p>
+\t\t\t</div>
+\t\t\t<p class=\"text-xl\">
+\t\t\t\t{{ movie.description }}
+\t\t\t</p>
+\t\t</div>
 
-    <img src=\"{{ movie.imagePath }}\"
-      class=\"rounded-xl w-full shadow-xl text-center mx-auto\"
-      alt=\"Icon of Code With Dary\" 
-      style=\" width: auto; height: 500px;\"
-    />
+\t\t<img src=\"{{ movie.imagePath }}\" class=\"rounded-xl w-full shadow-xl text-center mx-auto\" alt=\"Icon of Code With Dary\" style=\" width: auto; height: 500px;\"/>
 
-    {# {% if app.user and movie.userId == app.user.id %}
-            <a 
-                href=\"/movies/edit/{{ movie.id }}\"
-                class=\"bg-green-500 font-bold py-2 px-4 rounded transition-all hover:bg-green-300\">
-                Edit Movie
-            </a>
+\t\t<a href=\"/movies/edit/{{ movie.id }}\" class=\"bg-green-500 font-bold py-2 px-4 rounded transition-all hover:bg-green-300\">
+\t\t\tEdit Movie
+\t\t</a>
+\t\t<a href=\"/movies/delete/{{ movie.id }}\" class=\"bg-red-500 font-bold py-2 px-4 ml-6 rounded transition-all hover:bg-red-300\">
+\t\t\tDelete Movie
+\t\t</a>
 
-            <a 
-                href=\"/movies/delete/{{ movie.id }}\"
-                class=\"bg-red-500 font-bold py-2 px-4 ml-6 rounded transition-all hover:bg-red-300\">
-                Delete Movie
-            </a>
-        {% endif %} #}
-  </div>
+\t\t{# {% if app.user and movie.userId == app.user.id %}
+\t\t\t\t            <a 
+\t\t\t\t                href=\"/movies/edit/{{ movie.id }}\"
+\t\t\t\t                class=\"bg-green-500 font-bold py-2 px-4 rounded transition-all hover:bg-green-300\">
+\t\t\t\t                Edit Movie
+\t\t\t\t            </a>
+\t\t\t\t
+\t\t\t\t            <a 
+\t\t\t\t                href=\"/movies/delete/{{ movie.id }}\"
+\t\t\t\t                class=\"bg-red-500 font-bold py-2 px-4 ml-6 rounded transition-all hover:bg-red-300\">
+\t\t\t\t                Delete Movie
+\t\t\t\t            </a>
+\t\t\t\t        {% endif %} #}
+\t</div>
 {% endblock %}
 ", "movies/show.html.twig", "D:\\hoanganh\\symfony\\symfonytest\\templates\\movies\\show.html.twig");
     }

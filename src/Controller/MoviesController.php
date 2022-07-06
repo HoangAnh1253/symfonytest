@@ -69,6 +69,51 @@ class MoviesController extends AbstractController
             'form' => $form
         ]);
     }
+    
+    #[Route('/movies/edit/{movie}', name: "editMovie")]
+    public function edit(Movie $movie, Request $request):Response
+    {
+        
+        $form = $this->createForm(MovieFormType::class, $movie);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) { 
+            $imagePath = $form->get('imagePath')->getData();
+            if($imagePath){
+                if($movie->getImagePath())
+                {
+                    $newFileName = uniqid() . '.' . $imagePath->guessExtension();
+                
+                    try{
+                        $imagePath->move($this->getParameter('kernel.project_dir').'/public/uploads', $newFileName);
+                    }catch(FileException $e){
+                        return new Response($e->getMessage());
+                    }
+    
+                    $movie->setImagePath("/uploads/". $newFileName);
+
+                    $this->em->persist($movie);
+                    $this->em->flush();
+        
+                }
+            }else{
+                
+                $movie->setTitle($form->get('title')->getData());
+                $movie->setReleaseYear($form->get('releaseYear')->getData());
+                $movie->setDescription($form->get('description')->getData());
+
+                $this->em->persist($movie);
+                $this->em->flush();
+            } 
+
+            return $this->redirectToRoute('movies');
+        }
+
+        return $this->renderForm('/movies/edit.html.twig',[
+            'form' => $form
+        ]);
+    }
+
 
     
     /**

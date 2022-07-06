@@ -21,7 +21,8 @@ class MovieFormType extends AbstractType
                     'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
                     'placeholder' => 'Enter title...'
                 ),
-                'label' => false
+                'label' => false,
+                'required' => false
             ])
             ->add('releaseYear', IntegerType::class, [
                 'attr' => array(
@@ -41,7 +42,8 @@ class MovieFormType extends AbstractType
                 'attr' => array(
                     'class' => 'py-10'
                 ),
-                'required' => false
+                'required' => false,
+                'mapped' => false
             ])
             // ->add('actors')
             // ->add('categories')
