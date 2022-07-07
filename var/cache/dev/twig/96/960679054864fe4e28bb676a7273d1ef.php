@@ -54,24 +54,30 @@ class __TwigTemplate_e0debaedfcd21b7e74af82499411ba21 extends Template
 \t\t<link rel=\"icon\" href=\"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>\">
 \t\t<script src=\"https://cdn.tailwindcss.com\"></script>
 \t\t<script src=\"https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js\" defer></script>
+\t\t<!-- bootstrap 5 css -->
+\t\t<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor\" crossorigin=\"anonymous\">
+\t\t<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2\" crossorigin=\"anonymous\"></script>
 \t\t<link rel=\"stylesheet\" href=\"app.css\">
-
+\t\t<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css\" integrity=\"sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\"/>
+\t\t<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js\"></script>
+\t\t<script src=\"https://unpkg.com/axios/dist/axios.min.js\"></script>
+\t\t<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js\"></script>
 \t</head>
 \t<body class=\"bg-gray-100 h-screen antialiased leading-none font-sans\">
 \t\t";
-        // line 16
+        // line 22
         $this->displayBlock('header', $context, $blocks);
-        // line 69
+        // line 75
         echo "
 \t\t";
-        // line 70
+        // line 76
         $this->displayBlock('body', $context, $blocks);
-        // line 71
+        // line 77
         echo "
 \t\t";
-        // line 72
+        // line 78
         $this->displayBlock('footer', $context, $blocks);
-        // line 79
+        // line 85
         echo "\t</body>
 </html>
 ";
@@ -94,14 +100,14 @@ class __TwigTemplate_e0debaedfcd21b7e74af82499411ba21 extends Template
 
     }
 
-    // line 16
+    // line 22
     public function block_header($context, array $blocks = [])
     {
         $macros = $this->macros;
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "header"));
 
-        // line 17
+        // line 23
         echo "\t\t\t<header>
 \t\t\t\t<nav class=\"flex items-center justify-between flex-wrap p-6 fixed w-full z-10 top-0\" x-data=\"{ isOpen: false }\" @keydown.escape=\"isOpen = false\" :class=\"{ 'shadow-lg bg-gray-600' : isOpen , 'bg-gray-600' : !isOpen}\">
 
@@ -145,16 +151,16 @@ class __TwigTemplate_e0debaedfcd21b7e74af82499411ba21 extends Template
 
 \t\t\t\t\t\t\t<li class=\"mr-3\">
 \t\t\t\t\t\t\t\t<a class=\"inline-block text-gray-300 no-underline hover:text-gray-200 hover:text-underline py-2 px-4\" href=\"/";
-        // line 59
-        echo ((twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 59, $this->source); })()), "user", [], "any", false, false, false, 59)) ? ("logout") : ("login"));
+        // line 65
+        echo ((twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 65, $this->source); })()), "user", [], "any", false, false, false, 65)) ? ("logout") : ("login"));
         echo "\" @click=\"isOpen = false\">
 \t\t\t\t\t\t\t\t\t";
-        // line 60
-        echo ((twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 60, $this->source); })()), "user", [], "any", false, false, false, 60)) ? ("Logout") : ("Login"));
+        // line 66
+        echo ((twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 66, $this->source); })()), "user", [], "any", false, false, false, 66)) ? ("Logout") : ("Login"));
         echo "
 \t\t\t\t\t\t\t\t</a>
 \t\t\t\t\t\t\t</li>
-\t\t\t\t\t\t\t
+
 \t\t\t\t\t\t</ul>
 \t\t\t\t\t</div>
 \t\t\t\t</nav>
@@ -165,7 +171,7 @@ class __TwigTemplate_e0debaedfcd21b7e74af82499411ba21 extends Template
 
     }
 
-    // line 70
+    // line 76
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -177,14 +183,14 @@ class __TwigTemplate_e0debaedfcd21b7e74af82499411ba21 extends Template
 
     }
 
-    // line 72
+    // line 78
     public function block_footer($context, array $blocks = [])
     {
         $macros = $this->macros;
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "footer"));
 
-        // line 73
+        // line 79
         echo "\t\t\t<footer class=\"bg-gray-600 py-6 mt-20\">
 \t\t\t\t<p class=\"w-25 w-4/5 text-center pb-3 m-auto text-base text-gray-100 pt-6\">
 \t\t\t\t\tCopyright 2021 Code With Dary. All Rights Reserved
@@ -203,7 +209,7 @@ class __TwigTemplate_e0debaedfcd21b7e74af82499411ba21 extends Template
 
     public function getDebugInfo()
     {
-        return array (  188 => 73,  181 => 72,  169 => 70,  153 => 60,  149 => 59,  105 => 17,  98 => 16,  84 => 6,  75 => 79,  73 => 72,  70 => 71,  68 => 70,  65 => 69,  63 => 16,  53 => 8,  51 => 6,  44 => 1,);
+        return array (  194 => 79,  187 => 78,  175 => 76,  159 => 66,  155 => 65,  111 => 23,  104 => 22,  90 => 6,  81 => 85,  79 => 78,  76 => 77,  74 => 76,  71 => 75,  69 => 22,  53 => 8,  51 => 6,  44 => 1,);
     }
 
     public function getSourceContext()
@@ -219,8 +225,14 @@ class __TwigTemplate_e0debaedfcd21b7e74af82499411ba21 extends Template
 \t\t<link rel=\"icon\" href=\"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>\">
 \t\t<script src=\"https://cdn.tailwindcss.com\"></script>
 \t\t<script src=\"https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js\" defer></script>
+\t\t<!-- bootstrap 5 css -->
+\t\t<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor\" crossorigin=\"anonymous\">
+\t\t<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2\" crossorigin=\"anonymous\"></script>
 \t\t<link rel=\"stylesheet\" href=\"app.css\">
-
+\t\t<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css\" integrity=\"sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\"/>
+\t\t<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js\"></script>
+\t\t<script src=\"https://unpkg.com/axios/dist/axios.min.js\"></script>
+\t\t<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js\"></script>
 \t</head>
 \t<body class=\"bg-gray-100 h-screen antialiased leading-none font-sans\">
 \t\t{% block header %}
@@ -270,7 +282,7 @@ class __TwigTemplate_e0debaedfcd21b7e74af82499411ba21 extends Template
 \t\t\t\t\t\t\t\t\t{{ app.user ? 'Logout' : 'Login' }}
 \t\t\t\t\t\t\t\t</a>
 \t\t\t\t\t\t\t</li>
-\t\t\t\t\t\t\t
+
 \t\t\t\t\t\t</ul>
 \t\t\t\t\t</div>
 \t\t\t\t</nav>

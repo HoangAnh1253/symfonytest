@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Movie;
 use App\Form\MovieFormType;
+use App\Controller\TokenAuthenticatedControllerr;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -11,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MoviesController extends AbstractController
+class MoviesController extends AbstractController implements TokenAuthenticatedControllerr
 {
     private $em;    
     private $repo;
@@ -28,7 +29,6 @@ class MoviesController extends AbstractController
         
         $repository = $this->em->getRepository(Movie::class);
         $movies = $repository->findAll();
-       
         return $this->render('movies/index.html.twig', [
             'movies' => $movies
         ]);
