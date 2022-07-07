@@ -3,6 +3,82 @@
 {% block title %}Equipment index{% endblock %}
 
 {% block body %}
+<section class="p-4 my-container">
+        <h1>Equipment</h1>
+        <form method="GET" id="search-form">
+            <div class="input-group">
+                <div class="form-outline">
+                    <input type="search" id="search-input" class="form-control" placeholder="Enter equipment's id" />
+                </div>
+                <button onclick="searchEquipment(event)" id="search-btn" style="height: 38px" type="button"
+                    class="btn btn-primary">
+                    <i class="fas fa-search">Search</i>
+                </button>
+                <a href="" type="button"
+                    class="btn btn-info">All</a>
+              
+            </div>
+        
+        </form>
+
+        <div style="position: relative" class="autocomplete form-outline">
+            <label style="margin-top: 40px" for=""><b>Filter by User</b></label>
+            <input id="search-by-user-input" class="form-control" placeholder="Enter user's name or user's id" />
+
+            <p style="color: red" hidden id='search-user-equipment-notfound-error'>User not found</p>
+
+            <button onclick="searchUserEquipments()" id="search-user-equipment-confirm" style="height: 38px" type="button"
+                class="btn btn-primary" disabled>
+                <i id="" class="fas fa-search">Search</i>
+            </button>
+            <form id="search-user-equipment-form" method="GET" action="" hidden></form>
+        </div>
+        <div class="mt-4">
+            <button onclick="{addDataToModel(false,'addEquipModal')}" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#addEquipModal"><i class="fa-solid fa-plus"></i>Add</button>
+        </div>
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th class="text-center" scope="col">Serial Number</th>
+                    <th class="text-center" scope="col">Name</th>
+                    <th class="text-center" scope="col">Description</th>
+                    <th class="text-center" scope="col">Category</th>
+                    <th class="text-center" scope="col">Status</th>
+                    <th class="text-center" scope="col">Using by</th>
+                    <th class="text-center" scope="col" colspan="3">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="equipment-table-body">
+               
+                    <tr id="" class="table-row">
+                        <th class="text-center" scope="row">asd</th>
+                        <td class="equipName">asd</td>
+                        <td class="equipDesc">asd</td>
+                        <td class="text-center equipCategory">asd</td>
+                        <td class="text-center equipStatus">asd</td>
+                        <td class="text-center equipUser">
+                            asd
+                        </td>
+
+                        <td>
+                            <button onclick="{addDataToModel('<?php echo $equipment->serial_number; ?>','edit')}" value="1"
+                                class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editEquipModal">
+                                <i class="fas fa-pen-to-square"></i>Edit</button>
+                        </td>
+                        <td>
+                           
+                        </td>
+                        <td>
+                            <button onclick="{addDataToModel('<?php echo $equipment->serial_number; ?>','delete')}" class="btn btn-danger"
+                                data-bs-toggle="modal" data-bs-target="#deleteEquipModal">Delete</button>
+
+                        </td>
+                    </tr>
+             
+            </tbody>
+        </table>
+    </section>
     <h1 class="w-4/5 m-auto pt-40">Equipment index</h1>
 
     <table class="table">
