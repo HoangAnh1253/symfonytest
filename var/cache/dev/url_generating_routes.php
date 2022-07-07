@@ -4,11 +4,11 @@
 
 return [
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], [], []],
-    'app_equipment_index' => [[], ['_controller' => 'App\\Controller\\EquipmentController::index'], [], [['text', '/equipment/']], [], [], []],
-    'app_equipment_new' => [[], ['_controller' => 'App\\Controller\\EquipmentController::new'], [], [['text', '/equipment/new']], [], [], []],
-    'app_equipment_show' => [['id'], ['_controller' => 'App\\Controller\\EquipmentController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/equipment']], [], [], []],
-    'app_equipment_edit' => [['id'], ['_controller' => 'App\\Controller\\EquipmentController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id', true], ['text', '/equipment']], [], [], []],
-    'app_equipment_delete' => [['id'], ['_controller' => 'App\\Controller\\EquipmentController::delete'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/equipment']], [], [], []],
+    'app_equipment_index' => [[], ['_controller' => 'App\\Controller\\EquipmentController::index'], [], [['text', '/equipments/']], [], [], []],
+    'app_equipment_new' => [[], ['_controller' => 'App\\Controller\\EquipmentController::new'], [], [['text', '/equipments/new']], [], [], []],
+    'app_equipment_show' => [['id'], ['_controller' => 'App\\Controller\\EquipmentController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/equipments']], [], [], []],
+    'app_equipment_edit' => [['id'], ['_controller' => 'App\\Controller\\EquipmentController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id', true], ['text', '/equipments']], [], [], []],
+    'app_equipment_delete' => [['id'], ['_controller' => 'App\\Controller\\EquipmentController::delete'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/equipments']], [], [], []],
     'app_movie' => [[], ['_controller' => 'App\\Controller\\MovieController::index'], [], [['text', '/movie']], [], [], []],
     'movies' => [[], ['_controller' => 'App\\Controller\\MoviesController::index'], [], [['text', '/movies']], [], [], []],
     'app_movies_create' => [[], ['_controller' => 'App\\Controller\\MoviesController::create'], [], [['text', '/movies/create']], [], [], []],

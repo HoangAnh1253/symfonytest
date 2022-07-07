@@ -264,6 +264,12 @@
     <service id="App\DataFixtures\MovieFixtures" class="App\DataFixtures\MovieFixtures" public="true" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
     </service>
+    <service id="App\DataFixtures\RoleFixrues" class="App\DataFixtures\RoleFixrues" public="true" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
+    </service>
+    <service id="App\DataFixtures\UserFixrues" class="App\DataFixtures\UserFixrues" public="true" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
+    </service>
     <service id="App\EventSubscriber\JWTSubscriber" class="App\EventSubscriber\JWTSubscriber" public="true" autowire="true" autoconfigure="true">
       <tag name="kernel.event_subscriber"/>
       <tag name="container.hot_path"/>
@@ -3333,6 +3339,14 @@
             <argument key="fixture" type="service" id="App\DataFixtures\MovieFixtures"/>
             <argument key="groups" type="collection"/>
           </argument>
+          <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\RoleFixrues"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+          <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\UserFixrues"/>
+            <argument key="groups" type="collection"/>
+          </argument>
         </argument>
       </call>
     </service>
@@ -3503,14 +3517,14 @@
       <call method="add">
         <argument type="service" id=".security.request_matcher.WBZ.lWk"/>
         <argument type="collection">
-          <argument>ROLE_USER</argument>
+          <argument>ROLE_EMPLOYEE</argument>
         </argument>
         <argument>null</argument>
       </call>
       <call method="add">
-        <argument type="service" id=".security.request_matcher.ivFOwig"/>
+        <argument type="service" id=".security.request_matcher.LuWTQJT"/>
         <argument type="collection">
-          <argument>ROLE_USER</argument>
+          <argument>ROLE_ADMIN</argument>
         </argument>
         <argument>null</argument>
       </call>
@@ -3924,7 +3938,7 @@
     <service id="security.logout.listener.default.main" class="Symfony\Component\Security\Http\EventListener\DefaultLogoutListener">
       <tag name="kernel.event_subscriber" dispatcher="security.event_dispatcher.main"/>
       <argument type="service" id="security.http_utils"/>
-      <argument>/</argument>
+      <argument>/login</argument>
     </service>
     <service id="security.logout.listener.session.main" class="Symfony\Component\Security\Http\EventListener\SessionLogoutListener">
       <tag name="kernel.event_subscriber" dispatcher="security.event_dispatcher.main"/>
@@ -3982,8 +3996,8 @@
     <service id=".security.request_matcher.WBZ.lWk" class="Symfony\Component\HttpFoundation\RequestMatcher">
       <argument>^/movies</argument>
     </service>
-    <service id=".security.request_matcher.ivFOwig" class="Symfony\Component\HttpFoundation\RequestMatcher">
-      <argument>^/equipment</argument>
+    <service id=".security.request_matcher.LuWTQJT" class="Symfony\Component\HttpFoundation\RequestMatcher">
+      <argument>^/equipments</argument>
     </service>
     <service id="security.command.user_password_hash" class="Symfony\Component\PasswordHasher\Command\UserPasswordHashCommand">
       <tag name="console.command"/>
@@ -4021,6 +4035,10 @@
     <service id=".abstract.instanceof.App\DataFixtures\ActorFixtures" class="App\DataFixtures\ActorFixtures" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\MovieFixtures" class="App\DataFixtures\MovieFixtures" public="true" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\MovieFixtures" class="App\DataFixtures\MovieFixtures" public="true" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\RoleFixrues" class="App\DataFixtures\RoleFixrues" public="true" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\RoleFixrues" class="App\DataFixtures\RoleFixrues" public="true" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\UserFixrues" class="App\DataFixtures\UserFixrues" public="true" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\UserFixrues" class="App\DataFixtures\UserFixrues" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\EventDispatcher\EventSubscriberInterface.0.App\EventSubscriber\JWTSubscriber" class="App\EventSubscriber\JWTSubscriber" public="true" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\EventSubscriber\JWTSubscriber" class="App\EventSubscriber\JWTSubscriber" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\EquipmentType" class="App\Form\EquipmentType" public="true" autowire="true" abstract="true"/>
