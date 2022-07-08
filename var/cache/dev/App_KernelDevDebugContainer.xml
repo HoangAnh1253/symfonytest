@@ -117,8 +117,7 @@
     </parameter>
     <parameter key="session.save_path">D:\hoanganh\symfony\symfonytest\var\cache\dev/sessions</parameter>
     <parameter key="session.metadata.update_threshold">0</parameter>
-    <parameter key="form.type_extension.csrf.enabled">true</parameter>
-    <parameter key="form.type_extension.csrf.field_name">_token</parameter>
+    <parameter key="form.type_extension.csrf.enabled">false</parameter>
     <parameter key="validator.mapping.cache.file">D:\hoanganh\symfony\symfonytest\var\cache\dev/validation.php</parameter>
     <parameter key="validator.translation_domain">validators</parameter>
     <parameter key="data_collector.templates" type="collection"/>
@@ -218,6 +217,9 @@
     <service id="App\Controller\EquipmentController" class="App\Controller\EquipmentController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="App\Repository\EquipmentRepository"/>
+      <argument type="service" id="App\Repository\CategoryRepository"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.jIxfAsi.App\Controller\EquipmentController"/>
       </call>
@@ -259,6 +261,12 @@
       </call>
     </service>
     <service id="App\DataFixtures\ActorFixtures" class="App\DataFixtures\ActorFixtures" public="true" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
+    </service>
+    <service id="App\DataFixtures\CategoryFixtures" class="App\DataFixtures\CategoryFixtures" public="true" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
+    </service>
+    <service id="App\DataFixtures\EquipmentFixtures" class="App\DataFixtures\EquipmentFixtures" public="true" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
     </service>
     <service id="App\DataFixtures\MovieFixtures" class="App\DataFixtures\MovieFixtures" public="true" autowire="true" autoconfigure="true">
@@ -879,7 +887,6 @@
         <argument>Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension</argument>
         <argument>Symfony\Component\Form\Extension\Validator\Type\RepeatedTypeValidatorExtension</argument>
         <argument>Symfony\Component\Form\Extension\Validator\Type\SubmitTypeValidatorExtension</argument>
-        <argument>Symfony\Component\Form\Extension\Csrf\Type\FormTypeCsrfExtension</argument>
       </argument>
       <argument type="collection">
         <argument>Symfony\Component\Form\Extension\Validator\ValidatorTypeGuesser</argument>
@@ -1594,22 +1601,6 @@
         </argument>
         <argument>0</argument>
       </call>
-      <call method="addListener">
-        <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="security.listener.csrf_protection"/>
-          <argument>checkPassport</argument>
-        </argument>
-        <argument>512</argument>
-      </call>
-      <call method="addListener">
-        <argument>Symfony\Component\Security\Http\Event\LogoutEvent</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="security.logout.listener.csrf_token_clearing"/>
-          <argument>onLogout</argument>
-        </argument>
-        <argument>0</argument>
-      </call>
     </service>
     <service id="debug.controller_resolver" class="Symfony\Component\HttpKernel\Controller\TraceableControllerResolver">
       <tag name="monolog.logger" channel="request"/>
@@ -1927,22 +1918,6 @@
       <argument>%session.storage.options%</argument>
     </service>
     <service id="session.marshaller" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\IdentityMarshaller"/>
-    <service id="security.csrf.token_generator" class="Symfony\Component\Security\Csrf\TokenGenerator\UriSafeTokenGenerator"/>
-    <service id="security.csrf.token_storage" class="Symfony\Component\Security\Csrf\TokenStorage\SessionTokenStorage">
-      <argument type="service" id="request_stack"/>
-    </service>
-    <service id="security.csrf.token_manager" class="Symfony\Component\Security\Csrf\CsrfTokenManager">
-      <argument type="service" id="security.csrf.token_generator"/>
-      <argument type="service" id="security.csrf.token_storage"/>
-      <argument type="service" id="request_stack" on-invalid="ignore"/>
-    </service>
-    <service id="twig.runtime.security_csrf" class="Symfony\Bridge\Twig\Extension\CsrfRuntime">
-      <tag name="twig.runtime"/>
-      <argument type="service" id="security.csrf.token_manager"/>
-    </service>
-    <service id="twig.extension.security_csrf" class="Symfony\Bridge\Twig\Extension\CsrfExtension">
-      <tag name="twig.extension"/>
-    </service>
     <service id="form.resolved_type_factory" class="Symfony\Component\Form\ResolvedFormTypeFactory"/>
     <service id="form.registry" class="Symfony\Component\Form\FormRegistry">
       <argument type="collection">
@@ -1960,7 +1935,6 @@
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
           <argument type="service" id="form.type_extension.form.http_foundation"/>
           <argument type="service" id="form.type_extension.form.validator"/>
-          <argument type="service" id="form.type_extension.csrf"/>
         </argument>
         <argument key="Symfony\Component\Form\Extension\Core\Type\RepeatedType" type="iterator">
           <argument type="service" id="form.type_extension.repeated.validator"/>
@@ -2030,15 +2004,6 @@
     </service>
     <service id="form.type_extension.submit.validator" class="Symfony\Component\Form\Extension\Validator\Type\SubmitTypeValidatorExtension">
       <tag name="form.type_extension" extended-type="Symfony\Component\Form\Extension\Core\Type\SubmitType"/>
-    </service>
-    <service id="form.type_extension.csrf" class="Symfony\Component\Form\Extension\Csrf\Type\FormTypeCsrfExtension">
-      <tag name="form.type_extension"/>
-      <argument type="service" id="security.csrf.token_manager"/>
-      <argument>true</argument>
-      <argument>_token</argument>
-      <argument>null</argument>
-      <argument>validators</argument>
-      <argument type="service" id="form.server_params"/>
     </service>
     <service id="validator" class="Symfony\Component\Validator\Validator\ValidatorInterface">
       <factory service="validator.builder" method="getValidator"/>
@@ -2967,9 +2932,6 @@
         <argument key="strict_variables">true</argument>
       </argument>
       <call method="addExtension">
-        <argument type="service" id="twig.extension.security_csrf"/>
-      </call>
-      <call method="addExtension">
         <argument type="service" id="twig.extension.profiler"/>
       </call>
       <call method="addExtension">
@@ -3175,7 +3137,7 @@
       <argument>,</argument>
     </service>
     <service id="twig.runtime_loader" class="Twig\RuntimeLoader\ContainerRuntimeLoader">
-      <argument type="service" id=".service_locator.L1OAKmd"/>
+      <argument type="service" id=".service_locator.H84_pZM"/>
     </service>
     <service id="twig.error_renderer.html" class="Symfony\Bridge\Twig\ErrorRenderer\TwigErrorRenderer">
       <argument type="service" id="twig"/>
@@ -3204,7 +3166,7 @@
     <service id="twig.form.renderer" class="Symfony\Component\Form\FormRenderer">
       <tag name="twig.runtime"/>
       <argument type="service" id="twig.form.engine"/>
-      <argument type="service" id="security.csrf.token_manager" on-invalid="null"/>
+      <argument>null</argument>
     </service>
     <service id="twig.command.debug" class="Symfony\Bridge\Twig\Command\DebugCommand">
       <tag name="console.command"/>
@@ -3333,6 +3295,14 @@
         <argument type="collection">
           <argument type="collection">
             <argument key="fixture" type="service" id="App\DataFixtures\ActorFixtures"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+          <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\CategoryFixtures"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+          <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\EquipmentFixtures"/>
             <argument key="groups" type="collection"/>
           </argument>
           <argument type="collection">
@@ -3888,22 +3858,6 @@
         </argument>
         <argument>0</argument>
       </call>
-      <call method="addListener">
-        <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="security.listener.csrf_protection"/>
-          <argument>checkPassport</argument>
-        </argument>
-        <argument>512</argument>
-      </call>
-      <call method="addListener">
-        <argument>Symfony\Component\Security\Http\Event\LogoutEvent</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="security.logout.listener.csrf_token_clearing"/>
-          <argument>onLogout</argument>
-        </argument>
-        <argument>0</argument>
-      </call>
     </service>
     <service id="security.context_listener.0" class="Symfony\Component\Security\Http\Firewall\ContextListener">
       <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse"/>
@@ -4033,6 +3987,10 @@
     <service id=".abstract.instanceof.App\Controller\VinylController" class="App\Controller\VinylController" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\ActorFixtures" class="App\DataFixtures\ActorFixtures" public="true" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\ActorFixtures" class="App\DataFixtures\ActorFixtures" public="true" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\CategoryFixtures" class="App\DataFixtures\CategoryFixtures" public="true" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\CategoryFixtures" class="App\DataFixtures\CategoryFixtures" public="true" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\EquipmentFixtures" class="App\DataFixtures\EquipmentFixtures" public="true" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\EquipmentFixtures" class="App\DataFixtures\EquipmentFixtures" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\MovieFixtures" class="App\DataFixtures\MovieFixtures" public="true" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\MovieFixtures" class="App\DataFixtures\MovieFixtures" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\RoleFixrues" class="App\DataFixtures\RoleFixrues" public="true" autowire="true" abstract="true"/>
@@ -4393,6 +4351,12 @@
         <argument key="loader" type="service_closure" id=".errored..service_locator.xUrKPVU.Symfony\Component\Config\Loader\LoaderInterface"/>
       </argument>
     </service>
+    <service id=".service_locator.7P87fGM" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="category" type="service_closure" id=".errored..service_locator.7P87fGM.App\Entity\Category"/>
+      </argument>
+    </service>
     <service id=".service_locator.7884i71" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -4431,12 +4395,12 @@
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.t50YLiu" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Rg_386K" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\EquipmentController::delete" type="service_closure" id=".service_locator.1eTIucE"/>
-        <argument key="App\Controller\EquipmentController::edit" type="service_closure" id=".service_locator.1eTIucE"/>
-        <argument key="App\Controller\EquipmentController::index" type="service_closure" id=".service_locator.7884i71"/>
+        <argument key="App\Controller\EquipmentController::edit" type="service_closure" id=".service_locator.vRM4WuB"/>
+        <argument key="App\Controller\EquipmentController::filterByCategory" type="service_closure" id=".service_locator.7P87fGM"/>
         <argument key="App\Controller\EquipmentController::new" type="service_closure" id=".service_locator.7884i71"/>
         <argument key="App\Controller\EquipmentController::show" type="service_closure" id=".service_locator.vRM4WuB"/>
         <argument key="App\Controller\MoviesController::edit" type="service_closure" id=".service_locator.I4k6Jea"/>
@@ -4450,8 +4414,8 @@
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.xUrKPVU"/>
         <argument key="kernel::terminate" type="service_closure" id=".service_locator.bRdave9"/>
         <argument key="App\Controller\EquipmentController:delete" type="service_closure" id=".service_locator.1eTIucE"/>
-        <argument key="App\Controller\EquipmentController:edit" type="service_closure" id=".service_locator.1eTIucE"/>
-        <argument key="App\Controller\EquipmentController:index" type="service_closure" id=".service_locator.7884i71"/>
+        <argument key="App\Controller\EquipmentController:edit" type="service_closure" id=".service_locator.vRM4WuB"/>
+        <argument key="App\Controller\EquipmentController:filterByCategory" type="service_closure" id=".service_locator.7P87fGM"/>
         <argument key="App\Controller\EquipmentController:new" type="service_closure" id=".service_locator.7884i71"/>
         <argument key="App\Controller\EquipmentController:show" type="service_closure" id=".service_locator.vRM4WuB"/>
         <argument key="App\Controller\MoviesController:edit" type="service_closure" id=".service_locator.I4k6Jea"/>
@@ -4593,14 +4557,6 @@
       <argument type="service" id="security.access.simple_role_voter"/>
       <argument type="service" id="debug.event_dispatcher"/>
     </service>
-    <service id="security.listener.csrf_protection" class="Symfony\Component\Security\Http\EventListener\CsrfProtectionListener">
-      <tag name="kernel.event_subscriber"/>
-      <argument type="service" id="security.csrf.token_manager"/>
-    </service>
-    <service id="security.logout.listener.csrf_token_clearing" class="Symfony\Component\Security\Http\EventListener\CsrfTokenClearingLogoutListener">
-      <tag name="kernel.event_subscriber"/>
-      <argument type="service" id="security.csrf.token_storage"/>
-    </service>
     <service id="security.ldap_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <argument type="collection"/>
     </service>
@@ -4614,7 +4570,6 @@
         <argument key="request_stack" type="service_closure" id="request_stack" on-invalid="ignore"/>
         <argument key="router" type="service_closure" id="router.default" on-invalid="ignore"/>
         <argument key="security.authorization_checker" type="service_closure" id="security.authorization_checker" on-invalid="ignore"/>
-        <argument key="security.csrf.token_manager" type="service_closure" id="security.csrf.token_manager" on-invalid="ignore"/>
         <argument key="security.token_storage" type="service_closure" id="security.token_storage" on-invalid="ignore"/>
         <argument key="twig" type="service_closure" id="twig" on-invalid="ignore"/>
       </argument>
@@ -4798,12 +4753,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.t50YLiu"/>
+      <argument type="service" id=".service_locator.Rg_386K"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.t50YLiu"/>
+      <argument type="service" id=".service_locator.Rg_386K"/>
     </service>
     <service id=".doctrine.orm.default_metadata_driver.inner" class="Doctrine\Persistence\Mapping\Driver\MappingDriverChain">
       <call method="addDriver">
@@ -4813,6 +4768,7 @@
     </service>
     <service id=".errored..service_locator.bRdave9.Symfony\Component\HttpFoundation\Response" class="Symfony\Component\HttpFoundation\Response"/>
     <service id=".errored..service_locator.xUrKPVU.Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface"/>
+    <service id=".errored..service_locator.7P87fGM.App\Entity\Category" class="App\Entity\Category"/>
     <service id=".errored..service_locator.vRM4WuB.App\Entity\Equipment" class="App\Entity\Equipment"/>
     <service id=".errored..service_locator.1eTIucE.App\Entity\Equipment" class="App\Entity\Equipment"/>
     <service id=".errored..service_locator.I4k6Jea.App\Entity\Movie" class="App\Entity\Movie"/>
@@ -5375,10 +5331,9 @@
         <argument key="maker.auto_command.make_stimulus_controller" type="service_closure" id=".maker.auto_command.make_stimulus_controller.lazy"/>
       </argument>
     </service>
-    <service id=".service_locator.L1OAKmd" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.H84_pZM" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="Symfony\Bridge\Twig\Extension\CsrfRuntime" type="service_closure" id="twig.runtime.security_csrf"/>
         <argument key="Symfony\Bridge\Twig\Extension\HttpKernelRuntime" type="service_closure" id="twig.runtime.httpkernel"/>
         <argument key="Symfony\Component\Form\FormRenderer" type="service_closure" id="twig.form.renderer"/>
       </argument>
@@ -5434,9 +5389,6 @@
     <service id="SessionHandlerInterface" alias="session.handler.native_file"/>
     <service id="session.storage.factory" alias="session.storage.factory.native"/>
     <service id="session.handler" alias="session.handler.native_file"/>
-    <service id="Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface" alias="security.csrf.token_generator"/>
-    <service id="Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface" alias="security.csrf.token_storage"/>
-    <service id="Symfony\Component\Security\Csrf\CsrfTokenManagerInterface" alias="security.csrf.token_manager"/>
     <service id="Symfony\Component\Form\ResolvedFormTypeFactoryInterface" alias="form.resolved_type_factory"/>
     <service id="Symfony\Component\Form\FormRegistryInterface" alias="form.registry"/>
     <service id="Symfony\Component\Form\FormFactoryInterface" alias="form.factory"/>
@@ -5489,14 +5441,14 @@
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.t50YLiu"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.Rg_386K"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
     <service id=".service_locator.XDGmiR3" alias=".1_ServiceLocator~ocDvnZv"/>
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
     <service id=".service_locator.riGN6sa" alias=".service_locator.YU8H6ve"/>
-    <service id=".service_locator.plYXS5n" alias=".service_locator.t50YLiu"/>
+    <service id=".service_locator.84cC2kE" alias=".service_locator.Rg_386K"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
     <service id=".service_locator.5IpFq9X" alias=".service_locator.7wG2B14"/>
     <service id=".service_locator.qBCHs1a" alias=".service_locator.QXcJQkF"/>
@@ -5521,13 +5473,14 @@
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id=".service_locator.FatRZu2" alias=".service_locator.bRdave9"/>
     <service id=".service_locator.uo5c0SP" alias=".service_locator.xUrKPVU"/>
+    <service id=".service_locator.u.sw5uD" alias=".service_locator.7P87fGM"/>
     <service id=".service_locator.6tca0Co" alias=".service_locator.7884i71"/>
     <service id=".service_locator.Imi2_V_" alias=".service_locator.vRM4WuB"/>
     <service id=".service_locator.rLrbgI0" alias=".service_locator.1eTIucE"/>
     <service id=".service_locator.tgj_Nwx" alias=".service_locator.I4k6Jea"/>
     <service id=".service_locator.DoCD.2o" alias=".service_locator.YU8H6ve"/>
     <service id=".service_locator.URfgn8g" alias=".service_locator.zFcJjKU"/>
-    <service id=".service_locator.Glg4Sov" alias=".service_locator.jIxfAsi"/>
+    <service id=".service_locator.Vw1E2zF" alias=".service_locator.jIxfAsi"/>
     <service id=".service_locator.u6DWx23" alias=".service_locator.cXsfP3P"/>
     <service id=".service_locator.aa1PbBb" alias=".service_locator.nLgZj7R"/>
   </services>

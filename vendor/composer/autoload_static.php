@@ -429,13 +429,19 @@ class ComposerStaticInitf6f4030e29ebaf36eb20584abb9fbc60
     );
 
     public static $classMap = array (
+        'App\\Controller\\EquipmentController' => __DIR__ . '/../..' . '/src/Controller/EquipmentController.php',
         'App\\Controller\\MovieController' => __DIR__ . '/../..' . '/src/Controller/MovieController.php',
         'App\\Controller\\MoviesController' => __DIR__ . '/../..' . '/src/Controller/MoviesController.php',
         'App\\Controller\\RegistrationController' => __DIR__ . '/../..' . '/src/Controller/RegistrationController.php',
         'App\\Controller\\SecurityController' => __DIR__ . '/../..' . '/src/Controller/SecurityController.php',
+        'App\\Controller\\TokenAuthenticatedControllerr' => __DIR__ . '/../..' . '/src/Controller/TokenAuthenticatedControllerr.php',
         'App\\Controller\\VinylController' => __DIR__ . '/../..' . '/src/Controller/VinylController.php',
         'App\\DataFixtures\\ActorFixtures' => __DIR__ . '/../..' . '/src/DataFixtures/ActorFixtures.php',
+        'App\\DataFixtures\\CategoryFixtures' => __DIR__ . '/../..' . '/src/DataFixtures/CategoryFixtures.php',
+        'App\\DataFixtures\\EquipmentFixtures' => __DIR__ . '/../..' . '/src/DataFixtures/EquipmentFixtures.php',
         'App\\DataFixtures\\MovieFixtures' => __DIR__ . '/../..' . '/src/DataFixtures/MovieFixtures.php',
+        'App\\DataFixtures\\RoleFixrues' => __DIR__ . '/../..' . '/src/DataFixtures/RoleFixrues.php',
+        'App\\DataFixtures\\UserFixrues' => __DIR__ . '/../..' . '/src/DataFixtures/UserFixrues.php',
         'App\\Entity\\Actor' => __DIR__ . '/../..' . '/src/Entity/Actor.php',
         'App\\Entity\\Assign' => __DIR__ . '/../..' . '/src/Entity/Assign.php',
         'App\\Entity\\AssignStatus' => __DIR__ . '/../..' . '/src/Entity/AssignStatus.php',
@@ -445,6 +451,8 @@ class ComposerStaticInitf6f4030e29ebaf36eb20584abb9fbc60
         'App\\Entity\\Role' => __DIR__ . '/../..' . '/src/Entity/Role.php',
         'App\\Entity\\Studio' => __DIR__ . '/../..' . '/src/Entity/Studio.php',
         'App\\Entity\\User' => __DIR__ . '/../..' . '/src/Entity/User.php',
+        'App\\EventSubscriber\\JWTSubscriber' => __DIR__ . '/../..' . '/src/EventSubscriber/JWTSubscriber.php',
+        'App\\Form\\EquipmentType' => __DIR__ . '/../..' . '/src/Form/EquipmentType.php',
         'App\\Form\\MovieFormType' => __DIR__ . '/../..' . '/src/Form/MovieFormType.php',
         'App\\Form\\RegistrationFormType' => __DIR__ . '/../..' . '/src/Form/RegistrationFormType.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',

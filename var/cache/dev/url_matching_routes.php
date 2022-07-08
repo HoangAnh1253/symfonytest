@@ -22,26 +22,28 @@ return [
     [ // $regexpList
         0 => '{^(?'
                 .'|/_error/(\\d+)(?:\\.([^/]++))?(*:35)'
-                .'|/equipments/([^/]++)(?'
-                    .'|(*:65)'
-                    .'|/edit(*:77)'
-                    .'|(*:84)'
+                .'|/equipments/(?'
+                    .'|category/([^/]++)(*:74)'
+                    .'|([^/]++)(*:89)'
+                    .'|api/([^/]++)/edit(*:113)'
+                    .'|([^/]++)(*:129)'
                 .')'
                 .'|/movies/(?'
-                    .'|edit/([^/]++)(*:116)'
-                    .'|([^/]++)(*:132)'
+                    .'|edit/([^/]++)(*:162)'
+                    .'|([^/]++)(*:178)'
                 .')'
-                .'|/browse(?:/([^/]++))?(*:162)'
+                .'|/browse(?:/([^/]++))?(*:208)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
         35 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
-        65 => [[['_route' => 'app_equipment_show', '_controller' => 'App\\Controller\\EquipmentController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        77 => [[['_route' => 'app_equipment_edit', '_controller' => 'App\\Controller\\EquipmentController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        84 => [[['_route' => 'app_equipment_delete', '_controller' => 'App\\Controller\\EquipmentController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        116 => [[['_route' => 'editMovie', '_controller' => 'App\\Controller\\MoviesController::edit'], ['movie'], null, null, false, true, null]],
-        132 => [[['_route' => 'app_movies_show', '_controller' => 'App\\Controller\\MoviesController::show'], ['movie'], null, null, false, true, null]],
-        162 => [
+        74 => [[['_route' => 'app_equipment_filter_by_category', '_controller' => 'App\\Controller\\EquipmentController::filterByCategory'], ['category'], ['GET' => 0], null, false, true, null]],
+        89 => [[['_route' => 'app_equipment_show', '_controller' => 'App\\Controller\\EquipmentController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        113 => [[['_route' => 'app_equipment_edit', '_controller' => 'App\\Controller\\EquipmentController::edit'], ['equipment'], ['GET' => 0, 'POST' => 1, 'PATCH' => 2], null, false, false, null]],
+        129 => [[['_route' => 'app_equipment_delete', '_controller' => 'App\\Controller\\EquipmentController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        162 => [[['_route' => 'editMovie', '_controller' => 'App\\Controller\\MoviesController::edit'], ['movie'], null, null, false, true, null]],
+        178 => [[['_route' => 'app_movies_show', '_controller' => 'App\\Controller\\MoviesController::show'], ['movie'], null, null, false, true, null]],
+        208 => [
             [['_route' => 'app_vinyl_browse', 'name' => null, '_controller' => 'App\\Controller\\VinylController::Browse'], ['name'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

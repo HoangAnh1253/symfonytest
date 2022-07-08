@@ -6,13 +6,19 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Controller\\EquipmentController' => $baseDir . '/src/Controller/EquipmentController.php',
     'App\\Controller\\MovieController' => $baseDir . '/src/Controller/MovieController.php',
     'App\\Controller\\MoviesController' => $baseDir . '/src/Controller/MoviesController.php',
     'App\\Controller\\RegistrationController' => $baseDir . '/src/Controller/RegistrationController.php',
     'App\\Controller\\SecurityController' => $baseDir . '/src/Controller/SecurityController.php',
+    'App\\Controller\\TokenAuthenticatedControllerr' => $baseDir . '/src/Controller/TokenAuthenticatedControllerr.php',
     'App\\Controller\\VinylController' => $baseDir . '/src/Controller/VinylController.php',
     'App\\DataFixtures\\ActorFixtures' => $baseDir . '/src/DataFixtures/ActorFixtures.php',
+    'App\\DataFixtures\\CategoryFixtures' => $baseDir . '/src/DataFixtures/CategoryFixtures.php',
+    'App\\DataFixtures\\EquipmentFixtures' => $baseDir . '/src/DataFixtures/EquipmentFixtures.php',
     'App\\DataFixtures\\MovieFixtures' => $baseDir . '/src/DataFixtures/MovieFixtures.php',
+    'App\\DataFixtures\\RoleFixrues' => $baseDir . '/src/DataFixtures/RoleFixrues.php',
+    'App\\DataFixtures\\UserFixrues' => $baseDir . '/src/DataFixtures/UserFixrues.php',
     'App\\Entity\\Actor' => $baseDir . '/src/Entity/Actor.php',
     'App\\Entity\\Assign' => $baseDir . '/src/Entity/Assign.php',
     'App\\Entity\\AssignStatus' => $baseDir . '/src/Entity/AssignStatus.php',
@@ -22,6 +28,8 @@ return array(
     'App\\Entity\\Role' => $baseDir . '/src/Entity/Role.php',
     'App\\Entity\\Studio' => $baseDir . '/src/Entity/Studio.php',
     'App\\Entity\\User' => $baseDir . '/src/Entity/User.php',
+    'App\\EventSubscriber\\JWTSubscriber' => $baseDir . '/src/EventSubscriber/JWTSubscriber.php',
+    'App\\Form\\EquipmentType' => $baseDir . '/src/Form/EquipmentType.php',
     'App\\Form\\MovieFormType' => $baseDir . '/src/Form/MovieFormType.php',
     'App\\Form\\RegistrationFormType' => $baseDir . '/src/Form/RegistrationFormType.php',
     'App\\Kernel' => $baseDir . '/src/Kernel.php',

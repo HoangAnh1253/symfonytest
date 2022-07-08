@@ -14,22 +14,17 @@ class EquipmentType extends AbstractType
     {
         $builder
         ->add('name', TextType::class,  [
-            'attr' => array(
-                'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
-                'placeholder' => 'Enter title...'
-            ),
             'label' => false,
             'required' => false
         ])
         ->add('description', TextType::class,  [
-            'attr' => array(
-                'class' => 'bg-transparent block border-b-2 w-full h-20 text-6xl outline-none',
-                'placeholder' => 'Enter title...'
-            ),
             'label' => false,
             'required' => false
         ])
-        
+        ->add('category', TextType::class,  [
+            'label' => false,
+            'required' => false
+        ])
         ;
     }
 
