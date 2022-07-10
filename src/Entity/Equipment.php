@@ -4,9 +4,10 @@ namespace App\Entity;
 
 use App\Repository\EquipmentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: EquipmentRepository::class)]
-class Equipment
+class Equipment implements JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -14,6 +15,10 @@ class Equipment
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @Assert\Length(min = 3)
+     * @Assert\NotBlank
+     */
     private $name;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -61,5 +66,16 @@ class Equipment
         $this->category = $category;
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'category' => $this->category->jsonSerialize()
+
+        ];
     }
 }

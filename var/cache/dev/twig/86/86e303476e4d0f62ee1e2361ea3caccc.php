@@ -12,7 +12,7 @@ use Twig\Sandbox\SecurityNotAllowedFunctionError;
 use Twig\Source;
 use Twig\Template;
 
-/* /movies/edit.html.twig */
+/* movies/edit.html.twig */
 class __TwigTemplate_70b7cfb8c8b8b135de04455ac10a7002 extends Template
 {
     private $source;
@@ -39,9 +39,9 @@ class __TwigTemplate_70b7cfb8c8b8b135de04455ac10a7002 extends Template
     {
         $macros = $this->macros;
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "/movies/edit.html.twig"));
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "movies/edit.html.twig"));
 
-        $this->parent = $this->loadTemplate("./base.html.twig", "/movies/edit.html.twig", 1);
+        $this->parent = $this->loadTemplate("./base.html.twig", "movies/edit.html.twig", 1);
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -90,7 +90,7 @@ class __TwigTemplate_70b7cfb8c8b8b135de04455ac10a7002 extends Template
 
     public function getTemplateName()
     {
-        return "/movies/edit.html.twig";
+        return "movies/edit.html.twig";
     }
 
     public function isTraitable()
@@ -125,6 +125,6 @@ class __TwigTemplate_70b7cfb8c8b8b135de04455ac10a7002 extends Template
 
     {{ form_end(form) }}
 </div>
-{% endblock %}", "/movies/edit.html.twig", "/Users/nguyenlamhoanganh/project/symfony/wtf/templates/movies/edit.html.twig");
+{% endblock %}", "movies/edit.html.twig", "/Users/nguyenlamhoanganh/project/symfony/wtf/templates/movies/edit.html.twig");
     }
 }
