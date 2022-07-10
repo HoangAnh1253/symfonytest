@@ -5,6 +5,14 @@
 
 {% block body %}
 	<section class="p-4 my-container">
+		{% if violations is defined %}
+		{% for violation in violations %}
+			<div class="alert alert-danger alert-dismissible" role="alert" style="display: inline-block">
+                    <div>{{ violation.message }}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">X</button>
+        	</div>
+		{% endfor %}
+		{% endif %}
 		<h1>Equipment</h1>
 		<form method="GET" id="search-form">
 			<div class="input-group">

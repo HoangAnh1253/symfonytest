@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\EquipmentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EquipmentRepository::class)]
 class Equipment implements JsonSerializable
@@ -16,12 +17,16 @@ class Equipment implements JsonSerializable
 
     #[ORM\Column(type: 'string', length: 255)]
     /**
-     * @Assert\Length(min = 3)
+     * @Assert\Length(min = 5)
      * @Assert\NotBlank
      */
     private $name;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+     /**
+     * @Assert\Length(min = 5)
+     * @Assert\NotBlank
+     */
     private $description;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'equipment')]
