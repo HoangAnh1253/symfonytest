@@ -10,6 +10,7 @@ return [
     'app_equipment_show' => [['id'], ['_controller' => 'App\\Controller\\EquipmentController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/equipments']], [], [], []],
     'app_equipment_edit' => [['equipment'], ['_controller' => 'App\\Controller\\EquipmentController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'equipment', true], ['text', '/equipments/api']], [], [], []],
     'app_equipment_delete' => [['id'], ['_controller' => 'App\\Controller\\EquipmentController::delete'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/equipments']], [], [], []],
+    'app_equipment_filterbyuser' => [['id'], ['_controller' => 'App\\Controller\\EquipmentController::filterByUser'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/equipments/user']], [], [], []],
     'app_movie' => [[], ['_controller' => 'App\\Controller\\MovieController::index'], [], [['text', '/movie']], [], [], []],
     'movies' => [[], ['_controller' => 'App\\Controller\\MoviesController::index'], [], [['text', '/movies']], [], [], []],
     'app_movies_create' => [[], ['_controller' => 'App\\Controller\\MoviesController::create'], [], [['text', '/movies/create']], [], [], []],

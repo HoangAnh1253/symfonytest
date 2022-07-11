@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EquipmentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -31,6 +33,17 @@ class Equipment implements JsonSerializable
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'equipment')]
     private $category;
+
+    #[ORM\OneToMany(mappedBy: 'equipment', targetEntity: Assign::class)]
+    private $assigns;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isAssigned;
+
+    public function __construct()
+    {
+        $this->assigns = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -82,5 +95,47 @@ class Equipment implements JsonSerializable
             'category' => $this->category->jsonSerialize()
 
         ];
+    }
+
+    /**
+     * @return Collection<int, Assign>
+     */
+    public function getAssigns(): Collection
+    {
+        return $this->assigns;
+    }
+
+    public function addAssign(Assign $assign): self
+    {
+        if (!$this->assigns->contains($assign)) {
+            $this->assigns[] = $assign;
+            $assign->setEquipment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssign(Assign $assign): self
+    {
+        if ($this->assigns->removeElement($assign)) {
+            // set the owning side to null (unless already changed)
+            if ($assign->getEquipment() === $this) {
+                $assign->setEquipment(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isIsAssigned(): ?bool
+    {
+        return $this->isAssigned;
+    }
+
+    public function setIsAssigned(bool $isAssigned): self
+    {
+        $this->isAssigned = $isAssigned;
+
+        return $this;
     }
 }

@@ -22,16 +22,8 @@ class Assign
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'assigns')]
     private $user;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'approves')]
-    private $approver;
-
-    #[ORM\OneToOne(targetEntity: Equipment::class, cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Equipment::class, inversedBy: 'assigns')]
     private $equipment;
-
-    #[ORM\ManyToOne(targetEntity: AssignStatus::class, inversedBy: 'assigns')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $status;
 
     public function getId(): ?int
     {
@@ -74,40 +66,15 @@ class Assign
         return $this;
     }
 
-    public function getApprover(): ?User
-    {
-        return $this->approver;
-    }
-
-    public function setApprover(?User $approver): self
-    {
-        $this->approver = $approver;
-
-        return $this;
-    }
-
     public function getEquipment(): ?Equipment
     {
         return $this->equipment;
     }
 
-    public function setEquipment(Equipment $equipment): self
+    public function setEquipment(?Equipment $equipment): self
     {
         $this->equipment = $equipment;
 
         return $this;
     }
-
-    public function getStatus(): ?AssignStatus
-    {
-        return $this->status;
-    }
-
-    public function setStatus(?AssignStatus $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-  
 }

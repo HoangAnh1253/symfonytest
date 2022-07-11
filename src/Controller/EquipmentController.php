@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Equipment;
+use App\Entity\User;
 use App\Form\EquipmentType;
+use App\Helper\DataValidateHelper;
 use App\Repository\CategoryRepository;
 use App\Repository\EquipmentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +31,7 @@ class EquipmentController extends AbstractController
     private $session;
     
     
-    public function __construct(RequestStack $session, EquipmentRepository $equipmentRepository, CategoryRepository $categoryRepository, EntityManagerInterface $em, ValidatorInterface $validator)
+    public function __construct(RequestStack $session, EquipmentRepository $equipmentRepository, CategoryRepository $categoryRepository, EntityManagerInterface $em, ValidatorInterface $validator, )
     {
         $this->equipmentRepository = $equipmentRepository;
         $this->categoryRepository = $categoryRepository;
@@ -38,21 +41,39 @@ class EquipmentController extends AbstractController
     }
 
     #[Route('/', name: 'app_equipment_index', methods: ['GET'])]
-    public function index(): Response
+    public function index(Request $request,PaginatorInterface $paginator): Response
     {
-        dd($this->session->get('violations'));
+        $queryBuilder = $this->equipmentRepository->getAllQueryBuilder();
+        $equipments = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            5
+        );
+       
+
+        $violations =  $this->session->get('violations');
+        $violations = DataValidateHelper::correctViolationsMessage($violations);
+      
+        $this->session->set('violations', null);
         return $this->renderForm('equipment/index.html.twig', [
-            'equipments' => $this->equipmentRepository->findAll(),
+            'equipments' => $equipments,
             'categories' => $this->categoryRepository->findAll(),
-            'violations' => $this->session->get('violations')
+            'violations' => $violations
         ]);
     }
 
     #[Route('/category/{category}', name: 'app_equipment_filter_by_category', methods: ['GET'])]
-    public function filterByCategory(Category $category)
+    public function filterByCategory(Request $request,Category $category, PaginatorInterface $paginator)
     {
+        $queryBuilder = $this->equipmentRepository->findWithFieldQueryBuilder('category', $category->getId());
+        $equipments =   $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            5
+        );
+         
         return $this->render('equipment/index.html.twig', [
-            'equipments' => $this->equipmentRepository->filterByCategory($category),
+            'equipments' => $equipments,
             'categories' => $this->categoryRepository->findAll()
         ]);
     }
@@ -70,77 +91,72 @@ class EquipmentController extends AbstractController
         $form = $this->createForm(EquipmentType::class, $equipment);
         $form->submit($payload);
 
-        $form->handleRequest($request);
-
         if ($form->isSubmitted() && $isCsrfValid) {
-            $newEquipment = $form->getData();
-            $violations = $this->validator->validate($newEquipment);
+            $violations = $this->validator->validate($equipment);
             if(count($violations) >0)
             {
                 $this->session->set('violations',$violations);
+            }else{
+                $this->em->persist($equipment);
+                $this->em->flush();
             }
-          
-            
-
-            $this->em->persist($newEquipment);
-            $this->em->flush();
             return $this->redirectToRoute('app_equipment_index', []);
         }
     }
 
     #[Route('/{id}', name: 'app_equipment_show', methods: ['GET'])]
-    public function show(Equipment $equipment): Response
+    public function show(Request $request, Equipment $equipment, PaginatorInterface $paginator): Response
     {
-
+        $queryBuilder = $this->equipmentRepository->findWithFieldQueryBuilder('id', $equipment->getId());
+        $equipment =   $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            5
+        );
+        
 
         return $this->render('equipment/index.html.twig', [
-            'equipments' => $this->equipmentRepository->findBy(['id' => $equipment->getId()]),
+            'equipments' => $equipment,
             'categories' => $this->categoryRepository->findAll()
         ]);
     }
 
-    #[Route('/api/{equipment}/edit', name: 'app_equipment_edit', methods: ['GET', 'POST', 'PATCH'])]
+    #[Route('/api/{equipment}/edit', name: 'app_equipment_edit', methods: ['POST', 'PATCH'])]
     public function edit(Request $request, Equipment $equipment): Response
     {
 
         try {
-            $payload = $request->request->all();
-            return $this->json([
-                "a" => $request
-            ]);
+            $payload = json_decode($request->getContent(), true);
+            $payload['category'] = $equipment->getCategory();
+        
             $form = $this->createForm(EquipmentType::class, $equipment);
-
             $form->submit($payload);
-
-            $form->handleRequest($request);
+            
+            if ($form->isSubmitted()) {
+                $this->em->persist($equipment);
+                $this->em->flush();
+                return $this->json($equipment->jsonSerialize());
+            }
+            
         } catch (Exception $e) {
             return $this->json([
-                "a" => $e->getMessage()
+                "error" => $e->getMessage()
             ]);
         }
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $updateInfo = $form->getData();
-            $equipment->setName($updateInfo->getName());
-            $equipment->setDescription($updateInfo->getDescription());
-
-            $this->em->persist($equipment);
-            $this->em->flush();
-
-            return $this->json($equipment->jsonSerialize());
-        }
-        return $this->json([
-            "a" => 'a'
-        ]);
     }
 
-    #[Route('/{id}', name: 'app_equipment_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_equipment_delete', methods: ['DELETE', 'POST'])]
     public function delete(Request $request, Equipment $equipment, EquipmentRepository $equipmentRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $equipment->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete', $request->request->get('token'))) {
             $equipmentRepository->remove($equipment, true);
         }
 
         return $this->redirectToRoute('app_equipment_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/user/{id}', methods: ['GET'])]
+    public function filterByUser(Request $request, User $user){
+        dd($this->equipmentRepository->findEquipmentWithUserQueryBuilder($user)->getQuery()->getResult());
     }
 }

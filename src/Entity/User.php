@@ -44,11 +44,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Role::class, mappedBy: 'users')]
     private $roles;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Assign::class)]
+    private $assigns;
+
 
 
     public function __construct()
     {
         $this->roles = new ArrayCollection();
+        $this->assigns = new ArrayCollection();
     }
 
 
@@ -188,6 +192,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->roles->removeElement($role)) {
             $role->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Assign>
+     */
+    public function getAssigns(): Collection
+    {
+        return $this->assigns;
+    }
+
+    public function addAssign(Assign $assign): self
+    {
+        if (!$this->assigns->contains($assign)) {
+            $this->assigns[] = $assign;
+            $assign->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssign(Assign $assign): self
+    {
+        if ($this->assigns->removeElement($assign)) {
+            // set the owning side to null (unless already changed)
+            if ($assign->getUser() === $this) {
+                $assign->setUser(null);
+            }
         }
 
         return $this;

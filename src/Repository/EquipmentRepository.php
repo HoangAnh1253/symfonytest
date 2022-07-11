@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use App\Entity\Equipment;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -45,28 +47,28 @@ class EquipmentRepository extends ServiceEntityRepository
         return $category->getEquipment();
     }
 
-//    /**
-//     * @return Equipment[] Returns an array of Equipment objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function getAllQueryBuilder(): QueryBuilder{
+        return $this->createQueryBuilder('equipment')->orderBy('equipment.id','ASC');
+    }
 
-//    public function findOneBySomeField($value): ?Equipment
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   /**
+    * @return Equipment[] Returns an array of Equipment objects
+    */
+   public function findWithFieldQueryBuilder($field, $category_id): QueryBuilder
+   {
+       return $this->createQueryBuilder('equipment')
+           ->andWhere("equipment.{$field} = :val")
+           ->setParameter('val', $category_id)
+           ->orderBy('equipment.id', 'ASC')
+       ;
+   }
+
+   public function findEquipmentWithUserQueryBuilder(User $user): QueryBuilder{
+        return $this->createQueryBuilder('e')
+           ->leftJoin("e.assigns", "id")
+           ->andWhere("e.user = :val")
+           ->setParameter('val', $user->getId())
+           ->orderBy('assign.id', 'ASC')
+       ;
+   }
 }
