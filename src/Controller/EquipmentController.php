@@ -7,6 +7,7 @@ use App\Entity\Equipment;
 use App\Entity\User;
 use App\Form\EquipmentType;
 use App\Helper\DataValidateHelper;
+use App\Repository\AssignRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\EquipmentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,18 +27,20 @@ class EquipmentController extends AbstractController
 
     private $equipmentRepository;
     private $categoryRepository;
+    private $assignRepository;
     private $em;
     private $validator;
     private $session;
     
     
-    public function __construct(RequestStack $session, EquipmentRepository $equipmentRepository, CategoryRepository $categoryRepository, EntityManagerInterface $em, ValidatorInterface $validator, )
+    public function __construct(RequestStack $session, AssignRepository $assignRepository, EquipmentRepository $equipmentRepository, CategoryRepository $categoryRepository, EntityManagerInterface $em, ValidatorInterface $validator, )
     {
         $this->equipmentRepository = $equipmentRepository;
         $this->categoryRepository = $categoryRepository;
         $this->em = $em;
         $this->validator = $validator;
         $this->session = $session->getSession();
+        $this->assignRepository = $assignRepository;
     }
 
     #[Route('/', name: 'app_equipment_index', methods: ['GET'])]
@@ -156,7 +159,17 @@ class EquipmentController extends AbstractController
     }
 
     #[Route('/user/{id}', methods: ['GET'])]
-    public function filterByUser(Request $request, User $user){
-        dd($this->equipmentRepository->findEquipmentWithUserQueryBuilder($user)->getQuery()->getResult());
+    public function filterByUser(Request $request, User $user,  PaginatorInterface $paginator){
+        $queryBuilder = $this->equipmentRepository->findEquipmentWithUserQueryBuilder($user);
+        $equipments = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            5
+        );
+
+        return $this->render('equipment/index.html.twig', [
+            'equipments' => $equipments ,
+            'categories' => $this->categoryRepository->findAll()
+        ]);
     }
 }

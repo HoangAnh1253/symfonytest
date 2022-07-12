@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Assign;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
+
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -38,6 +41,19 @@ class AssignRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findEquipmentWithUserQueryBuilder(User $user): QueryBuilder{
+      
+        return $this->createQueryBuilder('a')
+            ->innerJoin("a.equipment", "e")
+            ->innerJoin("e.category", "c")
+           ->select('e.name', 'e.description', 'c.name as asd')
+           ->andWhere("a.user = :val")
+          
+           ->setParameter('val', $user->getId())
+           ->orderBy('a.id', 'ASC')
+       ;
+   }
 
 //    /**
 //     * @return Assign[] Returns an array of Assign objects

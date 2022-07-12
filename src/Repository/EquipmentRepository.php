@@ -64,11 +64,14 @@ class EquipmentRepository extends ServiceEntityRepository
    }
 
    public function findEquipmentWithUserQueryBuilder(User $user): QueryBuilder{
-        return $this->createQueryBuilder('e')
-           ->leftJoin("e.assigns", "id")
-           ->andWhere("e.user = :val")
-           ->setParameter('val', $user->getId())
-           ->orderBy('assign.id', 'ASC')
-       ;
-   }
+      
+    return $this->createQueryBuilder('e')
+        ->innerJoin("e.assigns", "a")
+        ->innerJoin("a.user", "u")
+       ->andWhere("u.id = :val")
+       ->setParameter('val', $user->getId())
+       ->orderBy('e.id', 'ASC')
+   ;
+}
+   
 }

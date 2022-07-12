@@ -20,6 +20,7 @@
       <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
       <parameter key="SecurityBundle">Symfony\Bundle\SecurityBundle\SecurityBundle</parameter>
       <parameter key="KnpPaginatorBundle">Knp\Bundle\PaginatorBundle\KnpPaginatorBundle</parameter>
+      <parameter key="StofDoctrineExtensionsBundle">Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -65,6 +66,10 @@
       <parameter key="KnpPaginatorBundle" type="collection">
         <parameter key="path">D:\hoanganh\symfony\symfonytest\vendor\knplabs\knp-paginator-bundle</parameter>
         <parameter key="namespace">Knp\Bundle\PaginatorBundle</parameter>
+      </parameter>
+      <parameter key="StofDoctrineExtensionsBundle" type="collection">
+        <parameter key="path">D:\hoanganh\symfony\symfonytest\vendor\stof\doctrine-extensions-bundle\src</parameter>
+        <parameter key="namespace">Stof\DoctrineExtensionsBundle</parameter>
       </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
@@ -218,6 +223,20 @@
     <parameter key="knp_paginator.template.sortable">@KnpPaginator/Pagination/sortable_link.html.twig</parameter>
     <parameter key="knp_paginator.page_range">5</parameter>
     <parameter key="knp_paginator.page_limit">null</parameter>
+    <parameter key="stof_doctrine_extensions.listener.softdeleteable.class">Gedmo\SoftDeleteable\SoftDeleteableListener</parameter>
+    <parameter key="stof_doctrine_extensions.default_locale">en_US</parameter>
+    <parameter key="stof_doctrine_extensions.translation_fallback">false</parameter>
+    <parameter key="stof_doctrine_extensions.persist_default_translation">false</parameter>
+    <parameter key="stof_doctrine_extensions.skip_translation_on_load">false</parameter>
+    <parameter key="stof_doctrine_extensions.listener.translatable.class">Gedmo\Translatable\TranslatableListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.timestampable.class">Gedmo\Timestampable\TimestampableListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.blameable.class">Gedmo\Blameable\BlameableListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.sluggable.class">Gedmo\Sluggable\SluggableListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.tree.class">Gedmo\Tree\TreeListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.loggable.class">Gedmo\Loggable\LoggableListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.sortable.class">Gedmo\Sortable\SortableListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.uploadable.class">Gedmo\Uploadable\UploadableListener</parameter>
+    <parameter key="stof_doctrine_extensions.listener.reference_integrity.class">Gedmo\ReferenceIntegrity\ReferenceIntegrityListener</parameter>
     <parameter key="maker.compatible_check.doctrine.supports_attributes">true</parameter>
     <parameter key="console.command.ids" type="collection"/>
   </parameters>
@@ -231,6 +250,7 @@
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <argument type="service" id="request_stack"/>
+      <argument type="service" id="App\Repository\AssignRepository"/>
       <argument type="service" id="App\Repository\EquipmentRepository"/>
       <argument type="service" id="App\Repository\CategoryRepository"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
@@ -315,6 +335,10 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Repository\AssignStatusRepository" class="App\Repository\AssignStatusRepository" public="true" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" public="true" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
@@ -341,6 +365,12 @@
     </service>
     <service id="App\Security\LoginFormAuthenticator" class="App\Security\LoginFormAuthenticator" public="true" autowire="true" autoconfigure="true">
       <argument type="service" id="router.default"/>
+    </service>
+    <service id="gedmo.listener.softdeleteable" class="Gedmo\SoftDeleteable\SoftDeleteableListener" public="true" autowire="true" autoconfigure="true">
+      <tag name="doctrine.event_subscriber" connection="default"/>
+      <call method="setAnnotationReader">
+        <argument type="service" id="annotations.cached_reader"/>
+      </call>
     </service>
     <service id="argument_metadata_factory" class="Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory"/>
     <service id="response_listener" class="Symfony\Component\HttpKernel\EventListener\ResponseListener">
@@ -1706,6 +1736,7 @@
           <argument>D:\hoanganh\symfony\symfonytest\vendor\symfony\webpack-encore-bundle\src/translations</argument>
           <argument>D:\hoanganh\symfony\symfonytest\vendor\doctrine\doctrine-fixtures-bundle/translations</argument>
           <argument>D:\hoanganh\symfony\symfonytest\vendor\symfony\security-bundle/translations</argument>
+          <argument>D:\hoanganh\symfony\symfonytest\vendor\stof\doctrine-extensions-bundle\src/translations</argument>
         </argument>
         <argument key="cache_vary" type="collection">
           <argument key="scanned_directories" type="collection">
@@ -1724,6 +1755,7 @@
             <argument>D:\hoanganh\symfony\symfonytest\vendor\symfony\webpack-encore-bundle\src/translations</argument>
             <argument>D:\hoanganh\symfony\symfonytest\vendor\doctrine\doctrine-fixtures-bundle/translations</argument>
             <argument>D:\hoanganh\symfony\symfonytest\vendor\symfony\security-bundle/translations</argument>
+            <argument>D:\hoanganh\symfony\symfonytest\vendor\stof\doctrine-extensions-bundle\src/translations</argument>
           </argument>
         </argument>
       </argument>
@@ -2421,6 +2453,15 @@
         <argument type="service" id="routing.loader.container"/>
       </call>
       <call method="addLoader">
+        <argument type="service" id="sensio_framework_extra.routing.loader.annot_class"/>
+      </call>
+      <call method="addLoader">
+        <argument type="service" id="sensio_framework_extra.routing.loader.annot_dir"/>
+      </call>
+      <call method="addLoader">
+        <argument type="service" id="sensio_framework_extra.routing.loader.annot_file"/>
+      </call>
+      <call method="addLoader">
         <argument type="service" id="routing.loader.annotation"/>
       </call>
       <call method="addLoader">
@@ -2922,6 +2963,23 @@
       <tag name="container.hot_path"/>
       <argument type="service" id="annotations.cached_reader"/>
     </service>
+    <service id="sensio_framework_extra.routing.loader.annot_class" class="Sensio\Bundle\FrameworkExtraBundle\Routing\AnnotatedRouteControllerLoader">
+      <tag name="routing.loader"/>
+      <argument type="service" id="annotations.cached_reader"/>
+      <deprecated package="sensio/framework-extra-bundle" version="5.2">The "%service_id%" service is deprecated since version 5.2</deprecated>
+    </service>
+    <service id="sensio_framework_extra.routing.loader.annot_dir" class="Symfony\Component\Routing\Loader\AnnotationDirectoryLoader">
+      <tag name="routing.loader"/>
+      <argument type="service" id="file_locator"/>
+      <argument type="service" id="sensio_framework_extra.routing.loader.annot_class"/>
+      <deprecated package="sensio/framework-extra-bundle" version="5.2">The "%service_id%" service is deprecated since version 5.2</deprecated>
+    </service>
+    <service id="sensio_framework_extra.routing.loader.annot_file" class="Symfony\Component\Routing\Loader\AnnotationFileLoader">
+      <tag name="routing.loader"/>
+      <argument type="service" id="file_locator"/>
+      <argument type="service" id="sensio_framework_extra.routing.loader.annot_class"/>
+      <deprecated package="sensio/framework-extra-bundle" version="5.2">The "%service_id%" service is deprecated since version 5.2</deprecated>
+    </service>
     <service id="sensio_framework_extra.converter.listener" class="Sensio\Bundle\FrameworkExtraBundle\EventListener\ParamConverterListener">
       <tag name="kernel.event_subscriber"/>
       <tag name="container.hot_path"/>
@@ -3245,10 +3303,12 @@
       </call>
     </service>
     <service id="doctrine.dbal.default_connection.event_manager" class="Symfony\Bridge\Doctrine\ContainerAwareEventManager">
-      <argument type="service" id=".service_locator.QXcJQkF"/>
+      <argument type="service" id=".service_locator.iex64Fh"/>
       <argument type="collection">
+        <argument>gedmo.listener.softdeleteable</argument>
         <argument>doctrine.orm.listeners.doctrine_dbal_cache_adapter_schema_subscriber</argument>
         <argument>doctrine.orm.listeners.doctrine_token_provider_schema_subscriber</argument>
+        <argument>stof_doctrine_extensions.listener.softdeleteable</argument>
         <argument type="collection">
           <argument type="collection">
             <argument>loadClassMetadata</argument>
@@ -3314,7 +3374,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.ocbFnSO"/>
+      <argument type="service" id=".service_locator.Ygf5yCN"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -3529,6 +3589,10 @@
       <call method="setRepositoryFactory">
         <argument type="service" id="doctrine.orm.container_repository_factory"/>
       </call>
+      <call method="addFilter">
+        <argument>softdeleteable</argument>
+        <argument>Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter</argument>
+      </call>
     </service>
     <service id="doctrine.orm.default_attribute_metadata_driver" class="Doctrine\ORM\Mapping\Driver\AttributeDriver">
       <argument type="collection">
@@ -3549,7 +3613,9 @@
       <tag name="doctrine.event_listener" event="loadClassMetadata"/>
     </service>
     <service id="doctrine.orm.default_manager_configurator" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator">
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument>softdeleteable</argument>
+      </argument>
       <argument type="collection"/>
     </service>
     <service id="doctrine.orm.default_entity_manager" class="Doctrine\ORM\EntityManager" public="true" lazy="true">
@@ -4872,6 +4938,12 @@
       <tag name="twig.extension"/>
       <argument type="service" id="knp_paginator.helper.processor"/>
     </service>
+    <service id="stof_doctrine_extensions.listener.softdeleteable" class="Gedmo\SoftDeleteable\SoftDeleteableListener">
+      <tag name="doctrine.event_subscriber" connection="default"/>
+      <call method="setAnnotationReader">
+        <argument type="service" id="annotations.cached_reader"/>
+      </call>
+    </service>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EquipmentController" class="App\Controller\EquipmentController" public="true" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EquipmentController" class="App\Controller\EquipmentController" public="true" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\EquipmentController" class="App\Controller\EquipmentController" public="true" autowire="true" autoconfigure="true" abstract="true"/>
@@ -4914,6 +4986,8 @@
     <service id=".abstract.instanceof.App\Repository\ActorRepository" class="App\Repository\ActorRepository" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AssignRepository" class="App\Repository\AssignRepository" public="true" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\AssignRepository" class="App\Repository\AssignRepository" public="true" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AssignStatusRepository" class="App\Repository\AssignStatusRepository" public="true" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\AssignStatusRepository" class="App\Repository\AssignStatusRepository" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" public="true" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\EquipmentRepository" class="App\Repository\EquipmentRepository" public="true" autowire="true" abstract="true"/>
@@ -5287,10 +5361,11 @@
         <argument key="equipmentRepository" type="service_closure" id="App\Repository\EquipmentRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.4T4EJFR" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.PykiXDp" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="user" type="service_closure" id=".errored..service_locator.4T4EJFR.App\Entity\User"/>
+        <argument key="paginator" type="service_closure" id="knp_paginator"/>
+        <argument key="user" type="service_closure" id=".errored..service_locator.PykiXDp.App\Entity\User"/>
       </argument>
     </service>
     <service id=".service_locator.I4k6Jea" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -5312,13 +5387,13 @@
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.uNloEjk" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.tnQj_z0" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\EquipmentController::delete" type="service_closure" id=".service_locator.1eTIucE"/>
         <argument key="App\Controller\EquipmentController::edit" type="service_closure" id=".service_locator.vRM4WuB"/>
         <argument key="App\Controller\EquipmentController::filterByCategory" type="service_closure" id=".service_locator.JgSgY5a"/>
-        <argument key="App\Controller\EquipmentController::filterByUser" type="service_closure" id=".service_locator.4T4EJFR"/>
+        <argument key="App\Controller\EquipmentController::filterByUser" type="service_closure" id=".service_locator.PykiXDp"/>
         <argument key="App\Controller\EquipmentController::index" type="service_closure" id=".service_locator..eHqkeB"/>
         <argument key="App\Controller\EquipmentController::show" type="service_closure" id=".service_locator.sKD5.Gs"/>
         <argument key="App\Controller\MoviesController::edit" type="service_closure" id=".service_locator.I4k6Jea"/>
@@ -5334,7 +5409,7 @@
         <argument key="App\Controller\EquipmentController:delete" type="service_closure" id=".service_locator.1eTIucE"/>
         <argument key="App\Controller\EquipmentController:edit" type="service_closure" id=".service_locator.vRM4WuB"/>
         <argument key="App\Controller\EquipmentController:filterByCategory" type="service_closure" id=".service_locator.JgSgY5a"/>
-        <argument key="App\Controller\EquipmentController:filterByUser" type="service_closure" id=".service_locator.4T4EJFR"/>
+        <argument key="App\Controller\EquipmentController:filterByUser" type="service_closure" id=".service_locator.PykiXDp"/>
         <argument key="App\Controller\EquipmentController:index" type="service_closure" id=".service_locator..eHqkeB"/>
         <argument key="App\Controller\EquipmentController:show" type="service_closure" id=".service_locator.sKD5.Gs"/>
         <argument key="App\Controller\MoviesController:edit" type="service_closure" id=".service_locator.I4k6Jea"/>
@@ -5428,19 +5503,22 @@
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="service_closure" id="form.type.form"/>
       </argument>
     </service>
-    <service id=".service_locator.QXcJQkF" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.iex64Fh" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service_closure" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
         <argument key="doctrine.orm.listeners.doctrine_dbal_cache_adapter_schema_subscriber" type="service_closure" id="doctrine.orm.listeners.doctrine_dbal_cache_adapter_schema_subscriber"/>
         <argument key="doctrine.orm.listeners.doctrine_token_provider_schema_subscriber" type="service_closure" id="doctrine.orm.listeners.doctrine_token_provider_schema_subscriber"/>
+        <argument key="gedmo.listener.softdeleteable" type="service_closure" id="gedmo.listener.softdeleteable"/>
+        <argument key="stof_doctrine_extensions.listener.softdeleteable" type="service_closure" id="stof_doctrine_extensions.listener.softdeleteable"/>
       </argument>
     </service>
-    <service id=".service_locator.ocbFnSO" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Ygf5yCN" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\ActorRepository" type="service_closure" id="App\Repository\ActorRepository"/>
         <argument key="App\Repository\AssignRepository" type="service_closure" id="App\Repository\AssignRepository"/>
+        <argument key="App\Repository\AssignStatusRepository" type="service_closure" id="App\Repository\AssignStatusRepository"/>
         <argument key="App\Repository\CategoryRepository" type="service_closure" id="App\Repository\CategoryRepository"/>
         <argument key="App\Repository\EquipmentRepository" type="service_closure" id="App\Repository\EquipmentRepository"/>
         <argument key="App\Repository\MovieRepository" type="service_closure" id="App\Repository\MovieRepository"/>
@@ -5708,12 +5786,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.uNloEjk"/>
+      <argument type="service" id=".service_locator.tnQj_z0"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.uNloEjk"/>
+      <argument type="service" id=".service_locator.tnQj_z0"/>
     </service>
     <service id=".doctrine.orm.default_metadata_driver.inner" class="Doctrine\Persistence\Mapping\Driver\MappingDriverChain">
       <call method="addDriver">
@@ -5727,7 +5805,7 @@
     <service id=".errored..service_locator.sKD5.Gs.App\Entity\Equipment" class="App\Entity\Equipment"/>
     <service id=".errored..service_locator.vRM4WuB.App\Entity\Equipment" class="App\Entity\Equipment"/>
     <service id=".errored..service_locator.1eTIucE.App\Entity\Equipment" class="App\Entity\Equipment"/>
-    <service id=".errored..service_locator.4T4EJFR.App\Entity\User" class="App\Entity\User"/>
+    <service id=".errored..service_locator.PykiXDp.App\Entity\User" class="App\Entity\User"/>
     <service id=".errored..service_locator.I4k6Jea.App\Entity\Movie" class="App\Entity\Movie"/>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>about</argument>
@@ -6456,17 +6534,18 @@
     <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.uNloEjk"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.tnQj_z0"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
     <service id=".service_locator.XDGmiR3" alias=".1_ServiceLocator~ocDvnZv"/>
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
+    <service id=".service_locator.EB6d.1c" alias=".service_locator.PykiXDp"/>
     <service id=".service_locator.riGN6sa" alias=".service_locator.YU8H6ve"/>
-    <service id=".service_locator.hiI0ji7" alias=".service_locator.uNloEjk"/>
+    <service id=".service_locator._iuRYen" alias=".service_locator.tnQj_z0"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
     <service id=".service_locator.5IpFq9X" alias=".service_locator.7wG2B14"/>
-    <service id=".service_locator.qBCHs1a" alias=".service_locator.QXcJQkF"/>
+    <service id=".service_locator.SI2d7ne" alias=".service_locator.iex64Fh"/>
     <service id=".service_locator.O24_MAy" alias=".service_locator.yY.p4P7"/>
     <service id=".service_locator._eRAkJb" alias=".service_locator.jIxfAsi"/>
     <service id="event_dispatcher" alias="debug.event_dispatcher" public="true"/>
@@ -6494,7 +6573,7 @@
     <service id=".service_locator.sngWNkI" alias=".service_locator.sKD5.Gs"/>
     <service id=".service_locator.Imi2_V_" alias=".service_locator.vRM4WuB"/>
     <service id=".service_locator.rLrbgI0" alias=".service_locator.1eTIucE"/>
-    <service id=".service_locator.Zp0NSXM" alias=".service_locator.4T4EJFR"/>
+    <service id=".service_locator.OXx7z.S" alias=".service_locator.PykiXDp"/>
     <service id=".service_locator.tgj_Nwx" alias=".service_locator.I4k6Jea"/>
     <service id=".service_locator.DoCD.2o" alias=".service_locator.YU8H6ve"/>
     <service id=".service_locator.URfgn8g" alias=".service_locator.zFcJjKU"/>

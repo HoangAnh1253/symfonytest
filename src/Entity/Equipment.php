@@ -8,10 +8,26 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteable;
+
 
 #[ORM\Entity(repositoryClass: EquipmentRepository::class)]
+
+/**
+ * Equipment
+ *
+ * 
+ * 
+ *
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * 
+ */
 class Equipment implements JsonSerializable
 {
+    use SoftDeleteableEntity; 
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -39,6 +55,13 @@ class Equipment implements JsonSerializable
 
     #[ORM\Column(type: 'boolean')]
     private $isAssigned;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    /**
+    * @var \DateTime
+    * @ORM\Column(type="datetime")
+    */
+    private $deleteAt;
 
     public function __construct()
     {
@@ -135,6 +158,18 @@ class Equipment implements JsonSerializable
     public function setIsAssigned(bool $isAssigned): self
     {
         $this->isAssigned = $isAssigned;
+
+        return $this;
+    }
+
+    public function getDeleteAt(): ?\DateTimeInterface
+    {
+        return $this->deleteAt;
+    }
+
+    public function setDeleteAt(?\DateTimeInterface $deleteAt): self
+    {
+        $this->deleteAt = $deleteAt;
 
         return $this;
     }
