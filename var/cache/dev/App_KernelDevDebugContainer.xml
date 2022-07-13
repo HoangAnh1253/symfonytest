@@ -255,6 +255,7 @@
       <argument type="service" id="App\Repository\CategoryRepository"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <argument type="service" id="validator"/>
+      <argument type="service" id="App\Repository\UserRepository"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.jIxfAsi.App\Controller\EquipmentController"/>
       </call>
@@ -5354,13 +5355,6 @@
         <argument key="equipment" type="service_closure" id=".errored..service_locator.vRM4WuB.App\Entity\Equipment"/>
       </argument>
     </service>
-    <service id=".service_locator.1eTIucE" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="equipment" type="service_closure" id=".errored..service_locator.1eTIucE.App\Entity\Equipment"/>
-        <argument key="equipmentRepository" type="service_closure" id="App\Repository\EquipmentRepository"/>
-      </argument>
-    </service>
     <service id=".service_locator.PykiXDp" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5387,15 +5381,17 @@
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.tnQj_z0" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.a34KPL1" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="App\Controller\EquipmentController::delete" type="service_closure" id=".service_locator.1eTIucE"/>
+        <argument key="App\Controller\EquipmentController::assign" type="service_closure" id=".service_locator.vRM4WuB"/>
+        <argument key="App\Controller\EquipmentController::delete" type="service_closure" id=".service_locator.vRM4WuB"/>
         <argument key="App\Controller\EquipmentController::edit" type="service_closure" id=".service_locator.vRM4WuB"/>
         <argument key="App\Controller\EquipmentController::filterByCategory" type="service_closure" id=".service_locator.JgSgY5a"/>
         <argument key="App\Controller\EquipmentController::filterByUser" type="service_closure" id=".service_locator.PykiXDp"/>
         <argument key="App\Controller\EquipmentController::index" type="service_closure" id=".service_locator..eHqkeB"/>
         <argument key="App\Controller\EquipmentController::show" type="service_closure" id=".service_locator.sKD5.Gs"/>
+        <argument key="App\Controller\EquipmentController::unAssign" type="service_closure" id=".service_locator.vRM4WuB"/>
         <argument key="App\Controller\MoviesController::edit" type="service_closure" id=".service_locator.I4k6Jea"/>
         <argument key="App\Controller\MoviesController::show" type="service_closure" id=".service_locator.I4k6Jea"/>
         <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.YU8H6ve"/>
@@ -5406,12 +5402,14 @@
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.xUrKPVU"/>
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.xUrKPVU"/>
         <argument key="kernel::terminate" type="service_closure" id=".service_locator.bRdave9"/>
-        <argument key="App\Controller\EquipmentController:delete" type="service_closure" id=".service_locator.1eTIucE"/>
+        <argument key="App\Controller\EquipmentController:assign" type="service_closure" id=".service_locator.vRM4WuB"/>
+        <argument key="App\Controller\EquipmentController:delete" type="service_closure" id=".service_locator.vRM4WuB"/>
         <argument key="App\Controller\EquipmentController:edit" type="service_closure" id=".service_locator.vRM4WuB"/>
         <argument key="App\Controller\EquipmentController:filterByCategory" type="service_closure" id=".service_locator.JgSgY5a"/>
         <argument key="App\Controller\EquipmentController:filterByUser" type="service_closure" id=".service_locator.PykiXDp"/>
         <argument key="App\Controller\EquipmentController:index" type="service_closure" id=".service_locator..eHqkeB"/>
         <argument key="App\Controller\EquipmentController:show" type="service_closure" id=".service_locator.sKD5.Gs"/>
+        <argument key="App\Controller\EquipmentController:unAssign" type="service_closure" id=".service_locator.vRM4WuB"/>
         <argument key="App\Controller\MoviesController:edit" type="service_closure" id=".service_locator.I4k6Jea"/>
         <argument key="App\Controller\MoviesController:show" type="service_closure" id=".service_locator.I4k6Jea"/>
         <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.YU8H6ve"/>
@@ -5786,12 +5784,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.tnQj_z0"/>
+      <argument type="service" id=".service_locator.a34KPL1"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.tnQj_z0"/>
+      <argument type="service" id=".service_locator.a34KPL1"/>
     </service>
     <service id=".doctrine.orm.default_metadata_driver.inner" class="Doctrine\Persistence\Mapping\Driver\MappingDriverChain">
       <call method="addDriver">
@@ -5804,7 +5802,6 @@
     <service id=".errored..service_locator.JgSgY5a.App\Entity\Category" class="App\Entity\Category"/>
     <service id=".errored..service_locator.sKD5.Gs.App\Entity\Equipment" class="App\Entity\Equipment"/>
     <service id=".errored..service_locator.vRM4WuB.App\Entity\Equipment" class="App\Entity\Equipment"/>
-    <service id=".errored..service_locator.1eTIucE.App\Entity\Equipment" class="App\Entity\Equipment"/>
     <service id=".errored..service_locator.PykiXDp.App\Entity\User" class="App\Entity\User"/>
     <service id=".errored..service_locator.I4k6Jea.App\Entity\Movie" class="App\Entity\Movie"/>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
@@ -6534,7 +6531,7 @@
     <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.tnQj_z0"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.a34KPL1"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
@@ -6542,7 +6539,7 @@
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
     <service id=".service_locator.EB6d.1c" alias=".service_locator.PykiXDp"/>
     <service id=".service_locator.riGN6sa" alias=".service_locator.YU8H6ve"/>
-    <service id=".service_locator._iuRYen" alias=".service_locator.tnQj_z0"/>
+    <service id=".service_locator.fKy7k6Y" alias=".service_locator.a34KPL1"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
     <service id=".service_locator.5IpFq9X" alias=".service_locator.7wG2B14"/>
     <service id=".service_locator.SI2d7ne" alias=".service_locator.iex64Fh"/>
@@ -6572,7 +6569,6 @@
     <service id=".service_locator.RCit_5_" alias=".service_locator.JgSgY5a"/>
     <service id=".service_locator.sngWNkI" alias=".service_locator.sKD5.Gs"/>
     <service id=".service_locator.Imi2_V_" alias=".service_locator.vRM4WuB"/>
-    <service id=".service_locator.rLrbgI0" alias=".service_locator.1eTIucE"/>
     <service id=".service_locator.OXx7z.S" alias=".service_locator.PykiXDp"/>
     <service id=".service_locator.tgj_Nwx" alias=".service_locator.I4k6Jea"/>
     <service id=".service_locator.DoCD.2o" alias=".service_locator.YU8H6ve"/>

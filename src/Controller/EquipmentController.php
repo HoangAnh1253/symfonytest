@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Assign;
 use App\Entity\Category;
 use App\Entity\Equipment;
 use App\Entity\User;
@@ -10,6 +11,8 @@ use App\Helper\DataValidateHelper;
 use App\Repository\AssignRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\EquipmentRepository;
+use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Knp\Component\Pager\PaginatorInterface;
@@ -26,6 +29,7 @@ class EquipmentController extends AbstractController
 {
 
     private $equipmentRepository;
+    private $userRepository;
     private $categoryRepository;
     private $assignRepository;
     private $em;
@@ -33,7 +37,7 @@ class EquipmentController extends AbstractController
     private $session;
     
     
-    public function __construct(RequestStack $session, AssignRepository $assignRepository, EquipmentRepository $equipmentRepository, CategoryRepository $categoryRepository, EntityManagerInterface $em, ValidatorInterface $validator, )
+    public function __construct(RequestStack $session, AssignRepository $assignRepository, EquipmentRepository $equipmentRepository, CategoryRepository $categoryRepository, EntityManagerInterface $em, ValidatorInterface $validator, UserRepository $userRepository)
     {
         $this->equipmentRepository = $equipmentRepository;
         $this->categoryRepository = $categoryRepository;
@@ -41,6 +45,7 @@ class EquipmentController extends AbstractController
         $this->validator = $validator;
         $this->session = $session->getSession();
         $this->assignRepository = $assignRepository;
+        $this->userRepository = $userRepository;
     }
 
     #[Route('/', name: 'app_equipment_index', methods: ['GET'])]
@@ -61,12 +66,13 @@ class EquipmentController extends AbstractController
         return $this->renderForm('equipment/index.html.twig', [
             'equipments' => $equipments,
             'categories' => $this->categoryRepository->findAll(),
-            'violations' => $violations
+            'violations' => $violations,
+            'users' => $this->userRepository->findAll()
         ]);
     }
 
     #[Route('/category/{category}', name: 'app_equipment_filter_by_category', methods: ['GET'])]
-    public function filterByCategory(Request $request,Category $category, PaginatorInterface $paginator)
+    public function filterByCategory(Request $request, Category $category, PaginatorInterface $paginator)
     {
         $queryBuilder = $this->equipmentRepository->findWithFieldQueryBuilder('category', $category->getId());
         $equipments =   $paginator->paginate(
@@ -148,11 +154,59 @@ class EquipmentController extends AbstractController
         }
     }
 
+    #[Route('/api/{equipment}/assign', name: 'app_equipment_assign', methods: ['POST', 'PATCH'])]
+    public function assign(Request $request, Equipment $equipment){
+        
+        try{
+            $payload = json_decode($request->getContent(), true);
+            $user = $this->userRepository->find($payload['user_id']);
+            $assign = new Assign();
+            $assign->setUser($user);
+            $assign->setEquipment($equipment);
+            $assign->setStartDate(new DateTime('now'));
+            $this->em->persist($assign);
+            $this->em->flush();
+            
+        }catch (Exception $e) {
+            return $this->json([
+                "error" => $e->getMessage()
+            ]);
+        }
+        return $this->json([
+            'id' => $user->getId(),
+            'name' => $user->getName()
+        ]);
+    }
+
+    #[Route('/api/{equipment}/unassign', name: 'app_equipment_unassign', methods: ['GET'])]
+    public function unAssign(Equipment $equipment){
+        
+        try{
+            $assign = $this->assignRepository->findOneBy([
+                'equipment' => $equipment
+            ]);
+
+            $this->assignRepository->remove($assign, true);
+        }catch (Exception $e) {
+            return $this->json([
+                "error" => $e->getMessage()
+            ]);
+        }
+        return $this->json([
+           'message' => 'success'
+        ]);
+    }
+
+
     #[Route('/{id}', name: 'app_equipment_delete', methods: ['DELETE', 'POST'])]
-    public function delete(Request $request, Equipment $equipment, EquipmentRepository $equipmentRepository): Response
+    public function delete(Request $request, Equipment $equipment): Response
     {
         if ($this->isCsrfTokenValid('delete', $request->request->get('token'))) {
-            $equipmentRepository->remove($equipment, true);
+            // $assigns = $equipment->getAssigns()->getValues();
+            // foreach($assigns as $assign){
+            //     $this->assignRepository->remove($assign, true);
+            // }
+            $this->equipmentRepository->remove($equipment, true);
         }
 
         return $this->redirectToRoute('app_equipment_index', [], Response::HTTP_SEE_OTHER);
@@ -160,6 +214,7 @@ class EquipmentController extends AbstractController
 
     #[Route('/user/{id}', methods: ['GET'])]
     public function filterByUser(Request $request, User $user,  PaginatorInterface $paginator){
+        
         $queryBuilder = $this->equipmentRepository->findEquipmentWithUserQueryBuilder($user);
         $equipments = $paginator->paginate(
             $queryBuilder,

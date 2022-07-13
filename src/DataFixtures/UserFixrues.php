@@ -23,7 +23,6 @@ class UserFixrues extends Fixture
         $user0->setPhoneNumber('0377746546');
         $user0->addRole($this->getReference('role1'));
         $user0->addRole($this->getReference('role2'));
-
         $manager->persist($user0);
 
         $user1 = new User();

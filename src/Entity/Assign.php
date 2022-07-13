@@ -5,10 +5,20 @@ namespace App\Entity;
 use App\Repository\AssignRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
+
+/**
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ * 
+ */
 #[ORM\Entity(repositoryClass: AssignRepository::class)]
 class Assign
 {
+
+    use SoftDeleteableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -20,10 +30,10 @@ class Assign
     #[ORM\Column(type: 'date', nullable: true)]
     private $endDate;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'assigns')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'assigns', fetch: "EAGER")]
     private $user;
 
-    #[ORM\ManyToOne(targetEntity: Equipment::class, inversedBy: 'assigns', fetch:"EAGER", cascade: ['remove'])]
+    #[ORM\ManyToOne(targetEntity: Equipment::class, inversedBy: 'assigns', fetch: "EAGER")]
     private $equipment;
 
     public function getId(): ?int

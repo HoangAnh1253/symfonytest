@@ -138,9 +138,10 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
 \t\t\t\t\t<th class=\"text-center\" scope=\"col\">Name</th>
 \t\t\t\t\t<th class=\"text-center\" scope=\"col\">Description</th>
 \t\t\t\t\t<th class=\"text-center\" scope=\"col\">Category</th>
-\t\t\t\t\t";
-        // line 58
-        echo "\t\t\t\t\t<th class=\"text-center\" scope=\"col\" colspan=\"3\">Action</th>
+\t\t\t\t\t<th class=\"text-center\" scope=\"col\">Status</th>
+\t\t\t\t\t\t
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t                    <th class=\"text-center\" scope=\"col\">Using by</th>
+\t\t\t\t\t<th class=\"text-center\" scope=\"col\" colspan=\"3\">Action</th>
 \t\t\t\t</tr>
 \t\t\t</thead>
 \t\t\t<tbody id=\"equipment-table-body\">
@@ -170,21 +171,47 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
             // line 67
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "category", [], "any", false, false, false, 67), "name", [], "any", false, false, false, 67), "html", null, true);
             echo "</td>
-
-\t\t\t\t\t\t";
-            // line 74
+\t\t\t\t\t\t<td class=\"text-center equipStatus\">";
+            // line 68
+            echo ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "assigns", [], "any", false, false, false, 68), "first", [], "any", false, false, false, 68)) ? ("used") : ("available"));
+            echo "</td>
+                    \t<td class=\"text-center equipUser\">
+                       \t ";
+            // line 70
+            ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "assigns", [], "any", false, false, false, 70), "first", [], "any", false, false, false, 70)) ? (print (twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "assigns", [], "any", false, false, false, 70), "first", [], "any", false, false, false, 70), "user", [], "any", false, false, false, 70), "name", [], "any", false, false, false, 70), "html", null, true))) : (print ("")));
             echo "
+                    \t</td>\t\t
+\t\t\t\t\t
 \t\t\t\t\t\t<td class=\"text-right\">
 \t\t\t\t\t\t\t<button onclick=\"addDataToModel('";
-            // line 76
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "id", [], "any", false, false, false, 76), "html", null, true);
+            // line 74
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "id", [], "any", false, false, false, 74), "html", null, true);
             echo "','edit')\" value=\"1\" class=\"btn btn-success text-center\" data-bs-toggle=\"modal\" data-bs-target=\"#editEquipModal\">
 \t\t\t\t\t\t\t\t<i class=\"fas fa-pen-to-square\"></i>Edit</button>
 \t\t\t\t\t\t</td>
+\t\t\t\t\t\t<td class=\"text-center\">
+                            <button onclick=\"openAssignModal(";
+            // line 78
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "id", [], "any", false, false, false, 78), "html", null, true);
+            echo ")\" class=\"btn btn-warning\"
+                                data-bs-toggle=\"modal\" data-bs-target=\"#assignEquipModal\"
+                                ";
+            // line 80
+            echo ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "assigns", [], "any", false, false, false, 80), "first", [], "any", false, false, false, 80)) ? ("hidden") : (""));
+            echo "><i
+                                    class=\"fas fa-user-check\"></i>Assign</button>
+                            <button onclick=\"unAssignEquipment(this.parentNode.parentNode.id,this)\"
+                                class=\"btn btn-secondary unassign-btn\"
+                                ";
+            // line 84
+            echo ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "assigns", [], "any", false, false, false, 84), "first", [], "any", false, false, false, 84)) ? ("") : ("hidden"));
+            echo "><i
+                                    class=\"fas fa-user-xmark\"></i>Unassigned</button>
+                        </td>
 \t\t\t\t\t\t<td>
 \t\t\t\t\t\t\t<button  onclick=\"addDataToModel('";
-            // line 80
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "id", [], "any", false, false, false, 80), "html", null, true);
+            // line 88
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "id", [], "any", false, false, false, 88), "html", null, true);
             echo "','delete')\" class=\"btn btn-danger text-center\" data-bs-toggle=\"modal\" data-bs-target=\"#deleteEquipModal\">Delete</button>
 
 \t\t\t\t\t\t</td>
@@ -193,7 +220,7 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
             $context['_iterated'] = true;
         }
         if (!$context['_iterated']) {
-            // line 85
+            // line 93
             echo "\t\t\t\t\t<tr>
 \t\t\t\t\t\t<td colspan=\"4\">no records found</td>
 \t\t\t\t\t</tr>
@@ -202,12 +229,12 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['equipment'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 89
+        // line 97
         echo "\t\t\t</tbody>
 \t\t</table>
 \t\t";
-        // line 91
-        echo $this->extensions['Knp\Bundle\PaginatorBundle\Twig\Extension\PaginationExtension']->render($this->env, (isset($context["equipments"]) || array_key_exists("equipments", $context) ? $context["equipments"] : (function () { throw new RuntimeError('Variable "equipments" does not exist.', 91, $this->source); })()));
+        // line 99
+        echo $this->extensions['Knp\Bundle\PaginatorBundle\Twig\Extension\PaginationExtension']->render($this->env, (isset($context["equipments"]) || array_key_exists("equipments", $context) ? $context["equipments"] : (function () { throw new RuntimeError('Variable "equipments" does not exist.', 99, $this->source); })()));
         echo "
 \t</section>
 
@@ -223,7 +250,7 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
 \t\t\t\t<div class=\"modal-body\">
 \t\t\t\t\t<form method=\"POST\" action=\"/equipments/new\" id=\"add-equipment-form\">
 \t\t\t\t\t<input type=\"hidden\" name=\"token\" value=\"";
-        // line 105
+        // line 113
         echo twig_escape_filter($this->env, $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("add-item"), "html", null, true);
         echo "\"/>
 \t\t\t\t\t\t<div class=\"mb-3 form-group\">
@@ -239,22 +266,22 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
 \t\t\t\t\t\t\t<label for=\"add-category\" class=\"form-label\">Category</label>
 \t\t\t\t\t\t\t<select id=\"add-category\" class=\"form-select form-select-sm\" aria-label=\".form-select-sm example\">
 \t\t\t\t\t\t\t\t";
-        // line 118
+        // line 126
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["categories"]) || array_key_exists("categories", $context) ? $context["categories"] : (function () { throw new RuntimeError('Variable "categories" does not exist.', 118, $this->source); })()));
+        $context['_seq'] = twig_ensure_traversable((isset($context["categories"]) || array_key_exists("categories", $context) ? $context["categories"] : (function () { throw new RuntimeError('Variable "categories" does not exist.', 126, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["category"]) {
-            // line 119
+            // line 127
             echo "\t\t\t\t\t\t\t\t\t<option value=";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["category"], "id", [], "any", false, false, false, 119), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["category"], "id", [], "any", false, false, false, 127), "html", null, true);
             echo ">";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["category"], "title", [], "any", false, false, false, 119), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["category"], "title", [], "any", false, false, false, 127), "html", null, true);
             echo "</option>
 \t\t\t\t\t\t\t\t";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['category'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 121
+        // line 129
         echo "\t\t\t\t\t\t\t</select>
 \t\t\t\t\t\t</div>
 \t\t\t\t\t</form>
@@ -279,7 +306,7 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
 \t\t\t\t\t<form action=\"\" id=\"edit-form\">
 \t\t\t\t\t\t<div class=\"mb-3\">
 \t\t\t\t\t\t\t<label for=\"edit-name\" class=\"form-label\">Name</label>
-\t\t\t\t\t\t\t<input id=\"edit-name\" type=\"text\" class=\"form-control\" name=\"edit-name\" required>
+\t\t\t\t\t\t\t<input id=\"edit-name\" type=\"text\" class=\"form-control\" name=\"edit-name\" minlength=\"3\" required>
 \t\t\t\t\t\t\t<p style=\"color: red\" hidden id='edit-name-blank-error'>Please fill in this field</p>
 
 \t\t\t\t\t\t</div>
@@ -319,7 +346,7 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
                         <form method=\"POST\" id=\"delete-form\" action=\"\">
 \t\t\t\t\t\t<input type=\"hidden\" name=\"_method\" value=\"DELETE\"/>
 \t\t\t\t\t\t<input type=\"hidden\" name=\"token\" value=\"";
-        // line 184
+        // line 192
         echo twig_escape_filter($this->env, $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("delete"), "html", null, true);
         echo "\"/>
                             <div class=\"mb-3\">
@@ -349,13 +376,43 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
                 </div>
             </div>
         </div>
+\t<!-- Assign Equipment Modal -->
+    \t<div class=\"modal fade\" id=\"assignEquipModal\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\"
+            aria-hidden=\"false\">
+            <div class=\"modal-dialog modal-dialog-centered\">
+                <div class=\"modal-content\">
+                    <div class=\"modal-header\">
+                        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Assign Equipment</h5>
+                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                    </div>
+                    <div class=\"modal-body\">
+                        <div class=\"mb-3 autocomplete\">
+                            <label for=\"assign-euqipment-input\" class=\"form-label\">User's name or ID</label>
+                            <input id=\"assign-equipment-input\" type=\"text\" class=\"form-control\"
+                                name=\"assign-equipment\" value=\"\" placeholder=\"Enter user's name or user's id\">
+                            <p style=\"color: red\" hidden id='assign-blank-error'>Please fill in this field</p>
+                            <p style=\"color: red\" hidden id='assign-notfound-error'>User not found</p>
 
+                        </div>
+                    </div>
+                    <div class=\"modal-footer\">
+                        <button class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Close</button>
+                        <button onclick=\"assignEquipment()\" id=\"assign-confirm\" data-bs-dismiss=\"modal\"
+                            class=\"btn btn-primary\">Save changes
+\t\t\t\t\t\t</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 \t<script>
 equipments = ";
-        // line 214
-        echo json_encode(twig_get_attribute($this->env, $this->source, (isset($context["equipments"]) || array_key_exists("equipments", $context) ? $context["equipments"] : (function () { throw new RuntimeError('Variable "equipments" does not exist.', 214, $this->source); })()), "items", [], "any", false, false, false, 214));
+        // line 249
+        echo json_encode(twig_get_attribute($this->env, $this->source, (isset($context["equipments"]) || array_key_exists("equipments", $context) ? $context["equipments"] : (function () { throw new RuntimeError('Variable "equipments" does not exist.', 249, $this->source); })()), "items", [], "any", false, false, false, 249));
         echo "
-
+users = ";
+        // line 250
+        echo json_encode(((array_key_exists("users", $context)) ? (_twig_default_filter((isset($context["users"]) || array_key_exists("users", $context) ? $context["users"] : (function () { throw new RuntimeError('Variable "users" does not exist.', 250, $this->source); })()), "")) : ("")));
+        echo "
 function searchEquipment() {
 \tsearchForm = \$(\"#search-form\")
 \tsearchInput = \$(\"#search-input\")
@@ -480,8 +537,68 @@ function deleteEquipment(){
     deleteForm.submit()
 }
 
+ function openAssignModal(id) {
+    assignBtn = \$(\"#assign-confirm\");
+    assignBtn.data(\"id\", id)
+}
 
-\t</script>
+async function assignEquipment() {
+
+            id = \$(\"#assign-confirm\").data(\"id\")
+            userId = \$(\"#assign-equipment-input\").val()
+            selectdEquipment = equipments.find(equipment => {
+                return equipment.id == id
+            })
+            
+                payload = {
+                    \"user_id\": userId
+                }
+\t\t\t\tconsole.log(payload)
+
+                response = await axios.patch(`http://127.0.0.1:8000/equipments/api/\${id}/assign`, payload)
+\t\t\t\tconsole.log(response)
+                editedRow = \$(`#\${id}`)
+
+                editedRowUser = editedRow.find(\".equipUser\")
+                editedRowUser.text(`\${response.data.name}`)
+
+\t\t\t\teditedRowStatus = editedRow.find('.equipStatus')
+                editedRowStatus.text('used')
+
+                editedRowUnassignBtn = editedRow.find(\".unassign-btn\")
+                editedRowUnassignBtn.prop(\"hidden\", false)
+
+                editedRowAssignBtn = editedRow.find(\".btn-warning\")
+                editedRowAssignBtn.prop(\"hidden\", true)
+
+                assignModal = \$(\"#assignEquipModal\")
+                assignModal.find(\".btn-secondary\").click()
+            //}
+
+}
+
+async function unAssignEquipment(id) {
+            selectdEquipment = equipments.find(equipment => {
+                return equipment.id == id
+            })
+
+            response = await axios.get(`http://127.0.0.1:8000/equipments/api/\${id}/unassign`)
+            editedRow = \$(`#\${id}`)
+
+            editedRowUser = editedRow.find(\".equipUser\")
+            editedRowUser.text(\"\")
+
+\t\t\teditedRowStatus = editedRow.find('.equipStatus')
+            editedRowStatus.text('available')
+
+\t\t\tunassignBtn = editedRow.find(\".unassign-btn\")
+            unassignBtn.prop(\"hidden\", true)
+
+            assignBtn = editedRow.find(\".btn-warning\")
+            assignBtn.prop(\"hidden\", false)
+}
+
+</script>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -500,7 +617,7 @@ function deleteEquipment(){
 
     public function getDebugInfo()
     {
-        return array (  356 => 214,  323 => 184,  258 => 121,  247 => 119,  243 => 118,  227 => 105,  210 => 91,  206 => 89,  197 => 85,  187 => 80,  180 => 76,  176 => 74,  171 => 67,  167 => 66,  163 => 65,  159 => 64,  154 => 63,  149 => 62,  143 => 58,  113 => 27,  102 => 25,  98 => 24,  85 => 13,  82 => 12,  72 => 8,  69 => 7,  64 => 6,  62 => 5,  59 => 4,  52 => 3,  35 => 1,);
+        return array (  414 => 250,  410 => 249,  350 => 192,  285 => 129,  274 => 127,  270 => 126,  254 => 113,  237 => 99,  233 => 97,  224 => 93,  214 => 88,  207 => 84,  200 => 80,  195 => 78,  188 => 74,  181 => 70,  176 => 68,  172 => 67,  168 => 66,  164 => 65,  160 => 64,  155 => 63,  150 => 62,  113 => 27,  102 => 25,  98 => 24,  85 => 13,  82 => 12,  72 => 8,  69 => 7,  64 => 6,  62 => 5,  59 => 4,  52 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -559,9 +676,9 @@ function deleteEquipment(){
 \t\t\t\t\t<th class=\"text-center\" scope=\"col\">Name</th>
 \t\t\t\t\t<th class=\"text-center\" scope=\"col\">Description</th>
 \t\t\t\t\t<th class=\"text-center\" scope=\"col\">Category</th>
-\t\t\t\t\t{# <th class=\"text-center\" scope=\"col\">Category</th>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t                    <th class=\"text-center\" scope=\"col\">Status</th>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t                    <th class=\"text-center\" scope=\"col\">Using by</th> #}
+\t\t\t\t\t<th class=\"text-center\" scope=\"col\">Status</th>
+\t\t\t\t\t\t
+\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t                    <th class=\"text-center\" scope=\"col\">Using by</th>
 \t\t\t\t\t<th class=\"text-center\" scope=\"col\" colspan=\"3\">Action</th>
 \t\t\t\t</tr>
 \t\t\t</thead>
@@ -572,17 +689,25 @@ function deleteEquipment(){
 \t\t\t\t\t\t<td class=\"equipName text-center\">{{ equipment.name }}</td>
 \t\t\t\t\t\t<td class=\"equipDesc text-center\">{{ equipment.description }}</td>
 \t\t\t\t\t\t<td class=\"equipCategory text-center\">{{ equipment.category.name }}</td>
-
-\t\t\t\t\t\t{# <td class=\"text-center equipCategory\">asd</td>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t                        <td class=\"text-center equipStatus\">asd</td>
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t                        <td class=\"text-center equipUser\">
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t                            asd
-\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t                        </td> #}
-
+\t\t\t\t\t\t<td class=\"text-center equipStatus\">{{ equipment.assigns.first ? 'used' : 'available' }}</td>
+                    \t<td class=\"text-center equipUser\">
+                       \t {{ equipment.assigns.first ? equipment.assigns.first.user.name : '' }}
+                    \t</td>\t\t
+\t\t\t\t\t
 \t\t\t\t\t\t<td class=\"text-right\">
 \t\t\t\t\t\t\t<button onclick=\"addDataToModel('{{ equipment.id }}','edit')\" value=\"1\" class=\"btn btn-success text-center\" data-bs-toggle=\"modal\" data-bs-target=\"#editEquipModal\">
 \t\t\t\t\t\t\t\t<i class=\"fas fa-pen-to-square\"></i>Edit</button>
 \t\t\t\t\t\t</td>
+\t\t\t\t\t\t<td class=\"text-center\">
+                            <button onclick=\"openAssignModal({{ equipment.id }})\" class=\"btn btn-warning\"
+                                data-bs-toggle=\"modal\" data-bs-target=\"#assignEquipModal\"
+                                {{ equipment.assigns.first  ? 'hidden' : '' }}><i
+                                    class=\"fas fa-user-check\"></i>Assign</button>
+                            <button onclick=\"unAssignEquipment(this.parentNode.parentNode.id,this)\"
+                                class=\"btn btn-secondary unassign-btn\"
+                                {{ equipment.assigns.first ? '' : 'hidden' }}><i
+                                    class=\"fas fa-user-xmark\"></i>Unassigned</button>
+                        </td>
 \t\t\t\t\t\t<td>
 \t\t\t\t\t\t\t<button  onclick=\"addDataToModel('{{ equipment.id }}','delete')\" class=\"btn btn-danger text-center\" data-bs-toggle=\"modal\" data-bs-target=\"#deleteEquipModal\">Delete</button>
 
@@ -649,7 +774,7 @@ function deleteEquipment(){
 \t\t\t\t\t<form action=\"\" id=\"edit-form\">
 \t\t\t\t\t\t<div class=\"mb-3\">
 \t\t\t\t\t\t\t<label for=\"edit-name\" class=\"form-label\">Name</label>
-\t\t\t\t\t\t\t<input id=\"edit-name\" type=\"text\" class=\"form-control\" name=\"edit-name\" required>
+\t\t\t\t\t\t\t<input id=\"edit-name\" type=\"text\" class=\"form-control\" name=\"edit-name\" minlength=\"3\" required>
 \t\t\t\t\t\t\t<p style=\"color: red\" hidden id='edit-name-blank-error'>Please fill in this field</p>
 
 \t\t\t\t\t\t</div>
@@ -716,10 +841,37 @@ function deleteEquipment(){
                 </div>
             </div>
         </div>
+\t<!-- Assign Equipment Modal -->
+    \t<div class=\"modal fade\" id=\"assignEquipModal\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\"
+            aria-hidden=\"false\">
+            <div class=\"modal-dialog modal-dialog-centered\">
+                <div class=\"modal-content\">
+                    <div class=\"modal-header\">
+                        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Assign Equipment</h5>
+                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                    </div>
+                    <div class=\"modal-body\">
+                        <div class=\"mb-3 autocomplete\">
+                            <label for=\"assign-euqipment-input\" class=\"form-label\">User's name or ID</label>
+                            <input id=\"assign-equipment-input\" type=\"text\" class=\"form-control\"
+                                name=\"assign-equipment\" value=\"\" placeholder=\"Enter user's name or user's id\">
+                            <p style=\"color: red\" hidden id='assign-blank-error'>Please fill in this field</p>
+                            <p style=\"color: red\" hidden id='assign-notfound-error'>User not found</p>
 
+                        </div>
+                    </div>
+                    <div class=\"modal-footer\">
+                        <button class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Close</button>
+                        <button onclick=\"assignEquipment()\" id=\"assign-confirm\" data-bs-dismiss=\"modal\"
+                            class=\"btn btn-primary\">Save changes
+\t\t\t\t\t\t</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 \t<script>
 equipments = {{ equipments.items | json_encode() | raw }}
-
+users = {{ users|default('') | json_encode() | raw }}
 function searchEquipment() {
 \tsearchForm = \$(\"#search-form\")
 \tsearchInput = \$(\"#search-input\")
@@ -844,8 +996,68 @@ function deleteEquipment(){
     deleteForm.submit()
 }
 
+ function openAssignModal(id) {
+    assignBtn = \$(\"#assign-confirm\");
+    assignBtn.data(\"id\", id)
+}
 
-\t</script>
+async function assignEquipment() {
+
+            id = \$(\"#assign-confirm\").data(\"id\")
+            userId = \$(\"#assign-equipment-input\").val()
+            selectdEquipment = equipments.find(equipment => {
+                return equipment.id == id
+            })
+            
+                payload = {
+                    \"user_id\": userId
+                }
+\t\t\t\tconsole.log(payload)
+
+                response = await axios.patch(`http://127.0.0.1:8000/equipments/api/\${id}/assign`, payload)
+\t\t\t\tconsole.log(response)
+                editedRow = \$(`#\${id}`)
+
+                editedRowUser = editedRow.find(\".equipUser\")
+                editedRowUser.text(`\${response.data.name}`)
+
+\t\t\t\teditedRowStatus = editedRow.find('.equipStatus')
+                editedRowStatus.text('used')
+
+                editedRowUnassignBtn = editedRow.find(\".unassign-btn\")
+                editedRowUnassignBtn.prop(\"hidden\", false)
+
+                editedRowAssignBtn = editedRow.find(\".btn-warning\")
+                editedRowAssignBtn.prop(\"hidden\", true)
+
+                assignModal = \$(\"#assignEquipModal\")
+                assignModal.find(\".btn-secondary\").click()
+            //}
+
+}
+
+async function unAssignEquipment(id) {
+            selectdEquipment = equipments.find(equipment => {
+                return equipment.id == id
+            })
+
+            response = await axios.get(`http://127.0.0.1:8000/equipments/api/\${id}/unassign`)
+            editedRow = \$(`#\${id}`)
+
+            editedRowUser = editedRow.find(\".equipUser\")
+            editedRowUser.text(\"\")
+
+\t\t\teditedRowStatus = editedRow.find('.equipStatus')
+            editedRowStatus.text('available')
+
+\t\t\tunassignBtn = editedRow.find(\".unassign-btn\")
+            unassignBtn.prop(\"hidden\", true)
+
+            assignBtn = editedRow.find(\".btn-warning\")
+            assignBtn.prop(\"hidden\", false)
+}
+
+</script>
 {% endblock %}
 ", "equipment/index.html.twig", "D:\\hoanganh\\symfony\\symfonytest\\templates\\equipment\\index.html.twig");
     }

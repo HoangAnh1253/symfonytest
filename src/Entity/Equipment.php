@@ -50,7 +50,7 @@ class Equipment implements JsonSerializable
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'equipment')]
     private $category;
 
-    #[ORM\OneToMany(mappedBy: 'equipment', targetEntity: Assign::class)]
+    #[ORM\OneToMany(mappedBy: 'equipment', targetEntity: Assign::class, cascade: ['remove'])]
     private $assigns;
 
     #[ORM\Column(type: 'boolean')]

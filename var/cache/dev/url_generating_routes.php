@@ -9,6 +9,8 @@ return [
     'app_equipment_new' => [[], ['_controller' => 'App\\Controller\\EquipmentController::new'], [], [['text', '/equipments/new']], [], [], []],
     'app_equipment_show' => [['id'], ['_controller' => 'App\\Controller\\EquipmentController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/equipments']], [], [], []],
     'app_equipment_edit' => [['equipment'], ['_controller' => 'App\\Controller\\EquipmentController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'equipment', true], ['text', '/equipments/api']], [], [], []],
+    'app_equipment_assign' => [['equipment'], ['_controller' => 'App\\Controller\\EquipmentController::assign'], [], [['text', '/assign'], ['variable', '/', '[^/]++', 'equipment', true], ['text', '/equipments/api']], [], [], []],
+    'app_equipment_unassign' => [['equipment'], ['_controller' => 'App\\Controller\\EquipmentController::unAssign'], [], [['text', '/unassign'], ['variable', '/', '[^/]++', 'equipment', true], ['text', '/equipments/api']], [], [], []],
     'app_equipment_delete' => [['id'], ['_controller' => 'App\\Controller\\EquipmentController::delete'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/equipments']], [], [], []],
     'app_equipment_filterbyuser' => [['id'], ['_controller' => 'App\\Controller\\EquipmentController::filterByUser'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/equipments/user']], [], [], []],
     'app_movie' => [[], ['_controller' => 'App\\Controller\\MovieController::index'], [], [['text', '/movie']], [], [], []],

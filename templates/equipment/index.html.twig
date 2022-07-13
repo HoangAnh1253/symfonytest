@@ -52,9 +52,9 @@
 					<th class="text-center" scope="col">Name</th>
 					<th class="text-center" scope="col">Description</th>
 					<th class="text-center" scope="col">Category</th>
-					{# <th class="text-center" scope="col">Category</th>
-																																																												                    <th class="text-center" scope="col">Status</th>
-																																																												                    <th class="text-center" scope="col">Using by</th> #}
+					<th class="text-center" scope="col">Status</th>
+						
+																																						                    <th class="text-center" scope="col">Using by</th>
 					<th class="text-center" scope="col" colspan="3">Action</th>
 				</tr>
 			</thead>
@@ -65,17 +65,25 @@
 						<td class="equipName text-center">{{ equipment.name }}</td>
 						<td class="equipDesc text-center">{{ equipment.description }}</td>
 						<td class="equipCategory text-center">{{ equipment.category.name }}</td>
-
-						{# <td class="text-center equipCategory">asd</td>
-																																																																								                        <td class="text-center equipStatus">asd</td>
-																																																																								                        <td class="text-center equipUser">
-																																																																								                            asd
-																																																																								                        </td> #}
-
+						<td class="text-center equipStatus">{{ equipment.assigns.first ? 'used' : 'available' }}</td>
+                    	<td class="text-center equipUser">
+                       	 {{ equipment.assigns.first ? equipment.assigns.first.user.name : '' }}
+                    	</td>		
+					
 						<td class="text-right">
 							<button onclick="addDataToModel('{{ equipment.id }}','edit')" value="1" class="btn btn-success text-center" data-bs-toggle="modal" data-bs-target="#editEquipModal">
 								<i class="fas fa-pen-to-square"></i>Edit</button>
 						</td>
+						<td class="text-center">
+                            <button onclick="openAssignModal({{ equipment.id }})" class="btn btn-warning"
+                                data-bs-toggle="modal" data-bs-target="#assignEquipModal"
+                                {{ equipment.assigns.first  ? 'hidden' : '' }}><i
+                                    class="fas fa-user-check"></i>Assign</button>
+                            <button onclick="unAssignEquipment(this.parentNode.parentNode.id,this)"
+                                class="btn btn-secondary unassign-btn"
+                                {{ equipment.assigns.first ? '' : 'hidden' }}><i
+                                    class="fas fa-user-xmark"></i>Unassigned</button>
+                        </td>
 						<td>
 							<button  onclick="addDataToModel('{{ equipment.id }}','delete')" class="btn btn-danger text-center" data-bs-toggle="modal" data-bs-target="#deleteEquipModal">Delete</button>
 
@@ -142,7 +150,7 @@
 					<form action="" id="edit-form">
 						<div class="mb-3">
 							<label for="edit-name" class="form-label">Name</label>
-							<input id="edit-name" type="text" class="form-control" name="edit-name" required>
+							<input id="edit-name" type="text" class="form-control" name="edit-name" minlength="3" required>
 							<p style="color: red" hidden id='edit-name-blank-error'>Please fill in this field</p>
 
 						</div>
@@ -209,10 +217,37 @@
                 </div>
             </div>
         </div>
+	<!-- Assign Equipment Modal -->
+    	<div class="modal fade" id="assignEquipModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Assign Equipment</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3 autocomplete">
+                            <label for="assign-euqipment-input" class="form-label">User's name or ID</label>
+                            <input id="assign-equipment-input" type="text" class="form-control"
+                                name="assign-equipment" value="" placeholder="Enter user's name or user's id">
+                            <p style="color: red" hidden id='assign-blank-error'>Please fill in this field</p>
+                            <p style="color: red" hidden id='assign-notfound-error'>User not found</p>
 
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button onclick="assignEquipment()" id="assign-confirm" data-bs-dismiss="modal"
+                            class="btn btn-primary">Save changes
+						</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 	<script>
 equipments = {{ equipments.items | json_encode() | raw }}
-
+users = {{ users|default('') | json_encode() | raw }}
 function searchEquipment() {
 	searchForm = $("#search-form")
 	searchInput = $("#search-input")
@@ -337,6 +372,66 @@ function deleteEquipment(){
     deleteForm.submit()
 }
 
+ function openAssignModal(id) {
+    assignBtn = $("#assign-confirm");
+    assignBtn.data("id", id)
+}
 
-	</script>
+async function assignEquipment() {
+
+            id = $("#assign-confirm").data("id")
+            userId = $("#assign-equipment-input").val()
+            selectdEquipment = equipments.find(equipment => {
+                return equipment.id == id
+            })
+            
+                payload = {
+                    "user_id": userId
+                }
+				console.log(payload)
+
+                response = await axios.patch(`http://127.0.0.1:8000/equipments/api/${id}/assign`, payload)
+				console.log(response)
+                editedRow = $(`#${id}`)
+
+                editedRowUser = editedRow.find(".equipUser")
+                editedRowUser.text(`${response.data.name}`)
+
+				editedRowStatus = editedRow.find('.equipStatus')
+                editedRowStatus.text('used')
+
+                editedRowUnassignBtn = editedRow.find(".unassign-btn")
+                editedRowUnassignBtn.prop("hidden", false)
+
+                editedRowAssignBtn = editedRow.find(".btn-warning")
+                editedRowAssignBtn.prop("hidden", true)
+
+                assignModal = $("#assignEquipModal")
+                assignModal.find(".btn-secondary").click()
+            //}
+
+}
+
+async function unAssignEquipment(id) {
+            selectdEquipment = equipments.find(equipment => {
+                return equipment.id == id
+            })
+
+            response = await axios.get(`http://127.0.0.1:8000/equipments/api/${id}/unassign`)
+            editedRow = $(`#${id}`)
+
+            editedRowUser = editedRow.find(".equipUser")
+            editedRowUser.text("")
+
+			editedRowStatus = editedRow.find('.equipStatus')
+            editedRowStatus.text('available')
+
+			unassignBtn = editedRow.find(".unassign-btn")
+            unassignBtn.prop("hidden", true)
+
+            assignBtn = editedRow.find(".btn-warning")
+            assignBtn.prop("hidden", false)
+}
+
+</script>
 {% endblock %}
