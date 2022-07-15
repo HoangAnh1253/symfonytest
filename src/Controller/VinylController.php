@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class VinylController extends  AbstractController
 {
-    #[Route('/')]
+    #[Route('/', name: 'dashboard')]
     public  function  homepage(){
 
         $categories = [

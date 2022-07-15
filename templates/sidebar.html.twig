@@ -3,12 +3,16 @@
 		<div class="display-5 font-weight-bold">TMA</div>
 	</a>
 	<ul class="navbar-nav d-flex flex-column  w-100">
-		<li class="nav-item w-100 ">
-			<a class="nav-link text-light pl-4" href="/equipments">Equipments</a>
-		</li>
-		<li class="nav-item w-100 ">
-			<a class="nav-link text-light pl-4" href="">Categories</a>
-		</li>
+		{% for role in app.user.roles %}
+			{% if role == 'ROLE_ADMIN' %}
+				<li class="nav-item w-100 ">
+				<a class="nav-link text-light pl-4" href="/equipments">Equipments</a>
+				</li>
+				<li class="nav-item w-100 ">
+					<a class="nav-link text-light pl-4" href="">Categories</a>
+				</li>
+			{% endif %}
+		{% endfor %}
 		<li class="nav-item w-100 ">
 			<a class="nav-link text-light pl-4" href="">My Equipments</a>
 		</li>

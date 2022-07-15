@@ -53,9 +53,6 @@ class Equipment implements JsonSerializable
     #[ORM\OneToMany(mappedBy: 'equipment', targetEntity: Assign::class, cascade: ['remove'])]
     private $assigns;
 
-    #[ORM\Column(type: 'boolean')]
-    private $isAssigned;
-
     #[ORM\Column(type: 'datetime', nullable: true)]
     /**
     * @var \DateTime
@@ -146,18 +143,6 @@ class Equipment implements JsonSerializable
                 $assign->setEquipment(null);
             }
         }
-
-        return $this;
-    }
-
-    public function isIsAssigned(): ?bool
-    {
-        return $this->isAssigned;
-    }
-
-    public function setIsAssigned(bool $isAssigned): self
-    {
-        $this->isAssigned = $isAssigned;
 
         return $this;
     }

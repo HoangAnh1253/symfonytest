@@ -2,229 +2,134 @@
 
 namespace App\Controller;
 
-use App\Entity\Assign;
+
 use App\Entity\Category;
 use App\Entity\Equipment;
 use App\Entity\User;
-use App\Form\EquipmentType;
-use App\Helper\DataValidateHelper;
-use App\Repository\AssignRepository;
-use App\Repository\CategoryRepository;
-use App\Repository\EquipmentRepository;
-use App\Repository\UserRepository;
-use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
-use Exception;
-use Knp\Component\Pager\PaginatorInterface;
+use App\Service\CategoryService;
+use App\Service\EquipmentService;
+use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validation;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+
 
 #[Route('/equipments')]
-class EquipmentController extends AbstractController
+class EquipmentController  extends AbstractController 
 {
-
-    private $equipmentRepository;
-    private $userRepository;
-    private $categoryRepository;
-    private $assignRepository;
-    private $em;
-    private $validator;
-    private $session;
+    private $equipmentService;
+    private $categoryService;
+    private $userService;
+   
     
     
-    public function __construct(RequestStack $session, AssignRepository $assignRepository, EquipmentRepository $equipmentRepository, CategoryRepository $categoryRepository, EntityManagerInterface $em, ValidatorInterface $validator, UserRepository $userRepository)
+    public function __construct(EquipmentService $equipmentService, CategoryService $categoryService, UserService $userService)
     {
-        $this->equipmentRepository = $equipmentRepository;
-        $this->categoryRepository = $categoryRepository;
-        $this->em = $em;
-        $this->validator = $validator;
-        $this->session = $session->getSession();
-        $this->assignRepository = $assignRepository;
-        $this->userRepository = $userRepository;
+        $this->equipmentService = $equipmentService;
+        $this->categoryService = $categoryService;
+        $this->userService = $userService;
     }
 
     #[Route('/', name: 'app_equipment_index', methods: ['GET'])]
-    public function index(Request $request,PaginatorInterface $paginator): Response
+    public function index(Request $request,): Response
     {
-        $queryBuilder = $this->equipmentRepository->getAllQueryBuilder();
-        $equipments = $paginator->paginate(
-            $queryBuilder,
-            $request->query->getInt('page', 1),
-            5
-        );
-       
 
-        $violations =  $this->session->get('violations');
-        $violations = DataValidateHelper::correctViolationsMessage($violations);
-      
-        $this->session->set('violations', null);
+        $equipments = $this->equipmentService->getAllPaginate($request);
+
+        $violations = $this->equipmentService->getViolations();
+
+        $categories = $this->categoryService->getAll();
+
+        $users = $this->userService->getAll();
+
+        $errors = $this->equipmentService->getErrors();
+       
         return $this->renderForm('equipment/index.html.twig', [
             'equipments' => $equipments,
-            'categories' => $this->categoryRepository->findAll(),
+            'categories' => $categories,
             'violations' => $violations,
-            'users' => $this->userRepository->findAll()
+            'users' => $users,
+            'errors' => $errors
         ]);
     }
 
     #[Route('/category/{category}', name: 'app_equipment_filter_by_category', methods: ['GET'])]
-    public function filterByCategory(Request $request, Category $category, PaginatorInterface $paginator)
+    public function filterByCategory(Request $request, Category $category)
     {
-        $queryBuilder = $this->equipmentRepository->findWithFieldQueryBuilder('category', $category->getId());
-        $equipments =   $paginator->paginate(
-            $queryBuilder,
-            $request->query->getInt('page', 1),
-            5
-        );
+        $equipments = $this->equipmentService->getWherePaginate($request, 'category', $category->getId());
          
         return $this->render('equipment/index.html.twig', [
             'equipments' => $equipments,
-            'categories' => $this->categoryRepository->findAll()
+            'categories' => $this->categoryService->getAll()
         ]);
     }
 
     #[Route('/new', name: 'app_equipment_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
-        $payload = $request->request->all();
-       
-        $isCsrfValid = $this->isCsrfTokenValid('add-item', $payload['token']);
-        unset($payload['token']);
-        $payload['category'] = $this->categoryRepository->find($payload['category']);
-        
-        $equipment = new Equipment();
-        $form = $this->createForm(EquipmentType::class, $equipment);
-        $form->submit($payload);
-
-        if ($form->isSubmitted() && $isCsrfValid) {
-            $violations = $this->validator->validate($equipment);
-            if(count($violations) >0)
-            {
-                $this->session->set('violations',$violations);
-            }else{
-                $this->em->persist($equipment);
-                $this->em->flush();
-            }
-            return $this->redirectToRoute('app_equipment_index', []);
-        }
+        $this->equipmentService->addEquipment($request);
+        return $this->redirectToRoute('app_equipment_index', []);
     }
+    
 
-    #[Route('/{id}', name: 'app_equipment_show', methods: ['GET'])]
-    public function show(Request $request, Equipment $equipment, PaginatorInterface $paginator): Response
+    #[Route('/{equipment}', name: 'app_equipment_show', methods: ['GET'])]
+    public function show(Request $request, Equipment $equipment): Response
     {
-        $queryBuilder = $this->equipmentRepository->findWithFieldQueryBuilder('id', $equipment->getId());
-        $equipment =   $paginator->paginate(
-            $queryBuilder,
-            $request->query->getInt('page', 1),
-            5
-        );
+        $equipment = $this->equipmentService->getWherePaginate($request, 'id', $equipment->getId());
         
-
+        $categories = $this->categoryService->getAll();
+        
         return $this->render('equipment/index.html.twig', [
             'equipments' => $equipment,
-            'categories' => $this->categoryRepository->findAll()
+            'categories' => $categories
         ]);
     }
 
     #[Route('/api/{equipment}/edit', name: 'app_equipment_edit', methods: ['POST', 'PATCH'])]
     public function edit(Request $request, Equipment $equipment): Response
     {
-
-        try {
-            $payload = json_decode($request->getContent(), true);
-            $payload['category'] = $equipment->getCategory();
-        
-            $form = $this->createForm(EquipmentType::class, $equipment);
-            $form->submit($payload);
-            
-            if ($form->isSubmitted()) {
-                $this->em->persist($equipment);
-                $this->em->flush();
-                return $this->json($equipment->jsonSerialize());
-            }
-            
-        } catch (Exception $e) {
-            return $this->json([
-                "error" => $e->getMessage()
-            ]);
-        }
+        $response = $this->equipmentService->editEquipment($request, $equipment);
+        return $this->json($response);
     }
 
     #[Route('/api/{equipment}/assign', name: 'app_equipment_assign', methods: ['POST', 'PATCH'])]
     public function assign(Request $request, Equipment $equipment){
         
-        try{
-            $payload = json_decode($request->getContent(), true);
-            $user = $this->userRepository->find($payload['user_id']);
-            $assign = new Assign();
-            $assign->setUser($user);
-            $assign->setEquipment($equipment);
-            $assign->setStartDate(new DateTime('now'));
-            $this->em->persist($assign);
-            $this->em->flush();
-            
-        }catch (Exception $e) {
-            return $this->json([
-                "error" => $e->getMessage()
-            ]);
-        }
-        return $this->json([
-            'id' => $user->getId(),
-            'name' => $user->getName()
-        ]);
+        $response = $this->equipmentService->assignEquipment($request, $equipment);
+        
+        return $this->json($response);
     }
 
     #[Route('/api/{equipment}/unassign', name: 'app_equipment_unassign', methods: ['GET'])]
     public function unAssign(Equipment $equipment){
         
-        try{
-            $assign = $this->assignRepository->findOneBy([
-                'equipment' => $equipment
-            ]);
+       $response = $this->equipmentService->unAssignEquipment($equipment);
 
-            $this->assignRepository->remove($assign, true);
-        }catch (Exception $e) {
-            return $this->json([
-                "error" => $e->getMessage()
-            ]);
-        }
-        return $this->json([
-           'message' => 'success'
-        ]);
+       return $this->json($response);
     }
 
 
     #[Route('/{id}', name: 'app_equipment_delete', methods: ['DELETE', 'POST'])]
-    public function delete(Request $request, Equipment $equipment): Response
+    public function delete(Request $request,  $id): Response
     {
-        if ($this->isCsrfTokenValid('delete', $request->request->get('token'))) {
-            // $assigns = $equipment->getAssigns()->getValues();
-            // foreach($assigns as $assign){
-            //     $this->assignRepository->remove($assign, true);
-            // }
-            $this->equipmentRepository->remove($equipment, true);
-        }
+        
+        $this->equipmentService->deleteEquipment($request, $id);
 
         return $this->redirectToRoute('app_equipment_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/user/{id}', methods: ['GET'])]
-    public function filterByUser(Request $request, User $user,  PaginatorInterface $paginator){
-        
-        $queryBuilder = $this->equipmentRepository->findEquipmentWithUserQueryBuilder($user);
-        $equipments = $paginator->paginate(
-            $queryBuilder,
-            $request->query->getInt('page', 1),
-            5
-        );
+    public function filterByUser(Request $request, User $user){
+
+        $equipments = $this->equipmentService->getEquipmentOfUserPaginate($request, $user);
+
+        $categories = $this->categoryService->getAll();
 
         return $this->render('equipment/index.html.twig', [
-            'equipments' => $equipments ,
-            'categories' => $this->categoryRepository->findAll()
+            'equipments' => $equipments,
+            'categories' => $categories
         ]);
     }
-}
+    
+}   

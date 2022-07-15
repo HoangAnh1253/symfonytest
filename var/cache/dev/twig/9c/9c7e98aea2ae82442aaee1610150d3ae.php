@@ -59,16 +59,40 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
         echo "\t<section class=\"p-4 my-container\">
 \t\t";
         // line 5
-        if (array_key_exists("violations", $context)) {
+        if (array_key_exists("errors", $context)) {
             // line 6
             echo "\t\t";
             $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable((isset($context["violations"]) || array_key_exists("violations", $context) ? $context["violations"] : (function () { throw new RuntimeError('Variable "violations" does not exist.', 6, $this->source); })()));
-            foreach ($context['_seq'] as $context["_key"] => $context["violation"]) {
+            $context['_seq'] = twig_ensure_traversable((isset($context["errors"]) || array_key_exists("errors", $context) ? $context["errors"] : (function () { throw new RuntimeError('Variable "errors" does not exist.', 6, $this->source); })()));
+            foreach ($context['_seq'] as $context["_key"] => $context["error"]) {
                 // line 7
                 echo "\t\t\t<div class=\"alert alert-danger alert-dismissible\" role=\"alert\" style=\"display: inline-block\">
                     <div>";
                 // line 8
+                echo twig_escape_filter($this->env, $context["error"], "html", null, true);
+                echo "</div>
+                    <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\">X</button>
+        \t</div>
+\t\t";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['error'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 12
+            echo "\t\t";
+        }
+        // line 13
+        echo "\t\t";
+        if (array_key_exists("violations", $context)) {
+            // line 14
+            echo "\t\t";
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable((isset($context["violations"]) || array_key_exists("violations", $context) ? $context["violations"] : (function () { throw new RuntimeError('Variable "violations" does not exist.', 14, $this->source); })()));
+            foreach ($context['_seq'] as $context["_key"] => $context["violation"]) {
+                // line 15
+                echo "\t\t\t<div class=\"alert alert-danger alert-dismissible\" role=\"alert\" style=\"display: inline-block\">
+                    <div>";
+                // line 16
                 echo twig_escape_filter($this->env, $context["violation"], "html", null, true);
                 echo "</div>
                     <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\">X</button>
@@ -78,10 +102,10 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['violation'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 12
+            // line 20
             echo "\t\t";
         }
-        // line 13
+        // line 21
         echo "\t\t<h1>Equipment</h1>
 \t\t<form method=\"GET\" id=\"search-form\">
 \t\t\t<div class=\"input-group\">
@@ -94,22 +118,22 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
 
 \t\t\t\t<a href=\"/equipments\" class=\"btn btn-info\">All</a>
 \t\t\t\t";
-        // line 24
+        // line 32
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["categories"]) || array_key_exists("categories", $context) ? $context["categories"] : (function () { throw new RuntimeError('Variable "categories" does not exist.', 24, $this->source); })()));
+        $context['_seq'] = twig_ensure_traversable((isset($context["categories"]) || array_key_exists("categories", $context) ? $context["categories"] : (function () { throw new RuntimeError('Variable "categories" does not exist.', 32, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["category"]) {
-            // line 25
+            // line 33
             echo "\t\t\t\t\t<a href=\"";
-            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_equipment_filter_by_category", ["category" => twig_get_attribute($this->env, $this->source, $context["category"], "id", [], "any", false, false, false, 25)]), "html", null, true);
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_equipment_filter_by_category", ["category" => twig_get_attribute($this->env, $this->source, $context["category"], "id", [], "any", false, false, false, 33)]), "html", null, true);
             echo "\" class=\"btn btn-info\">";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["category"], "title", [], "any", false, false, false, 25), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["category"], "title", [], "any", false, false, false, 33), "html", null, true);
             echo "</a>
 \t\t\t\t";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['category'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 27
+        // line 35
         echo "\t\t\t</div>
 
 \t\t</form>
@@ -146,72 +170,72 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
 \t\t\t</thead>
 \t\t\t<tbody id=\"equipment-table-body\">
 \t\t\t\t";
-        // line 62
+        // line 70
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["equipments"]) || array_key_exists("equipments", $context) ? $context["equipments"] : (function () { throw new RuntimeError('Variable "equipments" does not exist.', 62, $this->source); })()));
+        $context['_seq'] = twig_ensure_traversable((isset($context["equipments"]) || array_key_exists("equipments", $context) ? $context["equipments"] : (function () { throw new RuntimeError('Variable "equipments" does not exist.', 70, $this->source); })()));
         $context['_iterated'] = false;
         foreach ($context['_seq'] as $context["_key"] => $context["equipment"]) {
-            // line 63
+            // line 71
             echo "\t\t\t\t\t<tr id=\"";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "id", [], "any", false, false, false, 63), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "id", [], "any", false, false, false, 71), "html", null, true);
             echo "\" class=\"table-row\">
 \t\t\t\t\t\t<th class=\"text-center\" scope=\"row\">";
-            // line 64
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "id", [], "any", false, false, false, 64), "html", null, true);
+            // line 72
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "id", [], "any", false, false, false, 72), "html", null, true);
             echo "</th>
 \t\t\t\t\t\t<td class=\"equipName text-center\">";
-            // line 65
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "name", [], "any", false, false, false, 65), "html", null, true);
+            // line 73
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "name", [], "any", false, false, false, 73), "html", null, true);
             echo "</td>
 \t\t\t\t\t\t<td class=\"equipDesc text-center\">";
-            // line 66
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "description", [], "any", false, false, false, 66), "html", null, true);
+            // line 74
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "description", [], "any", false, false, false, 74), "html", null, true);
             echo "</td>
 \t\t\t\t\t\t<td class=\"equipCategory text-center\">";
-            // line 67
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "category", [], "any", false, false, false, 67), "name", [], "any", false, false, false, 67), "html", null, true);
+            // line 75
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "category", [], "any", false, false, false, 75), "name", [], "any", false, false, false, 75), "html", null, true);
             echo "</td>
 \t\t\t\t\t\t<td class=\"text-center equipStatus\">";
-            // line 68
-            echo ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "assigns", [], "any", false, false, false, 68), "first", [], "any", false, false, false, 68)) ? ("used") : ("available"));
+            // line 76
+            echo ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "assigns", [], "any", false, false, false, 76), "first", [], "any", false, false, false, 76)) ? ("used") : ("available"));
             echo "</td>
                     \t<td class=\"text-center equipUser\">
                        \t ";
-            // line 70
-            ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "assigns", [], "any", false, false, false, 70), "first", [], "any", false, false, false, 70)) ? (print (twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "assigns", [], "any", false, false, false, 70), "first", [], "any", false, false, false, 70), "user", [], "any", false, false, false, 70), "name", [], "any", false, false, false, 70), "html", null, true))) : (print ("")));
+            // line 78
+            ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "assigns", [], "any", false, false, false, 78), "first", [], "any", false, false, false, 78)) ? (print (twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "assigns", [], "any", false, false, false, 78), "first", [], "any", false, false, false, 78), "user", [], "any", false, false, false, 78), "name", [], "any", false, false, false, 78), "html", null, true))) : (print ("")));
             echo "
                     \t</td>\t\t
 \t\t\t\t\t
 \t\t\t\t\t\t<td class=\"text-right\">
 \t\t\t\t\t\t\t<button onclick=\"addDataToModel('";
-            // line 74
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "id", [], "any", false, false, false, 74), "html", null, true);
+            // line 82
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "id", [], "any", false, false, false, 82), "html", null, true);
             echo "','edit')\" value=\"1\" class=\"btn btn-success text-center\" data-bs-toggle=\"modal\" data-bs-target=\"#editEquipModal\">
 \t\t\t\t\t\t\t\t<i class=\"fas fa-pen-to-square\"></i>Edit</button>
 \t\t\t\t\t\t</td>
 \t\t\t\t\t\t<td class=\"text-center\">
                             <button onclick=\"openAssignModal(";
-            // line 78
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "id", [], "any", false, false, false, 78), "html", null, true);
+            // line 86
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "id", [], "any", false, false, false, 86), "html", null, true);
             echo ")\" class=\"btn btn-warning\"
                                 data-bs-toggle=\"modal\" data-bs-target=\"#assignEquipModal\"
                                 ";
-            // line 80
-            echo ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "assigns", [], "any", false, false, false, 80), "first", [], "any", false, false, false, 80)) ? ("hidden") : (""));
+            // line 88
+            echo ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "assigns", [], "any", false, false, false, 88), "first", [], "any", false, false, false, 88)) ? ("hidden") : (""));
             echo "><i
                                     class=\"fas fa-user-check\"></i>Assign</button>
                             <button onclick=\"unAssignEquipment(this.parentNode.parentNode.id,this)\"
                                 class=\"btn btn-secondary unassign-btn\"
                                 ";
-            // line 84
-            echo ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "assigns", [], "any", false, false, false, 84), "first", [], "any", false, false, false, 84)) ? ("") : ("hidden"));
+            // line 92
+            echo ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["equipment"], "assigns", [], "any", false, false, false, 92), "first", [], "any", false, false, false, 92)) ? ("") : ("hidden"));
             echo "><i
                                     class=\"fas fa-user-xmark\"></i>Unassigned</button>
                         </td>
 \t\t\t\t\t\t<td>
 \t\t\t\t\t\t\t<button  onclick=\"addDataToModel('";
-            // line 88
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "id", [], "any", false, false, false, 88), "html", null, true);
+            // line 96
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["equipment"], "id", [], "any", false, false, false, 96), "html", null, true);
             echo "','delete')\" class=\"btn btn-danger text-center\" data-bs-toggle=\"modal\" data-bs-target=\"#deleteEquipModal\">Delete</button>
 
 \t\t\t\t\t\t</td>
@@ -220,7 +244,7 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
             $context['_iterated'] = true;
         }
         if (!$context['_iterated']) {
-            // line 93
+            // line 101
             echo "\t\t\t\t\t<tr>
 \t\t\t\t\t\t<td colspan=\"4\">no records found</td>
 \t\t\t\t\t</tr>
@@ -229,12 +253,12 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['equipment'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 97
+        // line 105
         echo "\t\t\t</tbody>
 \t\t</table>
 \t\t";
-        // line 99
-        echo $this->extensions['Knp\Bundle\PaginatorBundle\Twig\Extension\PaginationExtension']->render($this->env, (isset($context["equipments"]) || array_key_exists("equipments", $context) ? $context["equipments"] : (function () { throw new RuntimeError('Variable "equipments" does not exist.', 99, $this->source); })()));
+        // line 107
+        echo $this->extensions['Knp\Bundle\PaginatorBundle\Twig\Extension\PaginationExtension']->render($this->env, (isset($context["equipments"]) || array_key_exists("equipments", $context) ? $context["equipments"] : (function () { throw new RuntimeError('Variable "equipments" does not exist.', 107, $this->source); })()));
         echo "
 \t</section>
 
@@ -250,7 +274,7 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
 \t\t\t\t<div class=\"modal-body\">
 \t\t\t\t\t<form method=\"POST\" action=\"/equipments/new\" id=\"add-equipment-form\">
 \t\t\t\t\t<input type=\"hidden\" name=\"token\" value=\"";
-        // line 113
+        // line 121
         echo twig_escape_filter($this->env, $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("add-item"), "html", null, true);
         echo "\"/>
 \t\t\t\t\t\t<div class=\"mb-3 form-group\">
@@ -266,22 +290,22 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
 \t\t\t\t\t\t\t<label for=\"add-category\" class=\"form-label\">Category</label>
 \t\t\t\t\t\t\t<select id=\"add-category\" class=\"form-select form-select-sm\" aria-label=\".form-select-sm example\">
 \t\t\t\t\t\t\t\t";
-        // line 126
+        // line 134
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["categories"]) || array_key_exists("categories", $context) ? $context["categories"] : (function () { throw new RuntimeError('Variable "categories" does not exist.', 126, $this->source); })()));
+        $context['_seq'] = twig_ensure_traversable((isset($context["categories"]) || array_key_exists("categories", $context) ? $context["categories"] : (function () { throw new RuntimeError('Variable "categories" does not exist.', 134, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["category"]) {
-            // line 127
+            // line 135
             echo "\t\t\t\t\t\t\t\t\t<option value=";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["category"], "id", [], "any", false, false, false, 127), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["category"], "id", [], "any", false, false, false, 135), "html", null, true);
             echo ">";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["category"], "title", [], "any", false, false, false, 127), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["category"], "title", [], "any", false, false, false, 135), "html", null, true);
             echo "</option>
 \t\t\t\t\t\t\t\t";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['category'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 129
+        // line 137
         echo "\t\t\t\t\t\t\t</select>
 \t\t\t\t\t\t</div>
 \t\t\t\t\t</form>
@@ -346,7 +370,7 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
                         <form method=\"POST\" id=\"delete-form\" action=\"\">
 \t\t\t\t\t\t<input type=\"hidden\" name=\"_method\" value=\"DELETE\"/>
 \t\t\t\t\t\t<input type=\"hidden\" name=\"token\" value=\"";
-        // line 192
+        // line 200
         echo twig_escape_filter($this->env, $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("delete"), "html", null, true);
         echo "\"/>
                             <div class=\"mb-3\">
@@ -406,12 +430,12 @@ class __TwigTemplate_bb65df1dc12f0deb51e9468536ea3d1b extends Template
         </div>
 \t<script>
 equipments = ";
-        // line 249
-        echo json_encode(twig_get_attribute($this->env, $this->source, (isset($context["equipments"]) || array_key_exists("equipments", $context) ? $context["equipments"] : (function () { throw new RuntimeError('Variable "equipments" does not exist.', 249, $this->source); })()), "items", [], "any", false, false, false, 249));
+        // line 257
+        echo json_encode(twig_get_attribute($this->env, $this->source, (isset($context["equipments"]) || array_key_exists("equipments", $context) ? $context["equipments"] : (function () { throw new RuntimeError('Variable "equipments" does not exist.', 257, $this->source); })()), "items", [], "any", false, false, false, 257));
         echo "
 users = ";
-        // line 250
-        echo json_encode(((array_key_exists("users", $context)) ? (_twig_default_filter((isset($context["users"]) || array_key_exists("users", $context) ? $context["users"] : (function () { throw new RuntimeError('Variable "users" does not exist.', 250, $this->source); })()), "")) : ("")));
+        // line 258
+        echo json_encode(((array_key_exists("users", $context)) ? (_twig_default_filter((isset($context["users"]) || array_key_exists("users", $context) ? $context["users"] : (function () { throw new RuntimeError('Variable "users" does not exist.', 258, $this->source); })()), "")) : ("")));
         echo "
 function searchEquipment() {
 \tsearchForm = \$(\"#search-form\")
@@ -617,7 +641,7 @@ async function unAssignEquipment(id) {
 
     public function getDebugInfo()
     {
-        return array (  414 => 250,  410 => 249,  350 => 192,  285 => 129,  274 => 127,  270 => 126,  254 => 113,  237 => 99,  233 => 97,  224 => 93,  214 => 88,  207 => 84,  200 => 80,  195 => 78,  188 => 74,  181 => 70,  176 => 68,  172 => 67,  168 => 66,  164 => 65,  160 => 64,  155 => 63,  150 => 62,  113 => 27,  102 => 25,  98 => 24,  85 => 13,  82 => 12,  72 => 8,  69 => 7,  64 => 6,  62 => 5,  59 => 4,  52 => 3,  35 => 1,);
+        return array (  438 => 258,  434 => 257,  374 => 200,  309 => 137,  298 => 135,  294 => 134,  278 => 121,  261 => 107,  257 => 105,  248 => 101,  238 => 96,  231 => 92,  224 => 88,  219 => 86,  212 => 82,  205 => 78,  200 => 76,  196 => 75,  192 => 74,  188 => 73,  184 => 72,  179 => 71,  174 => 70,  137 => 35,  126 => 33,  122 => 32,  109 => 21,  106 => 20,  96 => 16,  93 => 15,  88 => 14,  85 => 13,  82 => 12,  72 => 8,  69 => 7,  64 => 6,  62 => 5,  59 => 4,  52 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -626,6 +650,14 @@ async function unAssignEquipment(id) {
 
 {% block body %}
 \t<section class=\"p-4 my-container\">
+\t\t{% if errors is defined %}
+\t\t{% for error in errors %}
+\t\t\t<div class=\"alert alert-danger alert-dismissible\" role=\"alert\" style=\"display: inline-block\">
+                    <div>{{ error }}</div>
+                    <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\">X</button>
+        \t</div>
+\t\t{% endfor %}
+\t\t{% endif %}
 \t\t{% if violations is defined %}
 \t\t{% for violation in violations %}
 \t\t\t<div class=\"alert alert-danger alert-dismissible\" role=\"alert\" style=\"display: inline-block\">
