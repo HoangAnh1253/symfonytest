@@ -13,6 +13,7 @@ class JWTSubscriber implements EventSubscriberInterface
     {
         // ...
         $controller = $event->getController();
+        error_log($event->getRequest()->cookies->get('PHPSESSID'));
       
         if (is_array($controller)) {
             $action = $controller[1];
@@ -21,7 +22,6 @@ class JWTSubscriber implements EventSubscriberInterface
         }
        
         if ($controller instanceof TokenAuthenticatedControllerr) {
-            error_log($event->getRequest()->cookies->get('PHPSESSID'));
             // $token = $event->getRequest()->query->get('token');
             // if (!in_array($token, $this->tokens)) {
             //     throw new AccessDeniedHttpException('This action needs a valid token!');

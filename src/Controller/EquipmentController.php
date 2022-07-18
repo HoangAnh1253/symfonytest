@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 #[Route('/equipments')]
-class EquipmentController  extends AbstractController 
+class EquipmentController  extends AbstractController  implements  TokenAuthenticatedControllerr
 {
     private $equipmentService;
     private $categoryService;

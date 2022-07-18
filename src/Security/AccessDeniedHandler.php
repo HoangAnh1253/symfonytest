@@ -10,10 +10,9 @@ use Symfony\Component\Security\Http\Authorization\AccessDeniedHandlerInterface;
 
 class AccessDeniedHandler implements AccessDeniedHandlerInterface
 {
+
     public function handle(Request $request, AccessDeniedException $accessDeniedException): ?Response
     {
-       
-     
         $content = <<<errorPage
         <!DOCTYPE html>
         <html lang="en">
