@@ -4427,6 +4427,27 @@
     </service>
     <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap">
       <call method="add">
+        <argument type="service" id=".security.request_matcher.QWkwKV5"/>
+        <argument type="collection">
+          <argument>PUBLIC_ACCESS</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.O7Tsk.w"/>
+        <argument type="collection">
+          <argument>PUBLIC_ACCESS</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.gk7oTNN"/>
+        <argument type="collection">
+          <argument>PUBLIC_ACCESS</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
         <argument type="service" id=".security.request_matcher.WBZ.lWk"/>
         <argument type="collection">
           <argument>ROLE_EMPLOYEE</argument>
@@ -4437,6 +4458,13 @@
         <argument type="service" id=".security.request_matcher.LuWTQJT"/>
         <argument type="collection">
           <argument>ROLE_ADMIN</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.PhQgZ9B"/>
+        <argument type="collection">
+          <argument>ROLE_USER</argument>
         </argument>
         <argument>null</argument>
       </call>
@@ -4905,11 +4933,23 @@
         <argument key="security.firewall.map.context.main" type="service_closure" id="security.firewall.map.context.main"/>
       </argument>
     </service>
+    <service id=".security.request_matcher.QWkwKV5" class="Symfony\Component\HttpFoundation\RequestMatcher">
+      <argument>^/login</argument>
+    </service>
+    <service id=".security.request_matcher.O7Tsk.w" class="Symfony\Component\HttpFoundation\RequestMatcher">
+      <argument>^/register</argument>
+    </service>
+    <service id=".security.request_matcher.gk7oTNN" class="Symfony\Component\HttpFoundation\RequestMatcher">
+      <argument>^/(css|js)</argument>
+    </service>
     <service id=".security.request_matcher.WBZ.lWk" class="Symfony\Component\HttpFoundation\RequestMatcher">
       <argument>^/movies</argument>
     </service>
     <service id=".security.request_matcher.LuWTQJT" class="Symfony\Component\HttpFoundation\RequestMatcher">
       <argument>^/equipments</argument>
+    </service>
+    <service id=".security.request_matcher.PhQgZ9B" class="Symfony\Component\HttpFoundation\RequestMatcher">
+      <argument>^/</argument>
     </service>
     <service id="security.command.user_password_hash" class="Symfony\Component\PasswordHasher\Command\UserPasswordHashCommand">
       <tag name="console.command"/>
